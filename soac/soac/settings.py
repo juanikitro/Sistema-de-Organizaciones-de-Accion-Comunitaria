@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Apps soac
+    'usuario'
 ]
 
 MIDDLEWARE = [
@@ -78,9 +81,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'soacdb',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'JuanIPortilla2002',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': '3306' 
     }
 }
 
