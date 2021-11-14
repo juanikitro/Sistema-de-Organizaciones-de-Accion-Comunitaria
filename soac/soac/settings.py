@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Apps de soac
-    'usuario', 'home'
+    'users',
+    'home'
 ]
 
 MIDDLEWARE = [
