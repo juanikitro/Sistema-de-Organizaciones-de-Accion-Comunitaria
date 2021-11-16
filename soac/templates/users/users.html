@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Busqueda de usuarios {{ username }}</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-white">
+	<table>
+		<tbody>
+			{% for u in profile %}
+
+			<tr>
+				<td>{{u.username}}</td>
+				<td>{{u.first_name}}</td>
+				<td>{{u.last_name}}</td>
+				<td>{{u.level}}</td>
+				<td>{{u.email}}</td>
+				<td>{{u.mobile}}</td>
+			</tr>
+		</tbody>
+		{% endfor %}
+	</table>
+</article>
+
+{% endblock %}
