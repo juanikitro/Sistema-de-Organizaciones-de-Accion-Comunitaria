@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('username', models.CharField(max_length=11, unique=True)),
                 ('email', models.EmailField(max_length=25, unique=True)),
                 ('nombre', models.CharField(max_length=25)),
-                ('celular', models.IntegerField(blank=True, null=True)),
+                ('mobile', models.IntegerField(blank=True, null=True)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

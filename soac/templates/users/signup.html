@@ -6,10 +6,13 @@
 
 <form action="{% url 'signup' %}" method="POST">
 	{% csrf_token %}
+
 	<div class="form-group">
 		<input
-			class="form-control"
 			type="text"
+			pattern="\d*"
+			maxlength="11"
+			minlength="11"
 			placeholder="Cuit"
 			name="username"
 			required="true"
@@ -17,18 +20,11 @@
 	</div>
 
 	<div class="form-group">
-		<input
-			class="form-control"
-			type="email"
-			placeholder="Email"
-			name="email"
-			required="true"
-		/>
+		<input type="email" placeholder="Email" name="email" required="true" />
 	</div>
 
 	<div class="form-group">
 		<input
-			class="form-control"
 			type="text"
 			placeholder="Nombre"
 			name="first_name"
@@ -38,7 +34,6 @@
 
 	<div class="form-group">
 		<input
-			class="form-control"
 			type="text"
 			placeholder="Apellido"
 			name="last_name"
@@ -47,17 +42,11 @@
 	</div>
 
 	<div class="form-group">
-		<input
-			class="form-control"
-			type="number"
-			placeholder="Numero telefonico"
-			name="celular"
-		/>
+		<input type="number" placeholder="Numero telefonico" name="mobile" />
 	</div>
 
 	<div class="form-group">
 		<input
-			class="form-control"
 			type="password"
 			placeholder="Contraseña"
 			name="password"

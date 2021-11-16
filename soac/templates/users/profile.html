@@ -1,0 +1,5 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Usuario: {{ request.user.username }}</title>
+{% endblock%} {% block body %}
+<h1 class="text-white">{{ request.user.username }}</h1>
+{% endblock %}

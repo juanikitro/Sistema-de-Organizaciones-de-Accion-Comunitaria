@@ -18,8 +18,138 @@
 			crossorigin="anonymous"
 		/>
 	</head>
-	<body>
-		{% block body %}{% endblock%}
+	<body class="row bg-dark" style="max-width: 100vw">
+		<section
+			class="
+				d-flex
+				col-sm-2
+				flex-column flex-shrink-0
+				p-3
+				text-dark
+				bg-light
+			"
+			style="width: 200px; height: 100vh"
+		>
+			<a
+				href="/"
+				class="
+					d-flex
+					align-items-center
+					mb-3 mb-md-0
+					me-md-auto
+					text-dark text-decoration-none
+				"
+			>
+				<svg class="bi me-2" width="40" height="32">
+					<use xlink:href="#bootstrap"></use>
+				</svg>
+				<span class="fs-4">SOAC</span>
+			</a>
+			<hr />
+			<ul class="nav nav-pills flex-column mb-auto">
+				<li class="nav-item">
+					<li class="mb-1">
+        				<button class="nav-link text-dark dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+							Organizaciones
+						</button>
+						<div class="collapse" id="home-collapse" style="">
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+								<li><a href="#" class="nav-link text-dark">Cargar en SOAC</a></li>
+								<li><a href="#" class="nav-link text-dark">Registrar en ROAC</a></li>
+								<li><a href="#" class="nav-link text-dark">Buscar</a></li>
+							</ul>														
+						</div>
+      				</li>
+				</li>
+				<li>
+					<li class="mb-1">
+        				<button class="nav-link text-dark dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#org-collapse" aria-expanded="false">
+							Usuarios
+						</button>
+						<div class="collapse" id="org-collapse" style="">
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+								<li><a href="signup" class="nav-link text-dark">Crear usuario</a></li>
+								<li><a href="#" class="nav-link text-dark">Buscar usuario</a></li>
+							</ul>														
+						</div>
+      				</li>
+				</li>
+				<li>
+					<li class="mb-1">
+						<button class="nav-link text-dark dropdown-toggle" data-bs-toggle="collapse" data-bs-target="#inbox-collapse" aria-expanded="false">
+							Bandejas
+						</button>
+						<div class="collapse" id="inbox-collapse" style="">
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+								<li><a href="#" class="nav-link text-dark">Analisis</a></li>
+								<li><a href="#" class="nav-link text-dark">Edicion</a></li>
+								<li><a href="#" class="nav-link text-dark">Firma</a></li>
+							</ul>														
+						</div>
+					</li>
+				</li>
+				<li>
+					<a href="/visits" class="nav-link text-dark">Visitas </a>
+				</li>
+				<li>
+					<a href="/history" class="nav-link text-dark">
+						Historial
+					</a>
+				</li>
+				<li>
+					<li class="nav-item">
+					<li class="mb-1">
+        				<button class="nav-link text-dark" data-bs-toggle="collapse" data-bs-target="#report-collapse" aria-expanded="false">
+							Reportes
+						</button>
+						<div class="collapse" id="report-collapse" style="">
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+								<li><a href="#" class="nav-link text-dark">Altas</a></li>
+								<li><a href="#" class="nav-link text-dark">Renovaciones</a></li>
+								<li><a href="#" class="nav-link text-dark">Estado</a></li>
+								<li><a href="#" class="nav-link text-dark">Vinculacion</a></li>
+							</ul>														
+						</div>
+      				</li>
+				</li>
+				</li>
+			</ul>
+			<hr />
+			<div class="dropdown">
+				<a
+					href="#"
+					class="
+						d-flex
+						align-items-center
+						text-dark text-decoration-none
+						dropdown-toggle
+						justify-content-center
+					"
+					id="dropdownUser1"
+					data-bs-toggle="dropdown"
+					aria-expanded="false"
+				>
+					<strong>12312312312</strong>
+				</a>
+				<ul
+					class="dropdown-menu dropdown-menu-light text-small shadow"
+					aria-labelledby="dropdownUser1"
+				>
+					<li>
+						<a class="dropdown-item" href="#">Reportar un error</a>
+					</li>
+					<li><a class="dropdown-item" href="#">Tu perfil</a></li>
+					<li><hr class="dropdown-divider" /></li>
+					<li>
+						<a class="dropdown-item" href="{% url 'logout' %}"
+							>Sign out</a
+						>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section class="col-xl-10">{% block body %}{% endblock%}</section>
+
 		<!-- Bootstrap JavaScript Libraries -->
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
