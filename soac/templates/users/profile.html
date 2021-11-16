@@ -1,5 +1,39 @@
 {% extends "base.html" %} {% block head_content %}
-<title>SOAC - Usuario: {{ request.user.username }}</title>
+<title>SOAC - Usuario: {{ username }}</title>
 {% endblock%} {% block body %}
-<h1 class="text-white">{{ request.user.username }}</h1>
+<article class="container d-flex flex-column text-white">
+	<h2>{{ name }}</h2>
+	<h3>{{ username }}</h3>
+	<div class="row container justify-content-around">
+		<table class="col">
+			<tr>
+				<td>Email:</td>
+				<td>{{ email }}</td>
+			</tr>
+			<tr>
+				<td>Numero telefonico:</td>
+				<td>{{ mobile }}</td>
+			</tr>
+		</table>
+		<table class="col">
+			<tr>
+				<td>Rol:</td>
+				<td>{{ level }}</td>
+			</tr>
+			<tr>
+				<td>Estado:</td>
+				<td>{{ active }}</td>
+			</tr>
+			<tr>
+				<td>Creado:</td>
+				<td>{{ created }}</td>
+			</tr>
+			<tr>
+				<td>Modificado</td>
+				<td>{{ modified }}</td>
+			</tr>
+		</table>
+	</div>
+</article>
+
 {% endblock %}

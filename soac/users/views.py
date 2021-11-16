@@ -43,6 +43,7 @@ def signup_view(request):
 
         profile = Profile()
         profile.user = user
+        profile.level = request.POST['level']
         profile.mobile = request.POST['mobile']
         profile.save()
 
@@ -54,5 +55,39 @@ def logout_view(request):
     return redirect('login')
 
 @login_required
-def profile_view(request):
-    return render(request, 'users/profile.html')
+def profile_view(request, pk_test):
+    profile = Profile.objects.get(id=pk_test)
+    user = User.objects.get(id=profile.user_id)
+
+    username = user.username
+    name = user.first_name + ' ' + user.last_name
+    email = user.email
+    mobile = profile.mobile
+    created = profile.created
+    modified = profile.modified
+    level = ''
+    if profile.level == 'admin':
+        level = 'Administrador de SOAC'
+    elif profile.level == 'presi':
+        level = 'Presidente'
+    elif profile.level == 'central':
+        level = 'Usuario de sede central'
+    elif profile.level == 'comunal':
+        level = 'Usuario de sede comunal'
+    active = ''
+    if user.is_active == True:
+        active = 'Activo'
+    else:
+        active = 'Inactivo'
+    context = {'profile':profile,
+     'username':username,
+     'name':name,
+     'email':email,
+     'mobile':mobile,
+     'modified':modified,
+     'created':created,
+     'active':active,
+     'level':level}
+    return render(request,
+     'users/profile.html',
+     context)

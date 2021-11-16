@@ -22,7 +22,7 @@
 		<section
 			class="
 				d-flex
-				col-sm-2
+				col-sm-1
 				flex-column flex-shrink-0
 				p-3
 				text-dark
@@ -68,7 +68,7 @@
 						</button>
 						<div class="collapse" id="org-collapse" style="">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="signup" class="nav-link text-dark">Crear usuario</a></li>
+								<li><a href="{% url 'signup' %}" class="nav-link text-dark">Crear usuario</a></li>
 								<li><a href="#" class="nav-link text-dark">Buscar usuario</a></li>
 							</ul>														
 						</div>
@@ -129,7 +129,7 @@
 					data-bs-toggle="dropdown"
 					aria-expanded="false"
 				>
-					<strong>12312312312</strong>
+					<strong>{{request.user.username}}</strong>
 				</a>
 				<ul
 					class="dropdown-menu dropdown-menu-light text-small shadow"
@@ -148,7 +148,7 @@
 				</ul>
 			</div>
 		</section>
-		<section class="col-xl-10">{% block body %}{% endblock%}</section>
+		<section class="col">{% block body %}{% endblock%}</section>
 
 		<!-- Bootstrap JavaScript Libraries -->
 		<script
