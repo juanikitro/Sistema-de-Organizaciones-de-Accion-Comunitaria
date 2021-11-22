@@ -3,10 +3,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.db.transaction import atomic
+from django.views.generic import TemplateView
 
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
+
+#Open Py XL
+from openpyxl import Workbook
+from django.http.response import HttpResponse
 
 def login_view(request):
     if request.method == 'POST':
@@ -34,6 +39,8 @@ def signup_view(request):
 
         if User.objects.filter(username=username).first(): 
             return render(request, 'users/signup.html', {'error': 'El cuit ya pertenece a una cuenta'})
+        if User.objects.filter(email=email).first(): 
+            return render(request, 'users/signup.html', {'error': 'El email ya pertenece a una cuenta'})
 
         user = User.objects.create_user(username, email, password)
         user.username = username
@@ -61,11 +68,103 @@ def logout_view(request):
 @login_required
 def users_view(request):
     profile = Profile.objects.all()
-    return render(request, 'users/users.html', {'profile': profile})
+    if request.method == 'POST':
+        name = request.POST.get('name', False)
+        lastname = request.POST.get('lastname', False)
+        cuit = request.POST.get('cuit', False)
+        email = request.POST.get('email', False)
+        mobile = request.POST.get('mobile', False)
+        level = request.POST.get('level', False)
+
+        if level == '1':
+            level = 'comunal'
+        elif level == '2':
+            level = 'central'
+        elif level == '3':
+            level = 'presi'
+        elif level == '4':
+            level = 'admin'
+        elif level == '0':
+            level = ''
+
+        profile = Profile.objects.filter(first_name__startswith=name, last_name__startswith=lastname, username__startswith=cuit, email__startswith=email, mobile__startswith=mobile, level__startswith=level)
+
+    def get():
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'REPORTE DE USUARIOS'
+
+        ws.merge_cells('A1:Z1')
+
+        ws['A2'] = 'id'
+        ws['B2'] = 'Cuit'
+        ws['C2'] = 'Nombre'
+        ws['D2'] = 'Apellido'
+        ws['E2'] = 'Email'
+        ws['F2'] = 'Contacto'
+        ws['G2'] = 'Nivel'
+
+        cont = 3
+
+        for u in profile:
+            ws.cell(row = cont, column = 1).value = u.id
+            ws.cell(row = cont, column = 2).value = u.username
+            ws.cell(row = cont, column = 3).value = u.first_name
+            ws.cell(row = cont, column = 4).value = u.last_name
+            ws.cell(row = cont, column = 5).value = u.email
+            ws.cell(row = cont, column = 6).value = u.mobile
+            ws.cell(row = cont, column = 7).value = u.level
+            cont += 1
+
+        excel_name = 'Reporte_de_usuarios.xlsx'
+        response = HttpResponse(content_type = 'application/ms-excel')
+        content = 'attachment; filename = {0}'.format(excel_name)
+        response['Content-Disposition'] = content
+        wb.save(response)
+        return response
+
+    return render(request, 'users/users.html', {'profile': profile, 'download': get()})
 
 @login_required
-def profile_view(request, pk_test):
-    profile = Profile.objects.get(id=pk_test)
+class Excel_report(TemplateView):
+    def get(self, *args, **kwargs):
+        users = Profile.objects.all() 
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = 'REPORTE DE USUARIOS'
+
+        ws.merge_cells('A1:Z1')
+
+        ws['A2'] = 'id'
+        ws['B2'] = 'Cuit'
+        ws['C2'] = 'Nombre'
+        ws['D2'] = 'Apellido'
+        ws['E2'] = 'Email'
+        ws['F2'] = 'Contacto'
+        ws['G2'] = 'Nivel'
+
+        cont = 3
+
+        for u in users:
+            ws.cell(row = cont, column = 1).value = u.id
+            ws.cell(row = cont, column = 2).value = u.username
+            ws.cell(row = cont, column = 3).value = u.first_name
+            ws.cell(row = cont, column = 4).value = u.last_name
+            ws.cell(row = cont, column = 5).value = u.email
+            ws.cell(row = cont, column = 6).value = u.mobile
+            ws.cell(row = cont, column = 7).value = u.level
+            cont += 1
+
+        excel_name = 'Reporte_de_usuarios.xlsx'
+        response = HttpResponse(content_type = 'application/ms-excel')
+        content = 'attachment; filename = {0}'.format(excel_name)
+        response['Content-Disposition'] = content
+        wb.save(response)
+        return response
+
+@login_required
+def profile_view(request, pk):
+    profile = Profile.objects.get(id=pk)
     user = User.objects.get(id=profile.user_id)
 
     username = user.username

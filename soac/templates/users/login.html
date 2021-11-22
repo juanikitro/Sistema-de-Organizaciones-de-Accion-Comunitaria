@@ -19,33 +19,42 @@
 			crossorigin="anonymous"
 		/>
 	</head>
-	<body>
+	<body class="bg-dark">
+	<section class='container p-5'>
+	<h1 class="text-white display-2 text-center mb-5">Sistema de Organizaciones de Accion Comunitaria</h1>
+		<form class="form-group p-5 d-flex align-items-center flex-column" method="POST" action="{% url "login" %}">
+			{% csrf_token %}
+			<input
+				autocomplete="off" 
+				class="form-control w-50 mb-3"
+				type="text"
+				pattern="\d*"
+				maxlength="11"
+				minlength="11"
+				placeholder="Cuit"
+				name="username"
+				required="true" />
+			<input
+				autocomplete="off" 
+				class="form-control w-50 mb-3"
+				type="password"
+				placeholder="Contraseña"
+				name="password"
+				required="true" />
+
+			<button
+					class="btn btn-warning btn-block form-control w-50"
+					type="submit"
+				>
+					Ingresar
+				</button>
+
+		</form>
+			{% if error %}
+				<div class="alert alert-danger fixed-bottom" style="color: red;">{{ error }}</div>
+			{% endif%}
+	</section>
     
-
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif%}
-
-    <form method="POST" action="{% url "login" %}">
-        {% csrf_token %}
-
-        <input 
-			type="text"
-			pattern="\d*"
-			maxlength="11"
-			minlength="11"
-			placeholder="Cuit"
-			name="username"
-			required="true" />
-        <input 
-			type="password"
-			placeholder="Contraseña"
-			name="password"
-			required="true" />
-
-        <button type="submit">Ingresar</button>
-
-    </form>
 		<!-- Bootstrap JavaScript Libraries -->
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

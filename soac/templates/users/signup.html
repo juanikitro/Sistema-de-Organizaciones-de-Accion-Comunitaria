@@ -1,70 +1,111 @@
 {% extends "base.html" %} {% block head_content %}
 <title>SOAC - Sign up</title>
-{% endblock%} {% block body %} {% if error %}
-<p class="alert alert-danger">{{ error }}</p>
-{% endif %}
+{% endblock%} {% block body %}
+<article class="container p-5">
+	<h1 class="text-white display-2 text-center mb-5">Crear usuario</h1>
+	<form autocomplete="off" action="{% url 'signup' %}" method="POST">
+		{% csrf_token %}
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					type="text"
+					pattern="\d*"
+					maxlength="11"
+					minlength="11"
+					placeholder="Cuit"
+					name="username"
+					required="true"
+					class="form-control"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="password"
+					placeholder="Contraseña"
+					name="password"
+					required="true"
+				/>
+			</div>
+		</div>
 
-<form action="{% url 'signup' %}" method="POST">
-	{% csrf_token %}
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="text"
+					placeholder="Nombre"
+					name="first_name"
+					required="true"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="text"
+					placeholder="Apellido"
+					name="last_name"
+					required="true"
+				/>
+			</div>
+		</div>
 
-	<div class="form-group">
-		<input
-			type="text"
-			pattern="\d*"
-			maxlength="11"
-			minlength="11"
-			placeholder="Cuit"
-			name="username"
-			required="true"
-		/>
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					type="text"
+					pattern="\d*"
+					maxlength="25"
+					placeholder="Numero de contacto"
+					name="mobile"
+					class="form-control"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="email"
+					placeholder="Email"
+					name="email"
+					required="true"
+				/>
+			</div>
+		</div>
+
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<select
+					aria-label="Default select example"
+					name="level"
+					class="form-control"
+				>
+					<option value="presidente">Presidente</option>
+					<option value="central">Usuario de sede central</option>
+					<option selected value="comunal">
+						Usuario de sede comunal
+					</option>
+				</select>
+			</div>
+			<div class="form-group col-md-5">
+				<button
+					class="btn btn-warning btn-block form-control"
+					type="submit"
+				>
+					Registrar
+				</button>
+			</div>
+		</div>
+	</form>
+	{% if error %}
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-danger">{{ error }}</div>
 	</div>
-
-	<div class="form-group">
-		<input type="email" placeholder="Email" name="email" required="true" />
-	</div>
-
-	<div class="form-group">
-		<input
-			type="text"
-			placeholder="Nombre"
-			name="first_name"
-			required="true"
-		/>
-	</div>
-
-	<div class="form-group">
-		<input
-			type="text"
-			placeholder="Apellido"
-			name="last_name"
-			required="true"
-		/>
-	</div>
-
-	<div class="form-group">
-		<input type="number" placeholder="Numero telefonico" name="mobile" />
-	</div>
-
-	<div class="form-group">
-		<select aria-label="Default select example" name="level">
-			<option selected value="admin">Administrador de SOAC</option>
-			<option value="presi">Presidente</option>
-			<option value="central">Usuario de sede central</option>
-			<option selected value="comunal">Usuario de sede comunal</option>
-		</select>
-	</div>
-
-	<div class="form-group">
-		<input
-			type="password"
-			placeholder="Contraseña"
-			name="password"
-			required="true"
-		/>
-	</div>
-
-	<button class="btn btn-primary btn-block mt-5" type="submit">
-		Registrar
-	</button>
-</form>
+	{% endif %}
+</article>
 {% endblock %}
