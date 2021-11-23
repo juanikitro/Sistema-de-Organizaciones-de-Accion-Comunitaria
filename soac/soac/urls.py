@@ -16,7 +16,7 @@ urlpatterns = [
     path('logout/', users_views.logout_view, name='logout'),
     path('login/', users_views.login_view, name='login'),
     path('users/', users_views.users_view, name='users'),
-    # path('users/user_report', users_views.Excel_report.as_view(), name='user_report'),
+    path('users/user_report', users_views.Excel_report.as_view(), name='user_report'),
     path('profile/<str:pk>/', users_views.profile_view, name='profile'),
 
 ]

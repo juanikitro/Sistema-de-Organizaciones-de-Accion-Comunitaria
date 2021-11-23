@@ -67,6 +67,7 @@ def logout_view(request):
 
 @login_required
 def users_view(request):
+    global profile
     profile = Profile.objects.all()
     if request.method == 'POST':
         name = request.POST.get('name', False)
@@ -89,7 +90,10 @@ def users_view(request):
 
         profile = Profile.objects.filter(first_name__startswith=name, last_name__startswith=lastname, username__startswith=cuit, email__startswith=email, mobile__startswith=mobile, level__startswith=level)
 
-    def get():
+    return render(request, 'users/users.html', {'profile': profile})
+
+class Excel_report(TemplateView):
+    def get(self, *args, **kwargs):
         wb = Workbook()
         ws = wb.active
         ws['A1'] = 'REPORTE DE USUARIOS'
@@ -107,45 +111,6 @@ def users_view(request):
         cont = 3
 
         for u in profile:
-            ws.cell(row = cont, column = 1).value = u.id
-            ws.cell(row = cont, column = 2).value = u.username
-            ws.cell(row = cont, column = 3).value = u.first_name
-            ws.cell(row = cont, column = 4).value = u.last_name
-            ws.cell(row = cont, column = 5).value = u.email
-            ws.cell(row = cont, column = 6).value = u.mobile
-            ws.cell(row = cont, column = 7).value = u.level
-            cont += 1
-
-        excel_name = 'Reporte_de_usuarios.xlsx'
-        response = HttpResponse(content_type = 'application/ms-excel')
-        content = 'attachment; filename = {0}'.format(excel_name)
-        response['Content-Disposition'] = content
-        wb.save(response)
-        return response
-
-    return render(request, 'users/users.html', {'profile': profile, 'download': get()})
-
-@login_required
-class Excel_report(TemplateView):
-    def get(self, *args, **kwargs):
-        users = Profile.objects.all() 
-        wb = Workbook()
-        ws = wb.active
-        ws['A1'] = 'REPORTE DE USUARIOS'
-
-        ws.merge_cells('A1:Z1')
-
-        ws['A2'] = 'id'
-        ws['B2'] = 'Cuit'
-        ws['C2'] = 'Nombre'
-        ws['D2'] = 'Apellido'
-        ws['E2'] = 'Email'
-        ws['F2'] = 'Contacto'
-        ws['G2'] = 'Nivel'
-
-        cont = 3
-
-        for u in users:
             ws.cell(row = cont, column = 1).value = u.id
             ws.cell(row = cont, column = 2).value = u.username
             ws.cell(row = cont, column = 3).value = u.first_name
