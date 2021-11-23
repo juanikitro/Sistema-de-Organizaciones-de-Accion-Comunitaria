@@ -15,6 +15,6 @@ class Profile(models.Model):
     level = models.CharField(max_length=255)
 
     #Extras
-    mobile = models.CharField(blank = True, null = True, max_length = 255)
+    mobile = models.CharField(max_length = 255, default = '-')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

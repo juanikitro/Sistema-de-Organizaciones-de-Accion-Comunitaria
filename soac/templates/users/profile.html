@@ -1,39 +1,42 @@
 {% extends "base.html" %} {% block head_content %}
 <title>SOAC - Usuario: {{ username }}</title>
 {% endblock%} {% block body %}
-<article class="container d-flex flex-column text-white">
-	<h2>{{ name }}</h2>
-	<h3>{{ username }}</h3>
-	<div class="row container justify-content-around">
-		<table class="col">
-			<tr>
-				<td>Email:</td>
-				<td>{{ email }}</td>
-			</tr>
-			<tr>
-				<td>Numero de contacto:</td>
-				<td>{{ mobile }}</td>
-			</tr>
-		</table>
-		<table class="col">
-			<tr>
-				<td>Rol:</td>
-				<td>{{ level }}</td>
-			</tr>
-			<tr>
-				<td>Estado:</td>
-				<td>{{ active }}</td>
-			</tr>
-			<tr>
-				<td>Creado:</td>
-				<td>{{ created }}</td>
-			</tr>
-			<tr>
-				<td>Modificado</td>
-				<td>{{ modified }}</td>
-			</tr>
-		</table>
-	</div>
+<article class="container d-flex flex-column text-white p-5">
+	<h2 class="text-center">{{ name }}</h2>
+	<h3 class="text-center">{{ username }}</h3>
+	<table class="w-100 mt-5">
+		<tr class="py-3">
+			<td><strong>ID:</strong></td>
+			<td class="py-3 text-end">{{ id }}</td>
+		</tr>
+		<tr class="mb-3">
+			<td><strong>Email:</strong></td>
+			<td class="py-3 text-end">{{ email }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Numero de contacto:</strong></td>
+			<td class="py-3 text-end">{{ mobile }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Rol:</strong></td>
+			<td class="py-3 text-end">{{ level }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Estado:</strong></td>
+			<td class="py-3 text-end">{{ active }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Creado:</strong></td>
+			<td class="py-3 text-end">{{ created }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Modificado:</strong></td>
+			<td class="py-3 text-end">{{ modified }}</td>
+		</tr>
+	</table>
+	<a class="btn btn-outline-danger" href="delete/" role="button"
+		>Eliminar a la verga</a
+	>
 </article>
 
 {% endblock %}

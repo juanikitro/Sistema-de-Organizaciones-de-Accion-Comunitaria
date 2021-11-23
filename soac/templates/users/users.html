@@ -15,6 +15,7 @@
 					name="cuit"
 					pattern="\d*"
 					maxlength="11"
+					value="{{values.cuit}}"
 				/>
 			</div>
 			<div class="col-3 form-group">
@@ -23,6 +24,7 @@
 					type="text"
 					placeholder="Nombre"
 					name="name"
+					value="{{values.name}}"
 				/>
 			</div>
 			<div class="col-3 form-group">
@@ -31,6 +33,7 @@
 					type="text"
 					placeholder="Apellido"
 					name="lastname"
+					value="{{values.lastname}}"
 				/>
 			</div>
 		</div>
@@ -42,6 +45,7 @@
 					type="text"
 					placeholder="Correo electronico"
 					name="email"
+					value="{{values.email}}"
 				/>
 			</div>
 			<div class="col-3 form-group">
@@ -50,6 +54,7 @@
 					type="text"
 					placeholder="Numero de contacto"
 					name="mobile"
+					value="{{values.mobile}}"
 				/>
 			</div>
 			<div class="col-3 form-group">
@@ -62,12 +67,12 @@
 					<option value="1">Usuario comunal</option>
 					<option value="2">Usuario central</option>
 					<option value="3">Presidente</option>
-					<option value="4">Administrador de SOAC</option>
+					<option value="4">Administrador de ROAC</option>
 				</select>
 			</div>
 		</div>
 		<div class="d-flex justify-content-center">
-			<button class="btn btn-outline-warning px-3 mb-5" type="submit">
+			<button class="btn btn-warning px-3 mb-5" type="submit">
 				Buscar
 			</button>
 		</div>
@@ -82,6 +87,7 @@
 				<th scope="col">Email</th>
 				<th scope="col">Contacto</th>
 				<th scope="col">Nivel</th>
+				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -93,11 +99,21 @@
 				<td>{{u.email}}</td>
 				<td>{{u.mobile}}</td>
 				<td>{{u.level}}</td>
+				<td>
+					<a
+						class="btn btn-outline-warning"
+						href="profile/{{u.id}}/"
+						role="button"
+						>Ver</a
+					>
+				</td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
-	<a href="{% url 'user_report' %}">Descargar</a>
+	<a class="btn btn-warning" href="{% url 'user_report' %}" role="button"
+		>Exportar</a
+	>
 </article>
 
 {% endblock %}

@@ -17,6 +17,6 @@ urlpatterns = [
     path('login/', users_views.login_view, name='login'),
     path('users/', users_views.users_view, name='users'),
     path('users/user_report', users_views.Excel_report.as_view(), name='user_report'),
-    path('profile/<str:pk>/', users_views.profile_view, name='profile'),
-
+    path('users/profile/<str:pk>/', users_views.profile_view, name='profile'),
+    path('users/profile/<str:pk>/delete/', users_views.delete_profile_view, name='delete_profile'),
 ]

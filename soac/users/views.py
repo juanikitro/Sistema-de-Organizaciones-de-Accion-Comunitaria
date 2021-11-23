@@ -1,3 +1,6 @@
+# Python
+from datetime import date 
+
 # Django
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -11,6 +14,7 @@ from users.models import Profile
 
 #Open Py XL
 from openpyxl import Workbook
+from openpyxl.styles import Alignment, Border, Font, Side, PatternFill
 from django.http.response import HttpResponse
 
 def login_view(request):
@@ -31,6 +35,7 @@ def login_view(request):
 @login_required
 @atomic
 def signup_view(request):
+    values = {}
     if request.method == 'POST':
         username = request.POST['username']        
         password = request.POST['password']
@@ -58,7 +63,15 @@ def signup_view(request):
         profile.mobile = request.POST['mobile']
         profile.save()
 
-    return render(request, 'users/signup.html')
+        values={
+            'name': request.POST['first_name'],
+            'lastname': request.POST['last_name'],
+            'cuit': username,
+            'email': email,
+            'mobile': request.POST['mobile'],
+        }
+
+    return render(request, 'users/signup.html', {'values': values})
 
 @login_required
 def logout_view(request):
@@ -69,6 +82,7 @@ def logout_view(request):
 def users_view(request):
     global profile
     profile = Profile.objects.all()
+    values = {}
     if request.method == 'POST':
         name = request.POST.get('name', False)
         lastname = request.POST.get('lastname', False)
@@ -88,28 +102,55 @@ def users_view(request):
         elif level == '0':
             level = ''
 
+        values={
+            'name': name,
+            'lastname': lastname,
+            'cuit': cuit,
+            'email': email,
+            'mobile': mobile,
+        }
         profile = Profile.objects.filter(first_name__startswith=name, last_name__startswith=lastname, username__startswith=cuit, email__startswith=email, mobile__startswith=mobile, level__startswith=level)
 
-    return render(request, 'users/users.html', {'profile': profile})
+    return render(request, 'users/users.html', {'profile': profile, 'values': values})
 
 class Excel_report(TemplateView):
     def get(self, *args, **kwargs):
+        today = date.today()
+
         wb = Workbook()
         ws = wb.active
-        ws['A1'] = 'REPORTE DE USUARIOS'
+        ws['A1'] = f'Reporte de usuarios del dia: {today}'
+        ws['A1'].alignment = Alignment(horizontal = 'center')
+        ws['A1'].border = Border(left = Side(border_style = 'thin'), right = Side(border_style = 'thin'), bottom = Side(border_style = 'thin'), top = Side(border_style = 'thin'))
+        ws['A1'].font = Font(name = 'Arial', size = 12)
+        ws['A1'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
 
-        ws.merge_cells('A1:Z1')
+        ws.merge_cells('A1:G1')
 
-        ws['A2'] = 'id'
-        ws['B2'] = 'Cuit'
-        ws['C2'] = 'Nombre'
-        ws['D2'] = 'Apellido'
-        ws['E2'] = 'Email'
-        ws['F2'] = 'Contacto'
-        ws['G2'] = 'Nivel'
+        ws['A3'] = 'id de usuario'
+        ws['A3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['B3'] = 'Cuit'
+        ws['B3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['C3'] = 'Nombre'
+        ws['C3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['D3'] = 'Apellido'
+        ws['D3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['E3'] = 'Email'
+        ws['E3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['F3'] = 'Contacto'
+        ws['F3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['G3'] = 'Nivel'
+        ws['G3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
 
-        cont = 3
+        ws.column_dimensions['A'].width = 20
+        ws.column_dimensions['B'].width = 20
+        ws.column_dimensions['C'].width = 20
+        ws.column_dimensions['D'].width = 20
+        ws.column_dimensions['E'].width = 20
+        ws.column_dimensions['F'].width = 20
+        ws.column_dimensions['G'].width = 20
 
+        cont = 4
         for u in profile:
             ws.cell(row = cont, column = 1).value = u.id
             ws.cell(row = cont, column = 2).value = u.username
@@ -120,7 +161,7 @@ class Excel_report(TemplateView):
             ws.cell(row = cont, column = 7).value = u.level
             cont += 1
 
-        excel_name = 'Reporte_de_usuarios.xlsx'
+        excel_name = f'Reporte de usuarios {today}.xlsx'
         response = HttpResponse(content_type = 'application/ms-excel')
         content = 'attachment; filename = {0}'.format(excel_name)
         response['Content-Disposition'] = content
@@ -132,6 +173,7 @@ def profile_view(request, pk):
     profile = Profile.objects.get(id=pk)
     user = User.objects.get(id=profile.user_id)
 
+    id = profile.id
     username = user.username
     name = user.first_name + ' ' + user.last_name
     email = user.email
@@ -140,8 +182,8 @@ def profile_view(request, pk):
     modified = profile.modified
     level = ''
     if profile.level == 'admin':
-        level = 'Administrador de SOAC'
-    elif profile.level == 'presi':
+        level = 'Administrador de ROAC'
+    elif profile.level == 'presidente':
         level = 'Presidente'
     elif profile.level == 'central':
         level = 'Usuario de sede central'
@@ -153,14 +195,22 @@ def profile_view(request, pk):
     else:
         state = 'Inactivo'
     context = {'profile':profile,
-     'username':username,
-     'name':name,
-     'email':email,
-     'mobile':mobile,
-     'modified':modified,
-     'created':created,
-     'active':state,
-     'level':level}
-    return render(request,
-     'users/profile.html',
-     context)
+    'id':id,
+    'username':username,
+    'name':name,
+    'email':email,
+    'mobile':mobile,
+    'modified':modified,
+    'created':created,
+    'active':state,
+    'level':level}
+    return render(request, 'users/profile.html', context)
+
+@login_required
+def delete_profile_view(request, pk):
+    selected_profile = Profile.objects.get(id=pk)
+    selected_user = User.objects.get(id=selected_profile.user_id)
+
+    selected_profile.delete()
+    selected_user.delete()
+    return render(request, 'users/users.html', {'profile': profile})
