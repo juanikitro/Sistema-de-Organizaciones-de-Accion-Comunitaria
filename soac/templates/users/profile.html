@@ -1,0 +1,70 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Usuario: {{ username }}</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-white p-5">
+	<h2 class="text-center">{{ name }}</h2>
+	<h3 class="text-center">{{ username }}</h3>
+	<table class="w-100 mt-5">
+		<tr class="py-3">
+			<td><strong>ID:</strong></td>
+			<td class="py-3 text-end">{{ id }}</td>
+		</tr>
+		<tr class="mb-3">
+			<td><strong>Email:</strong></td>
+			<td class="py-3 text-end">{{ email }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Numero de contacto:</strong></td>
+			<td class="py-3 text-end">{{ mobile }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Rol:</strong></td>
+			<td class="py-3 text-end">{{ level }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Creado:</strong></td>
+			<td class="py-3 text-end">{{ created }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Modificado:</strong></td>
+			<td class="py-3 text-end">{{ modified }}</td>
+		</tr>
+	</table>
+	<div class="d-flex justify-content-around mt-5">
+		<a
+			href="#"
+			class="w-25 text-decoration-none btn btn-outline-danger"
+			id="dropdownUser1"
+			data-bs-toggle="dropdown"
+			aria-expanded="false"
+			>Eliminar
+		</a>
+		<ul
+			class="dropdown-menu dropdown-menu-light text-small shadow"
+			aria-labelledby="dropdownUser1"
+		>
+			<li>
+				<p class="text-center">¿Esta segurx?</p>
+			</li>
+			<li><hr class="dropdown-divider" /></li>
+			<li>
+				<a class="text-center dropdown-item text-danger" href="delete/"
+					>Si</a
+				>
+			</li>
+			<li>
+				<a class="text-center dropdown-item" href="profile/{{id}}/"
+					>No</a
+				>
+			</li>
+		</ul>
+		<a class="btn w-25 btn-outline-warning" href="modify/" role="button"
+			>Modificar</a
+		>
+		<a class="btn w-25 btn-outline-warning" href="reset/" role="button"
+			>Resetear contraseña</a
+		>
+	</div>
+</article>
+
+{% endblock %}
