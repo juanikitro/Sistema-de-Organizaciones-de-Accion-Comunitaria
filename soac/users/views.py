@@ -13,29 +13,39 @@ from django.db import IntegrityError
 from django.contrib.auth.models import User
 from users.models import Profile
 
-#Open Py XL
+# Open Py XL (Para el excel)
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Font, Side, PatternFill
 from django.http.response import HttpResponse
 
 def login_view(request):
+    ''' Login
+    Se autentifica el usuario con username(cuit) y password con authenticate de Django
+    Si el usuario no existe, imprime error '''
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password', False);
-        print(username, password)
-
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            return render(request, 'users/login.html', {'error': 'Error en el cuit o la contraseña. Intente devuelta por favor.'})
+            return render(request, 'users/login.html', {'error': 'Error en el cuit o la contraseña.'})
 
     return render(request, 'users/login.html')
 
 @login_required
 @atomic
 def signup_view(request):
+    '''Signup
+    Values = void dict para que los inputs empiecen en 0 y se guarden para hacer cargas similares
+    Se verifica que el username(cuit) y email no esten en uso
+    Se guarda el usuario y el perfil.
+    user similar
+    Se usa atomic por si hay error en uno de los dos save() '''
+
     values = {}
     if request.method == 'POST':
         username = request.POST['username']        
@@ -72,17 +82,25 @@ def signup_view(request):
             'mobile': request.POST['mobile'],
         }
         
-        return render(request, 'users/signup.html', {'alert': 'Usuario creado con exito! :)'})
+        return render(request, 'users/signup.html', {'alert': 'Usuario creado con exito'})
 
     return render(request, 'users/signup.html', {'values': values})
 
 @login_required
 def logout_view(request):
+    '''Logout de Django... '''
+
     logout(request)
     return redirect('login')
 
 @login_required
 def users_view(request):
+    '''Busqueda de usuarios
+    Se crea la variable global profile(que sera util en otras vistas)
+    Values = void dict para que los inputs empiecen en 0 y se guarden para hacer busquedas similares
+    Prepara todos los datos para mostrar en la tabla 
+    Se filtran los usuarios y se envian al template '''
+
     global profile
     profile = Profile.objects.all()
     values = {}
@@ -117,6 +135,10 @@ def users_view(request):
     return render(request, 'users/users.html', {'profile': profile, 'values': values})
 
 class Excel_report(TemplateView):
+    '''Export de usuarios
+    Se crea el excel con los datos de los usuarios
+    Se utilizan los usuarios filtrados por la variable global profile '''
+
     def get(self, *args, **kwargs):
         today = date.today()
 
@@ -173,6 +195,10 @@ class Excel_report(TemplateView):
 
 @login_required
 def profile_view(request, pk):
+    '''Vista del perfil 1:1 con usuarios
+    Se busca que perfil coincide con la url y que usuario coincide con este perfil
+    Se preparan todos los datos a mostrar en la tabla y se envian como context '''
+
     profile = Profile.objects.get(id=pk)
     user = User.objects.get(id=profile.user_id)
 
@@ -210,6 +236,10 @@ def profile_view(request, pk):
 @login_required
 @atomic
 def delete_profile_view(request, pk):
+    '''Borrado de perfil
+    Busca que usuario y perfil coincide con la url
+    Elimina el usuario y perfil '''
+
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
 
@@ -221,6 +251,12 @@ def delete_profile_view(request, pk):
 @login_required
 @atomic
 def modify_profile_view(request, pk):
+    '''Modificacion de perfil
+    Busca que usuario y perfil coincide con la url
+    Guarda temporalmente la informacion vieja del perfil a modificar
+    Extrae los datos del template para la modificacion y previene el uso de un username(cuit) utilizado
+    Sustituye los datos del usuario por los nuevamente colocados y guarda '''
+
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
     old_info = {
@@ -260,6 +296,9 @@ def modify_profile_view(request, pk):
 
 @login_required
 def reset_password_view(request, pk):
+    '''Reseteo de password de Django
+    Pide confirmacion de password para evitar futuros problemas '''
+
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
     old_info = {
