@@ -192,7 +192,6 @@ def profile_view(request, pk):
         level = 'Usuario de sede central'
     elif profile.level == 'comunal':
         level = 'Usuario de sede comunal'
-    state = ''
     
     context = {
     'profile':profile,
@@ -205,6 +204,7 @@ def profile_view(request, pk):
     'created':created,
     'level':level
     }
+
     return render(request, 'users/profile.html', context)
 
 @login_required
@@ -257,3 +257,27 @@ def modify_profile_view(request, pk):
         return redirect('users')
 
     return render(request, 'users/modify_profile.html', {'old': old_info})
+
+@login_required
+def reset_password_view(request, pk):
+    selected_profile = Profile.objects.get(id=pk)
+    selected_user = User.objects.get(id=selected_profile.user_id)
+    old_info = {
+        'id': selected_profile.id,
+        'username': selected_user.username,
+        'name': selected_user.first_name,
+        'lastname': selected_user.last_name,
+    }
+
+    if request.method == 'POST':
+        new_password = request.POST.get('new_password')
+        confirm_new_password = request.POST.get('confirm_new_password')
+
+        if new_password == confirm_new_password:
+            selected_user.set_password(new_password)
+            selected_user.save()
+            return redirect('users')
+        else:
+            return render(request, 'users/reset_password.html', {'old': old_info, 'error': 'Las contraseñas no coinciden'})
+
+    return render(request, 'users/reset_password.html', {'old': old_info})

@@ -20,4 +20,5 @@ urlpatterns = [
     path('users/profile/<str:pk>/', users_views.profile_view, name='profile'),
     path('users/profile/<str:pk>/delete/', users_views.delete_profile_view, name='delete_profile'),
     path('users/profile/<str:pk>/modify/', users_views.modify_profile_view, name='modify_profile'),
+    path('users/profile/<str:pk>/reset/', users_views.reset_password_view, name='reset_password'),
 ]
