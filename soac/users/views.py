@@ -70,6 +70,8 @@ def signup_view(request):
             'email': email,
             'mobile': request.POST['mobile'],
         }
+        
+        return render(request, 'users/signup.html', {'alert': 'Usuario creado con exito! :)'})
 
     return render(request, 'users/signup.html', {'values': values})
 
@@ -213,4 +215,6 @@ def delete_profile_view(request, pk):
 
     selected_profile.delete()
     selected_user.delete()
+
+    profile = Profile.objects.all()
     return render(request, 'users/users.html', {'profile': profile})

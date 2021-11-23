@@ -34,9 +34,38 @@
 			<td class="py-3 text-end">{{ modified }}</td>
 		</tr>
 	</table>
-	<a class="btn btn-outline-danger" href="delete/" role="button"
-		>Eliminar a la verga</a
-	>
+	<div class="d-flex justify-content-around mt-5">
+		<a
+			href="#"
+			class="w-25 text-decoration-none btn btn-outline-danger"
+			id="dropdownUser1"
+			data-bs-toggle="dropdown"
+			aria-expanded="false"
+			>Eliminar
+		</a>
+		<ul
+			class="dropdown-menu dropdown-menu-light text-small shadow"
+			aria-labelledby="dropdownUser1"
+		>
+			<li>
+				<p class="text-center">¿Esta segurx?</p>
+			</li>
+			<li><hr class="dropdown-divider" /></li>
+			<li>
+				<a class="text-center dropdown-item text-danger" href="delete/"
+					>Si</a
+				>
+			</li>
+			<li>
+				<a class="text-center dropdown-item" href="profile/{{id}}/"
+					>No</a
+				>
+			</li>
+		</ul>
+		<a class="btn w-25 btn-outline-warning" href="modify/" role="button"
+			>Modificar</a
+		>
+	</div>
 </article>
 
 {% endblock %}

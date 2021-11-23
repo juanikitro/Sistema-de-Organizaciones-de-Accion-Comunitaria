@@ -111,6 +111,10 @@
 	<div class="d-flex justify-content-center">
 		<div class="alert alert-danger">{{ error }}</div>
 	</div>
+	{% endif %} {% if alert %}
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-warning">{{ alert }}</div>
+	</div>
 	{% endif %}
 </article>
 {% endblock %}
