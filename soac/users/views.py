@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.db.transaction import atomic
 from django.views.generic import TemplateView
+from django.db import IntegrityError
 
 # Models
 from django.contrib.auth.models import User
@@ -192,11 +193,9 @@ def profile_view(request, pk):
     elif profile.level == 'comunal':
         level = 'Usuario de sede comunal'
     state = ''
-    if user.is_active == True:
-        state = 'Activo'
-    else:
-        state = 'Inactivo'
-    context = {'profile':profile,
+    
+    context = {
+    'profile':profile,
     'id':id,
     'username':username,
     'name':name,
@@ -204,11 +203,12 @@ def profile_view(request, pk):
     'mobile':mobile,
     'modified':modified,
     'created':created,
-    'active':state,
-    'level':level}
+    'level':level
+    }
     return render(request, 'users/profile.html', context)
 
 @login_required
+@atomic
 def delete_profile_view(request, pk):
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
@@ -216,5 +216,44 @@ def delete_profile_view(request, pk):
     selected_profile.delete()
     selected_user.delete()
 
-    profile = Profile.objects.all()
-    return render(request, 'users/users.html', {'profile': profile})
+    return redirect('users')
+
+@login_required
+@atomic
+def modify_profile_view(request, pk):
+    selected_profile = Profile.objects.get(id=pk)
+    selected_user = User.objects.get(id=selected_profile.user_id)
+    old_info = {
+        'id': selected_profile.id,
+        'username': selected_user.username,
+        'email': selected_user.email,
+        'name': selected_user.first_name,
+        'lastname': selected_user.last_name,
+        'mobile': selected_profile.mobile,
+        'level': selected_profile.level,
+    }
+
+    if request.method == 'POST':
+        
+
+        selected_user.username = request.POST.get('username')     
+        selected_user.first_name = request.POST['first_name']
+        selected_user.last_name = request.POST['last_name']
+        selected_user.email = request.POST['email']
+
+        selected_profile.username = request.POST['username']    
+        selected_profile.email = request.POST['email']
+        selected_profile.first_name = request.POST['first_name']
+        selected_profile.last_name = request.POST['last_name']
+        selected_profile.level = request.POST['level']
+        selected_profile.mobile = request.POST['mobile']
+
+        try:
+            selected_user.save()
+            selected_profile.save()
+        except IntegrityError:
+            return render(request, 'users/modify_profile.html', {'old': old_info, 'error': 'El cuit ya esta en uso'})
+            
+        return redirect('users')
+
+    return render(request, 'users/modify_profile.html', {'old': old_info})

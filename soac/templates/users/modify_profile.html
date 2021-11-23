@@ -1,0 +1,106 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Modificacio de usuario {{ old.username }}</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-white p-5">
+	<h1 class="text-white display-2 text-center mb-5">Modificar usuario</h1>
+
+	<form
+		autocomplete="off"
+		action="{% url 'modify_profile' old.id %}"
+		method="POST"
+	>
+		{% csrf_token %}
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					type="text"
+					pattern="\d*"
+					maxlength="11"
+					minlength="11"
+					placeholder="Cuit"
+					name="username"
+					required="true"
+					class="form-control"
+					value="{{old.username}}"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<select
+					aria-label="Default select example"
+					name="level"
+					class="form-control"
+				>
+					<option value="presidente">Presidente</option>
+					<option value="central">Usuario de sede central</option>
+					<option selected value="comunal">
+						Usuario de sede comunal
+					</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="text"
+					placeholder="Nombre"
+					name="first_name"
+					required="true"
+					value="{{old.name}}"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="text"
+					placeholder="Apellido"
+					name="last_name"
+					required="true"
+					value="{{old.lastname}}"
+				/>
+			</div>
+		</div>
+
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					type="text"
+					pattern="\d*"
+					maxlength="25"
+					placeholder="Numero de contacto"
+					name="mobile"
+					class="form-control"
+					value="{{old.mobile}}"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="email"
+					placeholder="Email"
+					name="email"
+					required="true"
+					value="{{old.email}}"
+				/>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center mb-3">
+			<button class="btn btn-outline-warning px-5" type="submit">
+				Modificar
+			</button>
+		</div>
+	</form>
+	{% if error %}
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-danger">{{ error }}</div>
+	</div>
+	{% endif %}
+</article>
+
+{% endblock %}
