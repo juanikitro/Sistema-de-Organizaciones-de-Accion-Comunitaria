@@ -7,13 +7,14 @@
 		{% csrf_token %}
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
+				<label class="text-white">Cuit</label>
 				<input
 					autocomplete="off"
 					type="text"
 					pattern="\d*"
 					maxlength="11"
 					minlength="11"
-					placeholder="Cuit"
+					placeholder="Ej: 445350304"
 					name="username"
 					required="true"
 					class="form-control"
@@ -21,12 +22,13 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
+				<label class="text-white">Contraseña</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					minlength="8"
 					type="password"
-					placeholder="Contraseña"
+					placeholder="Ej: ********"
 					name="password"
 					required="true"
 				/>
@@ -35,22 +37,24 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
+				<label class="text-white">Nombre</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					type="text"
-					placeholder="Nombre"
+					placeholder="Ej: Juan Ignacio"
 					name="first_name"
 					required="true"
 					value="{{values.name}}"
 				/>
 			</div>
 			<div class="form-group col-md-5">
+				<label class="text-white">Apellido</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					type="text"
-					placeholder="Apellido"
+					placeholder="Ej: Portila Kitroser"
 					name="last_name"
 					required="true"
 					value="{{values.lastname}}"
@@ -60,23 +64,25 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
+				<label class="text-white">Numero de contacto</label>
 				<input
 					autocomplete="off"
 					type="text"
 					pattern="\d*"
 					maxlength="25"
-					placeholder="Numero de contacto"
+					placeholder="111234-1234"
 					name="mobile"
 					class="form-control"
 					value="{{values.mobile}}"
 				/>
 			</div>
 			<div class="form-group col-md-5">
+				<label class="text-white">Email</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					type="email"
-					placeholder="Email"
+					placeholder="ejemplo@buenosaires.gob"
 					name="email"
 					required="true"
 					value="{{values.email}}"
@@ -86,6 +92,7 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
+				<label class="text-white">Nivel</label>
 				<select
 					aria-label="Default select example"
 					name="level"
@@ -98,7 +105,7 @@
 					</option>
 				</select>
 			</div>
-			<div class="form-group col-md-5">
+			<div class="form-group col-md-5 d-flex align-items-end">
 				<button
 					class="btn btn-warning btn-block form-control"
 					type="submit"
