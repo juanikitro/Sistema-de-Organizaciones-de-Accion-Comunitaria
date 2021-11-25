@@ -16,7 +16,7 @@ def soac_view(request):
         name = request.POST['name']
 
         if Org.objects.filter(name=name).first(): 
-            return render(request, 'users/signup.html', {'error': 'Ya existe una organizacion con ese nombre, asegurate de no crear la misma!'})
+            return render(request, 'orgs/soac.html', {'error': 'Ya existe una organizacion con ese nombre, asegurate de no crear la misma!'})
 
         org = Org()
         org.name = name
@@ -46,18 +46,6 @@ def soac_view(request):
         # org.extra = request.FILES['extra']
         org.save()
 
-        values={
-            'org.name': name,
-            'org.address': request.POST['address'],
-            'org.dpto': request.POST['dpto'],
-            'org.nhood': request.POST['nhood'],
-            'org.commune': request.POST['commune'],
-            'org.areas': request.POST['areas'],
-            'org.igj': request.POST['igj'],
-            'org.public': request.POST['public'],
-            'org.postal_code': request.POST['postal_code'],
-            'org.domain': request.POST['domain'],
-        }
         return render(request, 'orgs/soac.html', {'alert': 'Organizacion creada con exito'})
 
-    return render(request, 'orgs/soac.html', {'values': values})
+    return render(request, 'orgs/soac.html')
