@@ -15,7 +15,7 @@ def soac_view(request):
     if request.method == 'POST':
         name = request.POST['name']
 
-        if User.objects.filter(name=name).first(): 
+        if Org.objects.filter(name=name).first(): 
             return render(request, 'users/signup.html', {'error': 'Ya existe una organizacion con ese nombre, asegurate de no crear la misma!'})
 
         org = Org()
@@ -27,9 +27,11 @@ def soac_view(request):
         org.commune = request.POST['commune']
         org.areas = request.POST['areas']
         org.igj = request.POST['igj']
+        org.type = request.POST['type']
         org.public = request.POST['public']
         org.postal_code = request.POST['postal_code']
-
+        org.created = date.today()
+        org.modified = date.today()
         # for ROAC
         # org.roac = request.POST['roac']
         # org.nota_solicitud_inscripcion = request.POST['nota_solicitud_inscripcion']

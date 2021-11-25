@@ -8,6 +8,7 @@ class Org(models.Model):
     nhood = models.CharField(max_length=255)
     commune = models.CharField(max_length=3)
     areas = models.CharField(max_length=255)
+    type = models.CharField(max_length=255)
     igj = models.BooleanField(default=False)
 
     # Opcionales
