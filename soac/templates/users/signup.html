@@ -7,14 +7,13 @@
 		{% csrf_token %}
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label>Cuit</label>
 				<input
 					autocomplete="off"
 					type="text"
 					pattern="\d*"
 					maxlength="11"
 					minlength="11"
-					placeholder="Ej: 445350304"
+					placeholder="Cuit"
 					name="username"
 					required="true"
 					class="form-control"
@@ -22,13 +21,12 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label>Contraseña</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					minlength="8"
 					type="password"
-					placeholder="Ej: ********"
+					placeholder="Contraseña"
 					name="password"
 					required="true"
 				/>
@@ -37,24 +35,22 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label>Nombre</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					type="text"
-					placeholder="Ej: Juan Ignacio"
+					placeholder="Nombre"
 					name="first_name"
 					required="true"
 					value="{{values.name}}"
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label>Apellido</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					type="text"
-					placeholder="Ej: Portila Kitroser"
+					placeholder="Apellido"
 					name="last_name"
 					required="true"
 					value="{{values.lastname}}"
@@ -64,25 +60,23 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label>Numero de contacto</label>
 				<input
 					autocomplete="off"
 					type="text"
 					pattern="\d*"
 					maxlength="25"
-					placeholder="11 1234-1234"
+					placeholder="Numero de contacto"
 					name="mobile"
 					class="form-control"
 					value="{{values.mobile}}"
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label>Email</label>
 				<input
 					autocomplete="off"
 					class="form-control"
 					type="email"
-					placeholder="ejemlo@buenosaires.gob"
+					placeholder="Email"
 					name="email"
 					required="true"
 					value="{{values.email}}"
@@ -92,7 +86,6 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label>Nivel</label>
 				<select
 					aria-label="Default select example"
 					name="level"
