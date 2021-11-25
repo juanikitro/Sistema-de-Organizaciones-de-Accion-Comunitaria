@@ -1,0 +1,87 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Sign up</title>
+{% endblock%} {% block body %}
+<article class="container p-5">
+	<h1 class="text-white display-2 text-center mb-5">Crear usuario</h1>
+	<form autocomplete="off" action="{% url 'signup' %}" method="POST">
+		{% csrf_token %}
+
+        <div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<label class='text-white'>Nombre</label>
+                <input
+					autocomplete="off"
+					type="text"
+					pattern="\d*"
+					maxlength="11"
+					minlength="11"
+					placeholder="Chacarita"
+					name="name"
+					required="true"
+					class="form-control"
+					value="{{values.name}}"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<label class='text-white'>Inscripta en IGJ</label>
+				<select
+					aria-label="Default select example"
+					name="igj"
+					class="form-control"
+				>
+					<option value="si">Si</option>
+					<option value="no">No</option>
+				</select>
+			</div>
+		</div>
+        <div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<label class='text-white'>Nombre</label>
+                <input
+					autocomplete="off"
+					type="text"
+					pattern="\d*"
+					maxlength="11"
+					minlength="11"
+					placeholder="Chacarita"
+					name="name"
+					required="true"
+					class="form-control"
+					value="{{values.name}}"
+				/>
+			</div>
+            <div class="form-group col-md-5 d-flex align-content-end">
+				<button
+					class="btn btn-warning btn-block form-control "
+					type="submit"
+				>
+					Crear
+				</button>
+			</div>
+		</div>
+		</div>
+
+			<div class="form-group col-md-5">
+				<label class='text-white'>Inscripta en IGJ</label>
+				<select
+					aria-label="Default select example"
+					name="igj"
+					class="form-control"
+				>
+					<option value="si">Si</option>
+					<option value="no">No</option>
+				</select>
+			</div>
+		
+	</form>
+	{% if error %}
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-danger">{{ error }}</div>
+	</div>
+	{% endif %} {% if alert %}
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-warning">{{ alert }}</div>
+	</div>
+	{% endif %}
+</article>
+{% endblock %}
