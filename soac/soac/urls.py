@@ -21,4 +21,6 @@ urlpatterns = [
     path('users/profile/<str:pk>/delete/', users_views.delete_profile_view, name='delete_profile'),
     path('users/profile/<str:pk>/modify/', users_views.modify_profile_view, name='modify_profile'),
     path('users/profile/<str:pk>/reset/', users_views.reset_password_view, name='reset_password'),
+    path('send_reset/', users_views.send_reset_password_view, name='send_reset_password'),
+    path('send_reset/sended/<str:pk>/', users_views.reset_password_user_view, name='reset_password_user'),
 ]

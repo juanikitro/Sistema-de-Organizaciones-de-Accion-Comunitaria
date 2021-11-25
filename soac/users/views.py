@@ -8,7 +8,8 @@ from django.shortcuts import render, redirect
 from django.db.transaction import atomic
 from django.views.generic import TemplateView
 from django.db import IntegrityError
-
+from django.conf import settings
+from django.core.mail import send_mail
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
@@ -270,8 +271,6 @@ def modify_profile_view(request, pk):
     }
 
     if request.method == 'POST':
-        
-
         selected_user.username = request.POST.get('username')     
         selected_user.first_name = request.POST['first_name']
         selected_user.last_name = request.POST['last_name']
@@ -320,3 +319,52 @@ def reset_password_view(request, pk):
             return render(request, 'users/reset_password.html', {'old': old_info, 'error': 'Las contraseñas no coinciden'})
 
     return render(request, 'users/reset_password.html', {'old': old_info})
+
+def send_reset_password_view(request):
+    '''Reseteo de password para usuario no logeado
+    Se pide cuit y se envia mail al usuario dueno del cuit
+    Se le envia el mail para el link reset_password manual'''
+
+    if request.method == 'POST':
+        cuit = request.POST.get('username')
+        profile_to_reset = Profile.objects.get(username=cuit)
+        username_email = profile_to_reset.email
+        link = f'http://127.0.0.1:8000/send_reset/sended/{profile_to_reset.id}/'
+
+        subject = f'Reseteo de contraseña para {profile_to_reset.first_name}'
+        message = f'''Hola! Te contacto desde el Sistema de Organizaciones de Accion Comunitaria!
+
+        Vimos que no podes entrar a tu cuenta en SOAC y necesitas un cambio de contraseña. Te envio el link para que puedas cambiarla! 
+        Si no fuiste vos, no entres a este link, por favor. 
+
+        {link}
+
+        Saludos!
+        '''
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [username_email]
+
+        if username_email:
+            send_mail(subject, message, email_from, recipient_list)
+            return render(request, 'users/send_reset_password.html', {'alert': 'Hemos enviado un link a tu correo electornico para que cambies la contraseña'})
+        else:
+            return render(request, 'users/send_reset_password.html', {'alert': 'No se ha podido enviar el mail, contacta con un usuario central / administrador para solucionar'})
+
+    return render(request, 'users/send_reset_password.html')
+
+def reset_password_user_view(request, pk):
+    '''Reseteo de contrasena manual para usuarios
+    acceden mediante link en mail'''
+    selected_profile = Profile.objects.get(id=pk)
+    selected_user = User.objects.get(id=selected_profile.user_id)   
+    if request.method == 'POST':
+        new_password = request.POST.get('new_password')
+        confirm_new_password = request.POST.get('confirm_new_password')    
+        if new_password == confirm_new_password:
+            selected_user.set_password(new_password)
+            selected_user.save()
+            return redirect('login')
+        else:
+            return render(request, 'users/reset_password_user.html', {'error': 'Las contraseñas no coinciden', 'user': selected_profile})  
+    
+    return render(request, 'users/reset_password_user.html', {'user': selected_profile})
