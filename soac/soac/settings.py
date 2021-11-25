@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
     # Apps de soac
     'users',
-    'home'
+    'home',
+    'orgs'
 ]
 
 MIDDLEWARE = [
