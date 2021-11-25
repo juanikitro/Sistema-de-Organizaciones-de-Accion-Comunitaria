@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     # Apps de soac
     'users',
     'home',
+<<<<<<< HEAD
     'orgs'
+=======
+    'organizations'
+>>>>>>> orgs
 ]
 
 MIDDLEWARE = [
@@ -146,3 +150,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "soac.buenosaires@gmail.com"
 EMAIL_HOST_PASSWORD = "JuanIPortilla2002"
+
+# Docs
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIA_URL = '/media/'
