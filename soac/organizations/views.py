@@ -64,6 +64,7 @@ def orgs_view(request):
         type = request.POST.get('type', False)
         public = request.POST.get('public', False)
         postal_code = request.POST.get('postal_code', False)
+        roac = request.POST.get('roac', False)
         
         if domain == '1':
             domain = 'propia'
@@ -83,6 +84,11 @@ def orgs_view(request):
         elif igj == '0':
             igj = ''
 
+        if roac == 'on':
+            roac = 1
+        elif roac == False:
+            roac = 0
+
         values={
             'name': name,
             'domain': domain,
@@ -95,7 +101,7 @@ def orgs_view(request):
             'public': public,
             'postal_code': postal_code,
         }
-
-        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__startswith=address, nhood__startswith=nhood, commune__startswith=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, postal_code__startswith=postal_code )
+        print(roac)
+        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__startswith=address, nhood__startswith=nhood, commune__startswith=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, postal_code__startswith=postal_code, roac__startswith=roac )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values})
