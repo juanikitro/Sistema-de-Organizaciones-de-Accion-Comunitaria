@@ -7,8 +7,7 @@ from django.shortcuts import render
 
 # Models
 from organizations.models import Org
-@login_required
-def push_soac_view(request):
+
 @login_required
 def push_soac_view(request):
     values = {}

@@ -344,7 +344,7 @@ def send_reset_password_view(request):
 
         if username_email:
             send_mail(subject, message, email_from, recipient_list)
-            return render(request, 'users/send_reset_password.html', {'alert': 'Hemos enviado un link a tu correo electornico para que cambies la contraseña'})
+            return render(request, 'users/send_reset_password.html', {'alert': 'Hemos enviado un link a tu correo electronico para que cambies la contraseña'})
         else:
             return render(request, 'users/send_reset_password.html', {'alert': 'No se ha podido enviar el mail, contacta con un usuario central / administrador para solucionar'})
 

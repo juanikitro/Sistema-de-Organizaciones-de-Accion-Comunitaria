@@ -3,7 +3,7 @@ ScrollReveal().reveal('.content', {
 	easing: 'ease-in-out',
 	origin: 'top',
 	distance: '25px',
-	duration: 500
+	duration: 250
 });
 ScrollReveal().reveal('.navbar', {
 	duration: 0
