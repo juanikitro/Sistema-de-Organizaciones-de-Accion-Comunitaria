@@ -26,9 +26,10 @@ urlpatterns = [
     path('users/profile/<str:pk>/reset/', users_views.reset_password_view, name='reset_password'),
     path('send_reset/', users_views.send_reset_password_view, name='send_reset_password'),
     path('send_reset/sended/<str:pk>/', users_views.reset_password_user_view, name='reset_password_user'),
-    
-    # Organizaciones
-    path('organizations/soac', organizations_views.soac_view, name='soac'),
+
+    #Organizaciones
+    path('organizations/', organizations_views.orgs_view, name='orgs'),
+    path('organizations/soac', organizations_views.push_soac_view, name='soac'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

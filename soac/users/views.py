@@ -119,8 +119,6 @@ def users_view(request):
             level = 'central'
         elif level == '3':
             level = 'presi'
-        elif level == '4':
-            level = 'admin'
         elif level == '0':
             level = ''
 
