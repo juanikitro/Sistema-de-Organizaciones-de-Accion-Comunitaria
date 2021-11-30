@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # Apps de soac
     'users',
     'home',
-    'orgs'
+    'organizations',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +138,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+MEDIA_URL = '/media/'
 
 # Envio de mail
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
