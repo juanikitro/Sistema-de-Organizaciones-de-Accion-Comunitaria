@@ -9,12 +9,15 @@ from django.shortcuts import render
 from organizations.models import Org
 @login_required
 def push_soac_view(request):
+@login_required
+def push_soac_view(request):
     values = {}
     if request.method == 'POST':
         name = request.POST['name']
 
         if Org.objects.filter(name=name).first(): 
             return render(request, 'orgs/soac.html', {'error': 'Ya existe una organizacion con ese nombre, asegurate de no crear la misma'})
+
 
         org = Org()
         org.name = name
@@ -43,7 +46,7 @@ def push_soac_view(request):
         # org.abl = request.FILES['abl']
         # org.extra = request.FILES['extra']
         org.save()
-
+        
         return render(request, 'orgs/soac.html', {'alert': 'Organizacion creada con exito', 'values': values})
 
     return render(request, 'orgs/soac.html', {'values': values})

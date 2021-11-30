@@ -32,7 +32,7 @@
 				pattern="\d*"
 				maxlength="11"
 				minlength="11"
-				placeholder="Ej: 20445350304"
+				placeholder="Cuit"
 				name="username"
 				required="true" />
 			<label class="text-white">Contraseña</label>
@@ -40,12 +40,12 @@
 				autocomplete="off" 
 				class="form-control w-50 mb-3"
 				type="password"
-				placeholder="Ej: ********"
+				placeholder="Contraseña"
 				name="password"
 				required="true" />
-
+			<a name="" id="" class="btn btn-sm btn-outline-primary mb-3" href="{% url 'send_reset_password' %}" role="button">Olvide mi contraseña</a>
 			<button
-					class="btn btn-warning btn-block form-control w-50"
+					class="btn btn-primary btn-block form-control w-50"
 					type="submit"
 				>
 					Ingresar
