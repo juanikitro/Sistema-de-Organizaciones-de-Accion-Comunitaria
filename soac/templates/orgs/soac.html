@@ -149,7 +149,36 @@
 					<option value="True">Si</option>
 				</select>
 			</div>
-			<div class="form-group col-md-5 d-flex align-items-end">
+			<div class="form-group col-md-5">
+				<label class="text-white text-center">Email</label
+				><input
+					autocomplete="off"
+					class="form-control"
+					type="email"
+					placeholder="Email"
+					placeholder="ejemplo@buenosaires.gob"
+					name="email"
+					required="true"
+					value="{{values.email}}"
+				/>
+			</div>
+		</div>
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<label class="text-white text-center">Numero de contacto</label>
+				<input
+					autocomplete="off"
+					type="text"
+					pattern="\d*"
+					maxlength="25"
+					placeholder="Ej: 111234-1234"
+					name="mobile"
+					class="form-control"
+					value="{{values.mobile}}"
+				/>
+			</div>
+			<div class="form-group col-md-5 d-flex flex-column align-items-end">
+				<label class="">:)</label>
 				<button
 					class="btn btn-outline-primary btn-block form-control"
 					type="submit"

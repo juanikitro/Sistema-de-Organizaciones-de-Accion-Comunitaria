@@ -30,6 +30,8 @@ def push_soac_view(request):
         org.type = request.POST['type']
         org.public = request.POST['public']
         org.postal_code = request.POST['postal_code']
+        org.email = request.POST['email']
+        org.mobile = request.POST['mobile']
         org.created = date.today()
         org.modified = date.today()
         # for ROAC
@@ -104,6 +106,47 @@ def orgs_view(request):
             'postal_code': postal_code,
         }
         print(roac)
-        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__startswith=address, nhood__startswith=nhood, commune__startswith=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, postal_code__startswith=postal_code, roac__startswith=roac )
+        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, postal_code__startswith=postal_code, roac__startswith=roac )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values})
+
+@login_required
+def org_view(request, pk):
+    '''Vista del perfil 1:1 con usuarios
+    Se busca que perfil coincide con la url y que usuario coincide con este perfil
+    Se preparan todos los datos a mostrar en la tabla y se envian como context '''
+
+    org = Org.objects.get(id=pk)
+
+    id = org.id
+    name = org.name
+    type = org.type
+    public = org.public
+    areas = org.areas
+    address = org.address
+    dpto = org.dpto
+    postal_code = org.postal_code
+    nhood = org.nhood
+    commune = org.commune
+    domain = org.domain
+    email = org.email
+    mobile = org.mobile
+    
+    context = {
+    'org':org,
+    'id':id,
+    'name':name,
+    'type':type,
+    'public':public,
+    'areas':areas,
+    'domain':domain,
+    'commune':commune,
+    'nhood':nhood,
+    'postal_code':postal_code,
+    'dpto':dpto,
+    'address':address,
+    'email':email,
+    'mobile':mobile,
+    }
+
+    return render(request, 'orgs/org.html', context)

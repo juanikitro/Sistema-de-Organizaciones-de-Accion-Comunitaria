@@ -10,6 +10,8 @@ class Org(models.Model):
     areas = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
     igj = models.BooleanField(default=False)
+    email = models.EmailField(max_length=255)
+    mobile = models.CharField(max_length = 255)
 
     # Opcionales
     public = models.CharField(max_length=255, default='No especificado')

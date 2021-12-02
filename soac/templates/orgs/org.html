@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block head_content %}
-<title>SOAC - Usuario: {{ username }}</title>
+<title>SOAC - {{ name }}</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-white p-5">
 	<a href="javascript: history.go(-1)"
@@ -16,36 +16,41 @@
 				d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
 			/></svg
 	></a>
-
 	<h1 class="text-white display-2 text-center mb-5">{{ name }}</h1>
-
-	<h3 class="text-center">{{ username }}</h3>
-	<table class="w-100 mt-5">
-		<tr class="py-3">
-			<td><strong>ID:</strong></td>
-			<td class="py-3 text-end">{{ id }}</td>
-		</tr>
-		<tr class="mb-3">
-			<td><strong>Email:</strong></td>
-			<td class="py-3 text-end">{{ email }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Numero de contacto:</strong></td>
-			<td class="py-3 text-end">{{ mobile }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Rol:</strong></td>
-			<td class="py-3 text-end">{{ level }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Creado:</strong></td>
-			<td class="py-3 text-end">{{ created }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Modificado:</strong></td>
-			<td class="py-3 text-end">{{ modified }}</td>
-		</tr>
-	</table>
+	<div class="d-flex justify-content-between mt-3">
+		<p><strong> Id: </strong> {{ id }}</p>
+		<p><strong> Tipo: </strong> {{ type }}</p>
+		<p><strong> Publico: </strong> {{ public }}</p>
+		<p><strong> Areas: </strong> {{ areas }}</p>
+	</div>
+	<div class="row">
+		<details class="col">
+			<summary class="my-3">Ubicacion</summary>
+			<div class="details-wrapper">
+				<div class="details-styling">
+					<p><strong> Direccion: </strong> {{ address }}</p>
+					<p><strong> Departamento: </strong> {{ dpto }}</p>
+					<p><strong> codigo postal: </strong> {{ postal_code }}</p>
+					<p><strong> Barrio: </strong> {{ nhood }}</p>
+					<p><strong> Comuna: </strong> {{ commune }}</p>
+					<p><strong> Dominio: </strong> {{ domain }}</p>
+				</div>
+			</div>
+		</details>
+		<details class="col">
+			<summary class="my-3">Contacto</summary>
+			<div class="details-wrapper">
+				<div class="details-styling">
+					<p><strong> Direccion: </strong> {{ address }}</p>
+					<p><strong> Departamento: </strong> {{ dpto }}</p>
+					<p><strong> codigo postal: </strong> {{ postal_code }}</p>
+					<p><strong> Barrio: </strong> {{ nhood }}</p>
+					<p><strong> Comuna: </strong> {{ commune }}</p>
+					<p><strong> Dominio: </strong> {{ domain }}</p>
+				</div>
+			</div>
+		</details>
+	</div>
 	<div class="d-flex justify-content-around mt-5">
 		<a
 			href="#"

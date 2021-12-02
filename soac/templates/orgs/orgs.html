@@ -164,7 +164,8 @@
 				<th scope="col">IGJ</th>
 				<th scope="col">Tipo</th>
 				<th scope="col">Publico</th>
-				<th scope="col">Codigo postal</th>
+				<th scope="col">CP</th>
+				<th scope="col">ROAC</th>
 				<th scope="col"></th>
 			</tr>
 		</thead>
@@ -177,10 +178,19 @@
 				<td>{{u.nhood}}</td>
 				<td>{{u.commune}}</td>
 				<td>{{u.areas}}</td>
-				<td>{{u.igj}}</td>
+				{% if igj %}
+				<td>Si</td>
+				{% endif %} {% if not igj %}
+				<td>No</td>
+				{% endif %}
 				<td>{{u.type}}</td>
 				<td>{{u.public}}</td>
 				<td>{{u.postal_code}}</td>
+				{% if roac %}
+				<td>Si</td>
+				{% endif %} {% if not roac %}
+				<td>No</td>
+				{% endif %}
 				<td>
 					<a
 						class="btn btn-outline-primary"

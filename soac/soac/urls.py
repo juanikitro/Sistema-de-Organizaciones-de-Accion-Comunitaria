@@ -30,6 +30,7 @@ urlpatterns = [
     #Organizaciones
     path('organizations/', organizations_views.orgs_view, name='orgs'),
     path('organizations/soac', organizations_views.push_soac_view, name='soac'),
+    path('organizations/org/<str:pk>/', organizations_views.org_view, name='org'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
