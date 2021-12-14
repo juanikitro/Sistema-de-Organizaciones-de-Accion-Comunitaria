@@ -29,8 +29,12 @@ urlpatterns = [
 
     #Organizaciones
     path('organizations/', organizations_views.orgs_view, name='orgs'),
+    path('organizations/orgs_report', organizations_views.Excel_report.as_view(), name='orgs_report'),
     path('organizations/soac', organizations_views.push_soac_view, name='soac'),
-
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('organizations/org/<str:pk>/', organizations_views.org_view, name='org'),   
+    path('organizations/org/<str:pk>/delete/', organizations_views.delete_org_view, name='delete_org'),
+    path('organizations/org/<str:pk>/down/', organizations_views.down_org_view, name='down_org'),
+    path('organizations/org/<str:pk>/register/', organizations_views.register_roac_view, name='register_roac'),
+    path('organizations/org/<str:pk>/modify/', organizations_views.modify_org_view, name='modify_org'),
+    path('organizations/org/<str:pk>/org_report/', organizations_views.download_org_view, name='org_report'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

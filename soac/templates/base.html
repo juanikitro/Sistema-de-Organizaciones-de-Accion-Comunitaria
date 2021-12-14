@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -8,7 +9,7 @@
 			content="width=device-width, initial-scale=1, shrink-to-fit=no"
 		/>
 
-		{% block head_content %}{% endblock %} {% load static %}
+		{% block head_content %}{% endblock %}
 
 		<!-- Bootstrap CSS v5.0.2 -->
 		<link
@@ -17,12 +18,21 @@
 			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 			crossorigin="anonymous"
 		/>
+		<!-- Extras -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap"
 			rel="stylesheet"
 		/>
+		<title>SOAC</title>
+		<script src="https://unpkg.com/scrollreveal@4"></script>
+		<!-- Estilos -->
+		<style>
+			html.sr .load-hidden {
+				visibility: hidden;
+			}
+		</style>
 	</head>
 	<body
 		style="font-family: 'Montserrat'; max-width: 100vw; overflow-x: hidden"
@@ -50,10 +60,9 @@
 					text-dark text-decoration-none
 				"
 			>
-				<svg class="bi me-2" width="40" height="32">
-					<use xlink:href="#bootstrap"></use>
-				</svg>
-				<span class="fs-4">SOAC</span>
+				<span class="mx-2"
+					><img width="100px" src="{% static 'img/logo.png' %}"
+				/></span>
 			</a>
 			<hr />
 			<ul class="nav nav-pills flex-column mb-auto">
@@ -119,50 +128,6 @@
 							data-bs-toggle="dropdown"
 							aria-expanded="false"
 						>
-							Usuarios
-						</a>
-						<ul
-							class="
-								dropdown-menu dropdown-menu-light
-								text-small
-								shadow
-							"
-							aria-labelledby="dropdownUser1"
-						>
-							<li>
-								<a
-									class="dropdown-item"
-									href="{% url 'signup' %}"
-									>Crear usuario</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a
-									class="dropdown-item"
-									href="{% url 'users' %}"
-									>Buscar usuarios</a
-								>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="mb-1">
-					<div class="dropdown">
-						<a
-							href="#"
-							class="
-								d-flex
-								align-items-center
-								text-dark text-decoration-none
-								dropdown-toggle
-								mb-4
-								mx-2
-							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
-						>
 							Bandejas
 						</a>
 						<ul
@@ -193,10 +158,86 @@
 								<a
 									class="dropdown-item"
 									href="{% url 'users' %}"
-									>Edicion</a
+									>Edición</a
 								>
 							</li>
 						</ul>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Visitas
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Actividades
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Eventos
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Comunicaciones
+						</a>
 					</div>
 				</li>
 				<li class="mb-1">
@@ -237,7 +278,7 @@
 								<a
 									class="dropdown-item"
 									href="{% url 'users' %}"
-									>Renovaciones</a
+									>Renovaciónes</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
@@ -253,20 +294,28 @@
 								<a
 									class="dropdown-item"
 									href="{% url 'users' %}"
-									>Vinculaciones</a
+									>Vinculaciónes</a
+								>
+							</li>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'users' %}"
+									>Historial</a
 								>
 							</li>
 						</ul>
 					</div>
 				</li>
 				<li class="mb-1">
-					<div>
+					<div class="dropdown">
 						<a
 							href="#"
 							class="
 								d-flex
 								align-items-center
 								text-dark text-decoration-none
+								dropdown-toggle
 								mb-4
 								mx-2
 							"
@@ -274,27 +323,32 @@
 							data-bs-toggle="dropdown"
 							aria-expanded="false"
 						>
-							Visitas
+							Usuarios
 						</a>
-					</div>
-				</li>
-				<li class="mb-1">
-					<div>
-						<a
-							href="#"
+						<ul
 							class="
-								d-flex
-								align-items-center
-								text-dark text-decoration-none
-								mb-4
-								mx-2
+								dropdown-menu dropdown-menu-light
+								text-small
+								shadow
 							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
+							aria-labelledby="dropdownUser1"
 						>
-							Historial
-						</a>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'signup' %}"
+									>Crear usuario</a
+								>
+							</li>
+							<li><hr class="dropdown-divider" /></li>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'users' %}"
+									>Buscar usuarios</a
+								>
+							</li>
+						</ul>
 					</div>
 				</li>
 			</ul>
@@ -331,7 +385,9 @@
 				</ul>
 			</div>
 		</section>
-		<section class="col">{% block body %}{% endblock%}</section>
+		<section class="col load-hidden content">
+			{% block body %}{% endblock%}
+		</section>
 
 		<!-- Bootstrap JavaScript Libraries -->
 		<script
@@ -344,5 +400,8 @@
 			integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 			crossorigin="anonymous"
 		></script>
+
+		<!-- Scroll Reveal -->
+		<script src="{% static 'js/js_reveal.js' %}"></script>
 	</body>
 </html>

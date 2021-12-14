@@ -1,0 +1,149 @@
+{% extends "base.html" %} {% block head_content %}{% load static %}
+<title>SOAC - {{ name }}</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-white p-5">
+	<a href="javascript: history.go(-1)"
+	><svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="32"
+		height="32"
+		fill="currentColor"
+		class="bi bi-arrow-left-circle m	t-3"
+		viewBox="0 0 16 16"
+	>
+		<path
+			fill-rule="evenodd"
+			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+		/></svg
+	></a>
+	<h1 class="text-white display-2 text-center mb-5">{{ name }}</h1>
+	<div class="d-flex justify-content-between mb-3">
+		<p><strong> Id: </strong> {{ id }}</p>
+		<p><strong> ROAC: </strong> 
+			{% if roac == 1 %}
+				Si
+			{% else %}
+				No
+			{% endif %}
+		</p>
+		<p><strong> Tipo: </strong> {{ type }}</p>
+		<p><strong> Público: </strong> {{ public }}</p>
+		<p><strong> Áreas: </strong> {{ areas }}</p>
+	</div>
+	<div class="row">
+		<details class="col">
+			<summary class="my-3">Ubicación</summary>
+			<div class="details-wrapper">
+				<div class="details-styling">
+					<p><strong> Dirección: </strong> {{ address }}</p>
+					<p><strong> Departamento: </strong> {{ dpto }}</p>
+					<p><strong> código postal: </strong> {{ postal_code }}</p>
+					<p><strong> Barrio: </strong> {{ nhood }}</p>
+					<p><strong> Comuna: </strong> {{ commune }}</p>
+					<p><strong> Dominio: </strong> {{ domain }}</p>
+				</div>
+			</div>
+		</details>
+		<details class="col">
+			<summary class="my-3">Contacto</summary>
+			<div class="details-wrapper">
+				<div class="details-styling">
+					<p><strong> Número de contacto: </strong> {{ mobile }}</p>
+					<p><strong> Correo electronico: </strong> {{ email }}</p>
+				</div>
+			</div>
+		</details>
+	</div>
+	<div class="row">
+		<details class="col">
+			<summary class="my-3">Inscripción</summary>
+			<div class="details-wrapper">
+				<div class="details-styling">
+					<p><strong> Estado: </strong> {{ state }}</p>
+					<p>
+						<strong> Fecha de inscripcion a SOAC: </strong> {{ created }}
+					</p>
+					{% if roac == 1 %}
+					<p>
+						<strong> Fecha de inscripción a ROAC: </strong> {{ enrolled }}
+					</p>
+					<p><strong> Fecha de renovación: </strong> {{ renoved }}
+					</p>
+					<p>
+						<strong> Fecha de vencimiento: </strong> {{expiration}}
+					</p>
+					{% endif %}
+					
+					<p>
+						<strong> Fecha de ultima modificación: </strong> {{ modified }}
+					</p>
+					<p>
+						<strong> Inscripta en IGJ: </strong>
+						{% if igj %} Si {% endif %} {% if not igj %}No{%endif%}
+					</p>
+				</div>
+			</div>
+		</details>
+		<details class="col">
+			<summary class="my-3">Vinculación</summary>
+			<div class="details-wrapper">
+				<div class="details-styling">
+					<p><strong> Visitas: (Aca va una tabla) </strong></p> 
+				</div>
+			</div>
+		</details>
+	</div>
+	<div class="d-flex justify-content-around mt-5">
+		<a
+			href="#"
+			class=" text-decoration-none btn btn-danger"
+			id="dropdownUser1"
+			data-bs-toggle="dropdown"
+			aria-expanded="false"
+			>Eliminar
+		</a>
+		<ul
+			class="dropdown-menu dropdown-menu-light text-small shadow"
+			aria-labelledby="dropdownUser1"
+		>
+			<li>
+				<p class="text-center">¿Esta segurx?</p>
+			</li>
+			<li><hr class="dropdown-divider" /></li>
+			<li>
+				<a class="text-center dropdown-item text-danger" href="delete/"
+					>Si</a
+				>
+			</li>
+			<li>
+				<a class="text-center dropdown-item" href="profile/{{id}}/"
+					>No</a
+				>
+			</li>
+		</ul>
+		{% if roac == 1 %}
+		<a
+			href="down/"
+			class=" text-decoration-none btn btn-outline-danger"
+			>Dar de baja
+		</a>
+		{% endif %}
+		<a class="btn btn-outline-primary" href="org_report/" role="button"
+			>Exportar</a
+		>
+		<a class="btn btn-outline-primary" href="modify/" role="button"
+			>Modificar</a
+		>
+		{% if doc == '' %}
+		<a class="btn btn-outline-primary" href="register/" role="button"
+			>Registrar</a
+		>
+		{% else %}
+			<a class="btn btn-outline-primary" target="_blank" href="/media/{{doc}}">Ver documentacion
+				
+			</a>
+		{% endif %}
+	</div>
+</article>
+
+{% endblock %}
