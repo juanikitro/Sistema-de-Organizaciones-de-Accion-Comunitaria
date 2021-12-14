@@ -250,10 +250,10 @@ def delete_profile_view(request, pk):
 @login_required
 @atomic
 def modify_profile_view(request, pk):
-    '''Modificacion de perfil
+    '''Modificación de perfil
     Busca que usuario y perfil coincide con la url
-    Guarda temporalmente la informacion vieja del perfil a modificar
-    Extrae los datos del template para la modificacion y previene el uso de un username(cuit) utilizado
+    Guarda temporalmente la información vieja del perfil a modificar
+    Extrae los datos del template para la modificación y previene el uso de un username(cuit) utilizado
     Sustituye los datos del usuario por los nuevamente colocados y guarda '''
 
     selected_profile = Profile.objects.get(id=pk)
@@ -287,14 +287,14 @@ def modify_profile_view(request, pk):
         except IntegrityError:
             return render(request, 'users/modify_profile.html', {'old': old_info, 'error': 'El cuit ya esta en uso'})
             
-        return redirect('users')
+        return redirect('profile', selected_profile.id)
 
     return render(request, 'users/modify_profile.html', {'old': old_info})
 
 @login_required
 def reset_password_view(request, pk):
     '''Reseteo de password de Django
-    Pide confirmacion de password para evitar futuros problemas '''
+    Pide confirmación de password para evitar futuros problemas '''
 
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
@@ -312,7 +312,7 @@ def reset_password_view(request, pk):
         if new_password == confirm_new_password:
             selected_user.set_password(new_password)
             selected_user.save()
-            return redirect('users')
+            return redirect('profile', selected_profile.id)
         else:
             return render(request, 'users/reset_password.html', {'old': old_info, 'error': 'Las contraseñas no coinciden'})
 
@@ -330,10 +330,9 @@ def send_reset_password_view(request):
         link = f'http://127.0.0.1:8000/send_reset/sended/{profile_to_reset.id}/'
 
         subject = f'Reseteo de contraseña para {profile_to_reset.first_name}'
-        message = f'''Hola! Te contacto desde el Sistema de Organizaciones de Accion Comunitaria!
+        message = f'''Hola! Te contacto desde el Sistema de Organizaciones de Acción Comunitaria!
 
         Vimos que no podes entrar a tu cuenta en SOAC y necesitas un cambio de contraseña. Te envio el link para que puedas cambiarla! 
-        Si no fuiste vos, no entres a este link, por favor. 
 
         {link}
 
@@ -346,7 +345,7 @@ def send_reset_password_view(request):
             send_mail(subject, message, email_from, recipient_list)
             return render(request, 'users/send_reset_password.html', {'alert': 'Hemos enviado un link a tu correo electronico para que cambies la contraseña'})
         else:
-            return render(request, 'users/send_reset_password.html', {'alert': 'No se ha podido enviar el mail, contacta con un usuario central / administrador para solucionar'})
+            return render(request, 'users/send_reset_password.html', {'alert': 'No se ha podido enviar el mail, contacta con un usuario central / administrador para soluciónar'})
 
     return render(request, 'users/send_reset_password.html')
 

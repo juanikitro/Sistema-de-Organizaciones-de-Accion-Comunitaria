@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'soac.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': { # Coneccion con mi db
+    'default': { # Conección con mi db
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'soacdb',
         'USER': 'root',
@@ -119,11 +119,13 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+DATETIME_FORMAT="d-m-Y"
+
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

@@ -128,50 +128,6 @@
 							data-bs-toggle="dropdown"
 							aria-expanded="false"
 						>
-							Usuarios
-						</a>
-						<ul
-							class="
-								dropdown-menu dropdown-menu-light
-								text-small
-								shadow
-							"
-							aria-labelledby="dropdownUser1"
-						>
-							<li>
-								<a
-									class="dropdown-item"
-									href="{% url 'signup' %}"
-									>Crear usuario</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a
-									class="dropdown-item"
-									href="{% url 'users' %}"
-									>Buscar usuarios</a
-								>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="mb-1">
-					<div class="dropdown">
-						<a
-							href="#"
-							class="
-								d-flex
-								align-items-center
-								text-dark text-decoration-none
-								dropdown-toggle
-								mb-4
-								mx-2
-							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
-						>
 							Bandejas
 						</a>
 						<ul
@@ -202,10 +158,86 @@
 								<a
 									class="dropdown-item"
 									href="{% url 'users' %}"
-									>Edicion</a
+									>Edición</a
 								>
 							</li>
 						</ul>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Visitas
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Actividades
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Eventos
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Comunicaciones
+						</a>
 					</div>
 				</li>
 				<li class="mb-1">
@@ -246,7 +278,7 @@
 								<a
 									class="dropdown-item"
 									href="{% url 'users' %}"
-									>Renovaciones</a
+									>Renovaciónes</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
@@ -262,20 +294,28 @@
 								<a
 									class="dropdown-item"
 									href="{% url 'users' %}"
-									>Vinculaciones</a
+									>Vinculaciónes</a
+								>
+							</li>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'users' %}"
+									>Historial</a
 								>
 							</li>
 						</ul>
 					</div>
 				</li>
 				<li class="mb-1">
-					<div>
+					<div class="dropdown">
 						<a
 							href="#"
 							class="
 								d-flex
 								align-items-center
 								text-dark text-decoration-none
+								dropdown-toggle
 								mb-4
 								mx-2
 							"
@@ -283,27 +323,32 @@
 							data-bs-toggle="dropdown"
 							aria-expanded="false"
 						>
-							Visitas
+							Usuarios
 						</a>
-					</div>
-				</li>
-				<li class="mb-1">
-					<div>
-						<a
-							href="#"
+						<ul
 							class="
-								d-flex
-								align-items-center
-								text-dark text-decoration-none
-								mb-4
-								mx-2
+								dropdown-menu dropdown-menu-light
+								text-small
+								shadow
 							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
+							aria-labelledby="dropdownUser1"
 						>
-							Historial
-						</a>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'signup' %}"
+									>Crear usuario</a
+								>
+							</li>
+							<li><hr class="dropdown-divider" /></li>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'users' %}"
+									>Buscar usuarios</a
+								>
+							</li>
+						</ul>
 					</div>
 				</li>
 			</ul>
