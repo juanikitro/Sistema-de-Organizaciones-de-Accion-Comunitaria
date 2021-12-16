@@ -10,6 +10,8 @@ from users import views as users_views
 from organizations import views as organizations_views
 from inbox import views as inbox_views
 
+from comunications import views as comunications_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     #Home
@@ -48,4 +50,8 @@ urlpatterns = [
     path('organizations/org/<str:pk>/noregister/', organizations_views.noregister_org_view, name='noregister_org'),
     path('inbox/sign', inbox_views.sign_view, name='sign'),
     path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
+
+    path('comunication/users', comunications_views.comunications_users_view, name='comunications_users'),
+    path('comunication/orgs', comunications_views.comunications_orgs_view, name='comunications_orgs'),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

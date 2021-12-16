@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'users',
     'home',
     'organizations',
+    'inbox',
+    'comunications'
 ]
 
 MIDDLEWARE = [

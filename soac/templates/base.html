@@ -221,13 +221,14 @@
 					</div>
 				</li>
 				<li class="mb-1">
-					<div>
+					<div class="dropdown">
 						<a
 							href="#"
 							class="
 								d-flex
 								align-items-center
 								text-light text-decoration-none
+								dropdown-toggle
 								mb-4
 								mx-2
 							"
@@ -237,6 +238,30 @@
 						>
 							Comunicaciones
 						</a>
+						<ul
+							class="
+								dropdown-menu dropdown-menu-light
+								text-small
+								shadow
+							"
+							aria-labelledby="dropdownUser1"
+						>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'comunications_users' %}"
+									>Usuarios</a
+								>
+							</li>
+							<li><hr class="dropdown-divider" /></li>
+							<li>
+								<a
+									class="dropdown-item"
+									href="{% url 'comunications_orgs' %}"
+									>Organizaciones</a
+								>
+							</li>
+						</ul>
 					</div>
 				</li>
 				<li class="mb-1">

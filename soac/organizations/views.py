@@ -78,13 +78,12 @@ def push_roac_view(request):
         org.expiration = date.today() + timedelta(days=730)
 
         if Org.objects.filter(name=name).first(): 
-            return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values})
+            return render(request, 'orgs/roac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values})
 
         org.save()
-        
-        return render(request, 'orgs/soac.html', {'alert': 'Organización enviada a la bandeja de analisis', 'values': values})
+        return redirect('register_roac', org.id)
 
-    return render(request, 'orgs/soac.html', {'values': values})
+    return render(request, 'orgs/roac.html', {'values': values})
 
 @login_required
 def orgs_view(request):
@@ -370,9 +369,9 @@ def noregister_org_view(request, pk):
 
     try:
         selected_org.save()
-        return redirect('analysis')
+        return redirect('edit')
     except IntegrityError:
-        return redirect('analysis')
+        return redirect('edit')
 
 @login_required
 def download_org_view(request, pk):

@@ -20,6 +20,7 @@
 	<form
 		autocomplete="off"
 		action="{% url 'modify_profile' old.id %}"
+		class="bg-lightblue card py-3"
 		method="POST"
 	>
 		{% csrf_token %}
