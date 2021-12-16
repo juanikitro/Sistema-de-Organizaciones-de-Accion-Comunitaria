@@ -17,12 +17,15 @@ def analysis_view(request):
 @login_required
 def return_pre_view(request, pk):
     selected_org = Org.objects.get(id=pk)
+    if request.method == 'POST':
+        selected_org.state = 'editar'
+        selected_org.doc = ''
+        selected_org.msg = request.POST.get('msg')
+        selected_org.save()
+        return redirect('analysis') 
 
-    selected_org.state = 'editar'
-    selected_org.doc = ''
-    selected_org.save()
+    return render(request, 'inbox/return_pre.html', {'org': selected_org})
 
-    return redirect('analysis')
 
 @login_required
 def sign_pre_view(request, pk):
@@ -54,9 +57,10 @@ def sign_view(request):
 @login_required
 def return_sign_view(request, pk):
     selected_org = Org.objects.get(id=pk)
+    if request.method == 'POST':
+        selected_org.state = 'pre-activa'
+        selected_org.msg = request.POST.get('msg')
+        selected_org.save()
+        return redirect('sign') 
 
-    selected_org.state = 'pre-activa'
-    selected_org.doc = ''
-    selected_org.save()
-
-    return redirect('sign')
+    return render(request, 'inbox/return_sign.html', {'org': selected_org})

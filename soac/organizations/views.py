@@ -231,6 +231,7 @@ def  register_request_view(request, pk):
 
         if form.is_valid():
             selected_org.state = 'pre-activa'
+            selected_org.msg = ''
             selected_org.registration_request = date.today()
             form.save()
             return redirect('org', selected_org.id)
@@ -365,6 +366,7 @@ def noregister_org_view(request, pk):
     selected_org = Org.objects.get(id=pk)
 
     selected_org.state = 'no-registrada'
+    selected_org.msg= ''
 
     try:
         selected_org.save()
