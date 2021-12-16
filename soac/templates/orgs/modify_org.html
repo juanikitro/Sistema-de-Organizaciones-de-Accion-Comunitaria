@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block head_content %}
 <title>SOAC - Modificación de organizacion: {{ old.name }}</title>
 {% endblock%} {% block body %}
-<article class="container d-flex flex-column text-white p-5">
+<article class="container d-flex flex-column text-light p-5">
 	<a href="javascript: history.go(-1)"
 	><svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
 			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
 		/></svg
 	></a>
-	<h1 class="text-white display-2 text-center mb-5">Modificar a "{{ old.name }}" </h1>
+	<h1 class="text-light display-2 text-center mb-5">Modificar a "{{ old.name }}" </h1>
 	<form
 		autocomplete="off"
 		action="{% url 'modify_org' old.id %}"
@@ -25,7 +25,7 @@
 		{% csrf_token %}
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Nombre</label>
+				<label class="text-light">Nombre</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -37,7 +37,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Direccion</label>
+				<label class="text-light">Direccion</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -51,7 +51,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Departamento</label>
+				<label class="text-light">Departamento</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -63,7 +63,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Barrio</label>
+				<label class="text-light">Barrio</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -77,7 +77,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Comuna</label>
+				<label class="text-light">Comuna</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -89,7 +89,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Areas</label>
+				<label class="text-light">Areas</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -103,7 +103,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Tipo de organizacion</label>
+				<label class="text-light">Tipo de organizacion</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -115,7 +115,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">IGJ</label>
+				<label class="text-light">IGJ</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -129,7 +129,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Publico</label>
+				<label class="text-light">Publico</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -141,7 +141,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Codigo postal</label>
+				<label class="text-light">Codigo postal</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -155,7 +155,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Email</label>
+				<label class="text-light">Email</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -166,7 +166,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Numero de contacto</label>
+				<label class="text-light">Numero de contacto</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -179,7 +179,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Dominio</label>
+				<label class="text-light">Dominio</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -191,7 +191,7 @@
 			</div>
 			<div class="form-group col-md-5 d-flex align-items-end">
 				<button
-					class="btn btn-outline-primary btn-block form-control"
+					class="btn btn-primary-dark btn-block form-control"
 					type="submit"
 				>
 					Registrar
@@ -202,7 +202,7 @@
 	</form>
 	{% if error %}
 	<div class="d-flex justify-content-center">
-		<div class="alert alert-danger">{{ error }}</div>
+		<div class="msg msg-danger"> {{ error }}</div>
 	</div>
 	{% endif %}
 </article>

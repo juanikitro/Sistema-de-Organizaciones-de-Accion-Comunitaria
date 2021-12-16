@@ -8,7 +8,7 @@
 		width="32"
 		height="32"
 		fill="currentColor"
-		class="bi bi-arrow-left-circle mt-3"
+		class="bi bi-arrow-left-circle mt-1"
 		viewBox="0 0 16 16"
 	>
 		<path
@@ -16,13 +16,13 @@
 			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
 		/></svg
 ></a>
-	<h1 class="text-white display-2 text-center mb-5">Cargar organización</h1>
-	<form autocomplete="off" action="{% url 'soac' %}" method="POST">
+	<h1 class="text-light display-2 text-center mb-5">Cargar organización</h1>
+	<form class="bg-lightblue card py-5" autocomplete="off" action="{% url 'soac' %}" method="POST">
 		{% csrf_token %}
 
-		<div class="form-row d-flex justify-content-around mb-3">
+		<div class="form-row d-flex justify-content-around mb-3 ">
 			<div class="form-group col-md-5">
-				<label class="text-white">Nombre</label>
+				<label class="text-light">Nombre</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -34,7 +34,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Dominio</label>
+				<label class="text-light">Dominio</label>
 				<input
 					class="form-control"
 					type="text"
@@ -46,7 +46,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Calle y altura</label>
+				<label class="text-light">Calle y altura</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -58,7 +58,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Departamento</label>
+				<label class="text-light">Departamento</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -73,7 +73,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Barrio</label>
+				<label class="text-light">Barrio</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -85,7 +85,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Comuna</label>
+				<label class="text-light">Comuna</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -100,7 +100,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Áreas</label>
+				<label class="text-light">Áreas</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -112,7 +112,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Código postal</label>
+				<label class="text-light">Código postal</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -126,7 +126,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Tipo de organización</label>
+				<label class="text-light">Tipo de organización</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -138,7 +138,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white">Tipo de público</label>
+				<label class="text-light">Tipo de público</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -151,7 +151,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white">Inscripta en IGJ</label>
+				<label class="text-light">Inscripta en IGJ</label>
 				<select
 					aria-label="Default select example"
 					name="igj"
@@ -162,7 +162,7 @@
 				</select>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-white text-center">Email</label
+				<label class="text-light text-center">Email</label
 				><input
 					autocomplete="off"
 					class="form-control"
@@ -175,7 +175,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-white text-center">Número de contacto</label>
+				<label class="text-light text-center">Número de contacto</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -188,9 +188,9 @@
 				/>
 			</div>
 			<div class="form-group col-md-5 d-flex flex-column align-items-end">
-				<label class="">:)</label>
+				<label style="color:#36415f">:)</label>
 				<button
-					class="btn btn-outline-primary btn-block form-control"
+					class="btn btn-primary-dark btn-block form-control"
 					type="submit"
 				>
 					Cargar
@@ -200,11 +200,11 @@
 	</form>
 	{% if error %}
 	<div class="d-flex justify-content-center">
-		<div class="alert alert-danger">{{ error }}</div>
+		<div class="msg msg-danger"> {{ error }}</div>
 	</div>
 	{% endif %} {% if alert %}
 	<div class="d-flex justify-content-center">
-		<div class="alert alert-primary">{{ alert }}</div>
+		<div class="msg msg-primary"> {{ alert }}</div>
 	</div>
 	{% endif %}
 </article>

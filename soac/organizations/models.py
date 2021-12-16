@@ -33,9 +33,15 @@ class Org(models.Model):
     # extras = models.FileField(default='', upload_to='roac/extras')
 
     # Extras
-    state = models.CharField(max_length=255, default='no-registrada') # pre-activa, a la firma, activa, suspendida, no-registrada
+    state = models.CharField(max_length=255, default='no-registrada') # no-registrada pre-activa, firmar, activa, suspendida, editar
     created= models.DateTimeField(auto_now_add=True, null=True)
+    registration_request= models.DateTimeField(null=True)
     enrolled = models.DateTimeField(null=True)
     renoved = models.DateTimeField(null=True)
     expiration = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
+    # no-registrada <-> preactiva
+    # editar <-> pre-activa
+    # pre-activa <-> firmar
+    # firmar -> activa
+    # activa -> suspendida

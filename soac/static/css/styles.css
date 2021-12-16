@@ -1,0 +1,40 @@
+.bg-blue {
+	background-color: #253048;
+}
+.bg-lightblue {
+	background-color: #36415f;
+}
+
+.btn-primary-dark {
+	background-color: #596ea8;
+	border-color: #596ea8;
+	color: rgb(255, 255, 255);
+}
+.btn-primary-dark:hover {
+	color: #fff;
+	background-color: #0052ce;
+	border-color: #0042a5;
+}
+
+.btn-secondary-light {
+	background-color: #7989b5;
+	border-color: #7989b5;
+	color: rgb(255, 255, 255);
+}
+.btn-secondary-light:hover {
+	color: rgb(255, 255, 255);
+	background-color: #556287;
+	border-color: #556287;
+}
+
+.table > :not(caption) > * > * {
+	padding: 0.9rem 0.5rem;
+	vertical-align: middle;
+}
+
+.card-header-dark {
+	padding: 1rem 1rem 0.5rem 1rem;
+	margin-bottom: 0;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-bottom: 2px solid rgba(0, 0, 0, 0.125);
+}
