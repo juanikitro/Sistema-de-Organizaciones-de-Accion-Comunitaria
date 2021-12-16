@@ -5,7 +5,6 @@ from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django.db import IntegrityError
-from django import forms
 from django.shortcuts import render, redirect
 
 # Models
@@ -38,16 +37,52 @@ def push_soac_view(request):
         org.mobile = request.POST['mobile']
         org.created = date.today()
         org.modified = date.today()
+        org.state = 'no-registrada'
+
         # org.expiration = date.today() + timedelta(days=730)
         # org.renoved = date.today()
-        org.state = 'no-registrada'
 
         if Org.objects.filter(name=name).first(): 
             return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values})
 
         org.save()
         
-        return render(request, 'orgs/soac.html', {'alert': 'Organización creada con exito', 'values': values})
+        return render(request, 'orgs/soac.html', {'alert': 'Organización cargada con exito', 'values': values})
+
+    return render(request, 'orgs/soac.html', {'values': values})
+
+@login_required
+def push_roac_view(request):
+    values = {}
+    if request.method == 'POST':
+        name = request.POST['name']
+        org = Org()
+        org.name = name
+        org.domain = request.POST['domain']
+        org.address = request.POST['address']
+        org.dpto = request.POST['dpto']
+        org.nhood = request.POST['nhood']
+        org.commune = request.POST['commune']
+        org.areas = request.POST['areas']
+        org.igj = request.POST['igj']
+        org.type = request.POST['type']
+        org.public = request.POST['public']
+        org.postal_code = request.POST['postal_code']
+        org.email = request.POST['email']
+        org.mobile = request.POST['mobile']
+        org.state = 'pre-activa'
+
+        org.created = date.today()
+        org.modified = date.today()
+        org.registration_request = date.today()
+        org.expiration = date.today() + timedelta(days=730)
+
+        if Org.objects.filter(name=name).first(): 
+            return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values})
+
+        org.save()
+        
+        return render(request, 'orgs/soac.html', {'alert': 'Organización enviada a la bandeja de analisis', 'values': values})
 
     return render(request, 'orgs/soac.html', {'values': values})
 
@@ -66,7 +101,7 @@ def orgs_view(request):
         igj = request.POST.get('igj', False)
         type = request.POST.get('type', False)
         public = request.POST.get('public', False)
-        postal_code = request.POST.get('postal_code', False)
+        state = request.POST.get('state', False)
         roac = request.POST.get('roac', False)
 
         if igj == '1':
@@ -93,10 +128,10 @@ def orgs_view(request):
             'igj': igj,
             'type': type,
             'public': public,
-            'postal_code': postal_code,
+            'state': state,
         }
-        print(roac)
-        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, postal_code__startswith=postal_code, roac__startswith=roac )
+
+        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state, roac__startswith=roac )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values})
 
@@ -183,7 +218,7 @@ class Excel_report(TemplateView):
         return response
 
 @login_required
-def  register_roac_view(request, pk):
+def  register_request_view(request, pk):
     selected_org = Org.objects.get(id=pk)
 
     info = {
@@ -196,6 +231,7 @@ def  register_roac_view(request, pk):
 
         if form.is_valid():
             selected_org.state = 'pre-activa'
+            selected_org.registration_request = date.today()
             form.save()
             return redirect('org', selected_org.id)
             
@@ -223,6 +259,7 @@ def org_view(request, pk):
     mobile = org.mobile
     state = org.state
     created = org.created
+    enrolled = org.enrolled
     renoved = org.renoved
     expiration = org.expiration
     modified = org.modified
@@ -251,6 +288,7 @@ def org_view(request, pk):
     'modified':modified,
     'roac': roac,
     'doc': doc,
+    'enrolled': enrolled,
     }
 
     return render(request, 'orgs/org.html', context)
@@ -313,7 +351,7 @@ def down_org_view(request, pk):
     selected_org = Org.objects.get(id=pk)
 
     selected_org.roac = 0
-    selected_org.state = 'no-registrada'
+    selected_org.state = 'suspendida'
 
     try:
         selected_org.save()
@@ -321,6 +359,18 @@ def down_org_view(request, pk):
         return redirect('org', selected_org.id)
 
     return redirect('org', selected_org.id)
+
+@login_required
+def noregister_org_view(request, pk):
+    selected_org = Org.objects.get(id=pk)
+
+    selected_org.state = 'no-registrada'
+
+    try:
+        selected_org.save()
+        return redirect('analysis')
+    except IntegrityError:
+        return redirect('analysis')
 
 @login_required
 def download_org_view(request, pk):

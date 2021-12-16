@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Bandeja de edicion</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-light p-5">
+	<a href="javascript: history.go(-1)"
+	><svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="32"
+		height="32"
+		fill="currentColor"
+		class="bi bi-arrow-left-circle mt-1"
+		viewBox="0 0 16 16"
+	>
+		<path
+			fill-rule="evenodd"
+			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+		/></svg
+></a>
+	<h1 class="text-light display-2 text-center mb-5">Bandeja de firma</h1>
+
+	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
+		<table class="table text-center text-light">
+		<thead>
+			<tr>
+				<th scope="col">Nombre</th>
+				<th scope="col">Solicitud</th>
+				<th scope="col">Documentacion</th>
+				<th scope="col">Informacion</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for u in sign %}
+			<tr>
+				<td>{{u.name}}</td>
+				<td>{{u.registration_request}}</td>
+				<td><a class="btn btn-secondary-light" target="_blank" href="/media/{{u.doc}}">Ver</a></td>
+                <td><a class="btn btn-secondary-light" target="_blank" href="/organizations/org/{{u.id}}/" role="button">Ver</a></td>
+                <td>
+					<a
+						href="#"
+						class=" text-decoration-none btn btn-primary-dark"
+						id="dropdownUser1"
+						data-bs-toggle="dropdown"
+						aria-expanded="false"
+						>Acciones
+					</a>
+					<ul
+						class="dropdown-menu dropdown-menu-light text-small shadow"
+						aria-labelledby="dropdownUser1"
+					>
+                        <li>
+                            <a class="text-center dropdown-item text-danger" href="/inbox/sign/return/{{u.id}}/" role="button">Devolver</a>
+                        </li>
+                        <li><hr class="dropdown-divider" /></li>
+						<li>
+							<a class="text-center dropdown-item" href="#" role="button">Firmar</a>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+	{% if nothing == None %}
+	<div class="form-group d-flex justify-content-around mt-5">
+		<p>Esperando notificaciones...</p>
+	</div>
+	{% endif %}
+</article>
+
+{% endblock %}

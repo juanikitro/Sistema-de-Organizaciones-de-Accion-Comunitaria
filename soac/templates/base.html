@@ -19,24 +19,23 @@
 			crossorigin="anonymous"
 		/>
 		<!-- Extras -->
+		<link rel="stylesheet" href="{% static 'css/alerts.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/scrollreveal.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/accordions.css' %}" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap"
 			rel="stylesheet"
 		/>
-		<title>SOAC</title>
 		<script src="https://unpkg.com/scrollreveal@4"></script>
-		<!-- Estilos -->
-		<style>
-			html.sr .load-hidden {
-				visibility: hidden;
-			}
-		</style>
+		<title>SOAC</title>
+
 	</head>
 	<body
 		style="font-family: 'Montserrat'; max-width: 100vw; overflow-x: hidden"
-		class="row bg-dark"
+		class="row bg-lightblue"
 	>
 		<section
 			class="
@@ -44,8 +43,8 @@
 				col-sm-1
 				flex-column flex-shrink-0
 				p-3
-				text-dark
-				bg-light
+				bg-lightblue
+				text-light
 				sticky-top
 			"
 			style="width: 200px; height: 100vh"
@@ -57,7 +56,7 @@
 					align-items-center
 					mb-3 mb-md-0
 					me-md-auto
-					text-dark text-decoration-none
+					text-light text-decoration-none
 				"
 			>
 				<span class="mx-2"
@@ -73,7 +72,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -99,7 +98,7 @@
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
-								<a class="dropdown-item" href="#"
+								<a class="dropdown-item" href="{% url 'roac' %}"
 									>Registrar en ROAC</a
 								>
 							</li>
@@ -119,7 +118,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -141,15 +140,15 @@
 							<li>
 								<a
 									class="dropdown-item"
-									href="{% url 'signup' %}"
-									>Firma</a
+									href="{% url 'edit' %}"
+									>Edición</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
 									class="dropdown-item"
-									href="{% url 'signup' %}"
+									href="{% url 'analysis' %}"
 									>Analisis</a
 								>
 							</li>
@@ -157,10 +156,11 @@
 							<li>
 								<a
 									class="dropdown-item"
-									href="{% url 'users' %}"
-									>Edición</a
+									href="{% url 'sign' %}"
+									>Firma</a
 								>
 							</li>
+							
 						</ul>
 					</div>
 				</li>
@@ -171,7 +171,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								mb-4
 								mx-2
 							"
@@ -190,7 +190,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								mb-4
 								mx-2
 							"
@@ -209,7 +209,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								mb-4
 								mx-2
 							"
@@ -228,7 +228,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								mb-4
 								mx-2
 							"
@@ -247,7 +247,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -314,7 +314,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -359,7 +359,8 @@
 					class="
 						d-flex
 						align-items-center
-						text-dark text-decoration-none
+						text-light
+						text-decoration-none
 						dropdown-toggle
 						justify-content-center
 					"
@@ -385,7 +386,7 @@
 				</ul>
 			</div>
 		</section>
-		<section class="col load-hidden content">
+		<section class="col bg-blue load-hidden content">
 			{% block body %}{% endblock%}
 		</section>
 
