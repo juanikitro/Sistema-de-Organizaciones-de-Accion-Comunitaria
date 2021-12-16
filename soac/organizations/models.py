@@ -21,6 +21,8 @@ class Org(models.Model):
     # ROAC
     roac = models.BooleanField(default=False)
     doc = models.FileField(default='', upload_to='roac/doc/',)
+    msg = models.CharField(max_length=255, default='', null=True, blank=True)
+
     # nota_solicitud_inscripcion = models.FileField(default='', upload_to='roac/nota_solicitud_inscripcion/',)
     # acta_libro_actas = models.FileField(default='', upload_to='roac/acta_libro_actas/')
     # acta_asamblea = models.FileField(default='', upload_to='roac/acta_asamblea')
