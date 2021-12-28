@@ -79,15 +79,24 @@
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
 				<label class="text-light">Comuna</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Comuna"
-					name="commune"
-					required="true"
-					class="form-control"
-					value="{{old.commune}}"
-				/>
+				<select name='commune' class="form-select">
+					<option selected value='{{old.commune}}'>{{old.commune}}</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+				  </select>
 			</div>
 			<div class="form-group col-md-5">
 				<label class="text-light">Areas</label>
@@ -116,16 +125,14 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">IGJ</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="IGJ"
+				<label class="text-light">Inscripta en IGJ</label>
+				<select
 					name="igj"
-					required="true"
 					class="form-control"
-					value="{{old.igj}}"
-				/>
+				>
+					<option selected value="No">No</option>
+					<option value="Si">Si</option>
+				</select>
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
@@ -136,7 +143,6 @@
 					type="text"
 					placeholder="Publico"
 					name="public"
-					required="true"
 					class="form-control"
 					value="{{old.public}}"
 				/>
@@ -148,7 +154,6 @@
 					type="text"
 					placeholder="Codigo postal"
 					name="postal_code"
-					required="true"
 					class="form-control"
 					value="{{old.postal_code}}"
 				/>

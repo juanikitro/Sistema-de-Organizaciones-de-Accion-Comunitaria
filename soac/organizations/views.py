@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 
 # Models
 from organizations.models import Org
+from visits.models import Visit
 from organizations.forms import DocumentForm
 
 # Open Py XL (Para el excel)
@@ -101,21 +102,8 @@ def orgs_view(request):
         type = request.POST.get('type', False)
         public = request.POST.get('public', False)
         state = request.POST.get('state', False)
-        roac = request.POST.get('roac', False)
 
-        if igj == '1':
-            igj = '1'
-        elif igj == '2':
-            igj = '0'
-        elif igj == 'nn':
-            igj = ''
-        elif igj == '0':
-            igj = ''
-
-        if roac == 'on':
-            roac = 1
-        elif roac == False:
-            roac = 0
+        print(igj, state)
 
         values={
             'name': name,
@@ -130,7 +118,7 @@ def orgs_view(request):
             'state': state,
         }
 
-        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state, roac__startswith=roac )
+        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values})
 
@@ -243,6 +231,7 @@ def  register_request_view(request, pk):
 @login_required
 def org_view(request, pk):
     org = Org.objects.get(id=pk)
+    visits = Visit.objects.filter(org_name = org.name).order_by('date')
 
     id = org.id
     name = org.name
@@ -289,6 +278,7 @@ def org_view(request, pk):
     'roac': roac,
     'doc': doc,
     'enrolled': enrolled,
+    'visit': visits,
     }
 
     return render(request, 'orgs/org.html', context)

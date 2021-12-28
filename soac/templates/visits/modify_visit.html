@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block head_content %}
-<title>SOAC - Modificación de actividad</title>
+<title>SOAC - Modificación de visita</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-light p-5">
 	<a href="javascript: history.go(-1)"
@@ -26,14 +26,14 @@
 		{% csrf_token %}
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-10">
-				<label class="text-light">Nombre</label>
+				<label class="text-light">Observacion</label>
 				<input
 					autocomplete="off"
 					type="text"
-					name="visit_name"
+					name="observation"
 					required="true"
 					class="form-control"
-					value="{{visit.visit_name}}"
+					value="{{visit.observation}}"
 				/>
 			</div>
 		</div>

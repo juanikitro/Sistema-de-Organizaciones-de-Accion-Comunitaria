@@ -54,9 +54,9 @@ def signup_view(request):
         email = request.POST['email']
 
 
-        if User.objects.filter(username=username).first(): 
+        if Profile.objects.filter(username=username).first(): 
             return render(request, 'users/signup.html', {'error': 'El cuit ya pertenece a una cuenta'})
-        if User.objects.filter(email=email).first(): 
+        if Profile.objects.filter(email=email).first(): 
             return render(request, 'users/signup.html', {'error': 'El email ya pertenece a una cuenta'})
 
         user = User.objects.create_user(username, email, password)
@@ -285,7 +285,7 @@ def modify_profile_view(request, pk):
             selected_user.save()
             selected_profile.save()
         except IntegrityError:
-            return render(request, 'users/modify_profile.html', {'old': old_info, 'error': 'El cuit ya esta en uso'})
+            return render(request, 'users/modify_profile.html', {'old': old_info, 'error': 'El cuit o email ya esta en uso'})
             
         return redirect('profile', selected_profile.id)
 

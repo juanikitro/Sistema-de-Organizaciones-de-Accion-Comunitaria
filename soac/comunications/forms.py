@@ -4,9 +4,10 @@ from organizations.models import Org
 
 class SendToUsers(forms.Form):
     OPTIONS = ()
+
     for u in Profile.objects.all():
-        tuple = ((u.id, f'{u.first_name} {u.last_name}'),)
-        OPTIONS = OPTIONS + tuple
+            tuple = ((u.id, f'{u.first_name} {u.last_name}'),)
+            OPTIONS = OPTIONS + tuple
 
     users = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple

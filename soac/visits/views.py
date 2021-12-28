@@ -34,7 +34,7 @@ def visits_view(request):
         visit.observation = request.POST.get('observation')     
         visit.org = request.POST.get('org')  
         visit.org_name = Org.objects.get( id = request.POST.get('org')).name
-        email = Org.objects.get( id = request.POST.get('org')).email
+        email = Org.objects.get(id = request.POST.get('org')).email
         visit.save() 
     
         emails  = [email]
@@ -63,21 +63,14 @@ def visit_view(request, pk):
 @login_required
 def visit_delete_view(request, pk):
     visit = Visit.objects.get(id=pk)
+    email = Org.objects.get(id = visit.org).email
 
-    emails = []
+    emails = [email]
     subject = f'SOAC: Eliminacion de visita del dia {visit.date}'
     email_from = settings.EMAIL_HOST_USER
     message = f'''Hola! Te contacto desde SOAC para informarte que la visita del dia: {visit.date} ha sido eliminada.'''
 
-    i = visit.orgs.all()
-    ids = i.values_list('pk', flat=True)
-    for u in ids:
-        org = Org.objects.get(id=u)
-        emails.append(org.email)
-
     send_mail(subject, message, email_from, emails)
-
-
     visit.delete()
     
     return redirect('visits')
@@ -87,12 +80,13 @@ def visit_modify_view(request, pk):
     visit = Visit.objects.get(id=pk)
 
     if request.method == 'POST':
-        visit.visit_name = request.POST.get('visit_name')     
         visit.date = request.POST.get('date')     
         visit.hour = request.POST.get('hour')     
-        visit.save()
-
-        emails = []
+        visit.observation = request.POST.get('observation')     
+        email = Org.objects.get(id = visit.org).email
+        visit.save() 
+    
+        emails  = [email]
         subject = f'SOAC: Modificacion a la visita del dia {visit.date}'
         link = f'http://127.0.0.1:8000/visits/{visit.id}/' #FIXME: Cambiar cuando existan los servers
         email_from = settings.EMAIL_HOST_USER
@@ -103,15 +97,7 @@ def visit_modify_view(request, pk):
         Podes ver mas sobre este entrando al siguiente link:
         {link}'''
 
-        i = visit.orgs.all()
-        ids = i.values_list('pk', flat=True)
-        for u in ids:
-            org = Org.objects.get(id=u)
-            emails.append(org.email)
-
         send_mail(subject, message, email_from, emails)
-
-        visit.save()
         return redirect('visit', visit.id)
 
-    return render(request, 'visits/modify_activ.html', {'visit': visit})
+    return render(request, 'visits/modify_visit.html', {'visit': visit})

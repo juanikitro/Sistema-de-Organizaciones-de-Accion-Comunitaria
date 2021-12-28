@@ -9,7 +9,7 @@ class Org(models.Model):
     commune = models.CharField(max_length=3)
     areas = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
-    igj = models.BooleanField(default=False)
+    igj = models.CharField(default='No', max_length=10)
     email = models.EmailField(max_length=255)
     mobile = models.CharField(max_length = 255)
 
@@ -19,7 +19,7 @@ class Org(models.Model):
     domain = models.CharField(max_length=255, default='No especificado')
 
     # ROAC
-    roac = models.BooleanField(default=False)
+    roac = models.CharField(default='No', max_length=10)
     doc = models.FileField(default='', upload_to='roac/doc/',)
     msg = models.CharField(max_length=255, default='', null=True, blank=True)
 

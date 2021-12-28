@@ -34,7 +34,7 @@
 	</head>
 	<body
 		style="font-family: 'Montserrat'; max-width: 100vw; overflow-x: hidden"
-		class="row bg-lightblue"
+		class="row bg-lightblue text-light"
 	>
 		<section
 			class="
@@ -84,26 +84,26 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
 							aria-labelledby="dropdownUser1"
 						>
 							<li>
-								<a class="dropdown-item text-dark" href="{% url 'soac' %}"
+								<a class="dropdown-item text-light" href="{% url 'soac' %}"
 									>Cargar en SOAC</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
-								<a class="dropdown-item text-dark" href="{% url 'roac' %}"
+								<a class="dropdown-item text-light" href="{% url 'roac' %}"
 									>Registrar en ROAC</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
-								<a class="dropdown-item text-dark" href="{% url 'orgs' %}"
+								<a class="dropdown-item text-light" href="{% url 'orgs' %}"
 									>Buscar organizaciones</a
 								>
 							</li>
@@ -130,7 +130,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
@@ -138,7 +138,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'edit' %}"
 									>Edición</a
 								>
@@ -146,7 +146,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'analysis' %}"
 									>Analisis</a
 								>
@@ -154,7 +154,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'sign' %}"
 									>Firma</a
 								>
@@ -247,7 +247,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
@@ -255,7 +255,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'comunications_users' %}"
 									>Usuarios</a
 								>
@@ -263,7 +263,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'comunications_orgs' %}"
 									>Organizaciones</a
 								>
@@ -291,7 +291,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
@@ -299,7 +299,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'signup' %}"
 									>Altas</a
 								>
@@ -307,7 +307,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
 									>Renovaciónes</a
 								>
@@ -315,7 +315,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
 									>Estados</a
 								>
@@ -323,14 +323,14 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
 									>Vinculaciónes</a
 								>
 							</li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
 									>Historial</a
 								>
@@ -358,7 +358,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
@@ -366,7 +366,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'signup' %}"
 									>Crear usuario</a
 								>
@@ -374,7 +374,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-dark"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
 									>Buscar usuarios</a
 								>
@@ -402,15 +402,15 @@
 					<strong>{{request.user.username}}</strong>
 				</a>
 				<ul
-					class="dropdown-menu dropdown-menu-light text-small shadow"
+					class="dropdown-menu dropdown-menu-dark text-small shadow"
 					aria-labelledby="dropdownUser1"
 				>
 					<li>
-						<a class="dropdown-item text-dark" href="#">Reportar un error</a>
+						<a class="dropdown-item text-light" href="#">Reportar un error</a>
 					</li>
 					<li><hr class="dropdown-divider" /></li>
 					<li>
-						<a class="dropdown-item text-dark" href="{% url 'logout' %}"
+						<a class="dropdown-item text-light" href="{% url 'logout' %}"
 							>Cerrar sesion</a
 						>
 					</li>
