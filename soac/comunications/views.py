@@ -48,7 +48,7 @@ def comunications_orgs_view(request):
         if form.is_valid():
             orgs_id = form.cleaned_data.get('orgs')
 
-            emails = []
+            emails = [] 
             for u in orgs_id:
                 org = Org.objects.get(id=u)
                 emails.append(org.email)

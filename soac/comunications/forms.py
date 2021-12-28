@@ -16,7 +16,7 @@ class SendToUsers(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SendToUsers, self).__init__(*args, **kwargs)
-        self.fields['users'].label = "Usuarios destinatarios:"
+        self.fields['users'].label = "Usuarios:"
 
 class SendToOrgs(forms.Form):
     OPTIONS = ()
@@ -32,4 +32,4 @@ class SendToOrgs(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SendToOrgs, self).__init__(*args, **kwargs)
-        self.fields['orgs'].label = "Organizaciones destinatarias:"
+        self.fields['orgs'].label = "Organizaciones:"

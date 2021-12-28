@@ -39,12 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Apps de soac
+    # ----Apps de soac
     'users',
     'home',
     'organizations',
     'inbox',
-    'comunications'
+    'comunications',
+    'events',
+    'activities',
+    'visits',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +124,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-DATETIME_FORMAT="d-m-Y"
+DATETIME_FORMAT="Y-m-d"
 
 USE_I18N = True
 
