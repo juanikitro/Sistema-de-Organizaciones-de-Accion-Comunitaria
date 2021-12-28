@@ -8,6 +8,11 @@ from django.conf.urls.static import *
 from home import views as home_views
 from users import views as users_views
 from organizations import views as organizations_views
+from inbox import views as inbox_views
+from comunications import views as comunications_views
+from events import views as events_views
+from activities import views as activities_views
+from visits import views as visits_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,7 +34,45 @@ urlpatterns = [
 
     #Organizaciones
     path('organizations/', organizations_views.orgs_view, name='orgs'),
+    path('organizations/orgs_report', organizations_views.Excel_report.as_view(), name='orgs_report'),
     path('organizations/soac', organizations_views.push_soac_view, name='soac'),
-]
+    path('organizations/roac', organizations_views.push_roac_view, name='roac'),
+    path('organizations/org/<str:pk>/', organizations_views.org_view, name='org'),   
+    path('organizations/org/<str:pk>/delete/', organizations_views.delete_org_view, name='delete_org'),
+    path('organizations/org/<str:pk>/down/', organizations_views.down_org_view, name='down_org'),
+    path('organizations/org/<str:pk>/register/', organizations_views.register_request_view, name='register_roac'),
+    path('organizations/org/<str:pk>/modify/', organizations_views.modify_org_view, name='modify_org'),
+    path('organizations/org/<str:pk>/org_report/', organizations_views.download_org_view, name='org_report'),
 
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    #Bandejas
+    path('inbox/analysis', inbox_views.analysis_view, name='analysis'),
+    path('inbox/analysis/return/<str:pk>/', inbox_views.return_pre_view, name='return_pre'),
+    path('inbox/analysis/sign/<str:pk>/', inbox_views.sign_pre_view, name='sign_pre'),
+    path('inbox/edit', inbox_views.edit_view, name='edit'),
+    path('organizations/org/<str:pk>/noregister/', organizations_views.noregister_org_view, name='noregister_org'),
+    path('inbox/sign', inbox_views.sign_view, name='sign'),
+    path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
+
+    path('comunication/users/', comunications_views.comunications_users_view, name='comunications_users'),
+    path('comunication/orgs/', comunications_views.comunications_orgs_view, name='comunications_orgs'),
+
+    #Eventos
+    path('calendar/', events_views.general_calendar_view, name='calendar'),
+    path('events/', events_views.events_view, name='events'),
+    path('events/<str:pk>/', events_views.event_view, name='event'),
+    path('events/<str:pk>/modify/', events_views.event_modify_view, name='modify_event'),
+    path('events/<str:pk>/delete/', events_views.event_delete_view, name='delete_event'),
+
+    #Actividades
+    path('activities/', activities_views.activities_view, name='activities'),
+    path('activities/<str:pk>/', activities_views.activity_view, name='activity'),
+    path('activities/<str:pk>/modify/', activities_views.activity_modify_view, name='modify_activity'),
+    path('activities/<str:pk>/delete/', activities_views.activity_delete_view, name='delete_activity'),
+
+    #Visitas
+    path('visits/', visits_views.visits_view, name='visits'),
+    path('visits/<str:pk>/', visits_views.visit_view, name='visit'),
+    path('visits/<str:pk>/modify/', visits_views.visit_modify_view, name='modify_visit'),
+    path('visits/<str:pk>/delete/', visits_views.visit_delete_view, name='delete_visit'),
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

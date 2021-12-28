@@ -1,8 +1,9 @@
 {% extends "base.html" %} {% block head_content %}
-<title>SOAC - Busqueda de usuarios {{ username }}</title>
+<title>SOAC - Busqueda de usuarios</title>
 {% endblock%} {% block body %}
-<article class="container d-flex flex-column text-white p-5">
-	<h1 class="text-white display-2 text-center mb-5">Buscar usuario</h1>
+<article class="container d-flex flex-column text-light p-5">
+	<article class="container p-5"><a href="javascript: history.go(-1)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle mt-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/></svg></a>
+	<h1 class="text-light display-2 text-center mb-5">Buscar usuario</h1>
 
 	<form action="{% url 'users' %}" method="POST">
 		{% csrf_token %}
@@ -52,7 +53,7 @@
 				<input
 					class="form-control"
 					type="text"
-					placeholder="Numero de contacto"
+					placeholder="Número de contacto"
 					name="mobile"
 					value="{{values.mobile}}"
 				/>
@@ -71,10 +72,11 @@
 				</select>
 			</div>
 		</div>
+
 		<div class="form-row d-flex justify-content-around my-3">
 			<div class="col-3 form-group">
 				<a
-					class="form-control btn btn-outline-primary mb-3"
+					class="form-control btn btn-primary-dark mb-3"
 					href="{% url 'user_report' %}"
 					role="button"
 					>Exportar</a
@@ -82,7 +84,7 @@
 			</div>
 			<div class="col-3 form-group">
 				<a
-					class="form-control btn btn-outline-primary mb-3"
+					class="form-control btn btn-primary-dark mb-3"
 					href="{% url 'users' %}"
 					role="button"
 					>Limpiar filtros</a
@@ -90,7 +92,7 @@
 			</div>
 			<div class="col-3 form-group">
 				<button
-					class="btn btn-primary px-3 mb-3 form-control"
+					class="btn btn-primary-dark px-3 mb-3 form-control"
 					type="submit"
 				>
 					Buscar
@@ -98,7 +100,8 @@
 			</div>
 		</div>
 	</form>
-	<table class="table table-dark text-center">
+	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
+		<table class="table text-center text-light">
 		<thead>
 			<tr>
 				<th scope="col">Cuit</th>
@@ -121,7 +124,7 @@
 				<td>{{u.level}}</td>
 				<td>
 					<a
-						class="btn btn-outline-primary"
+						class="btn btn-primary-dark"
 						href="profile/{{u.id}}/"
 						role="button"
 						>Ver</a
@@ -131,6 +134,7 @@
 			{% endfor %}
 		</tbody>
 	</table>
+</div>
 </article>
 
 {% endblock %}

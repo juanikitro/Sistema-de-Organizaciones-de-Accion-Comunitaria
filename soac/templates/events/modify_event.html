@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Modificación de evento: {{ event.event_name }}</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-light p-5">
+	<a href="javascript: history.go(-1)"
+	><svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="32"
+		height="32"
+		fill="currentColor"
+		class="bi bi-arrow-left-circle m	t-3"
+		viewBox="0 0 16 16"
+	>
+		<path
+			fill-rule="evenodd"
+			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+		/></svg
+	></a>
+	<h1 class="text-light display-2 text-center mb-5">Modificar a {{ event.event_name }}</h1>
+	<form
+		autocomplete="off"
+		action="{% url 'modify_event' event.id %}"
+		class="bg-lightblue card py-3"
+		method="POST"
+	>
+		{% csrf_token %}
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<label class="text-light">Nombre</label>
+				<input
+					autocomplete="off"
+					type="text"
+					name="event_name"
+					required="true"
+					class="form-control"
+					value="{{event.event_name}}"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<label class="text-light">Lugar</label>
+				<input
+					autocomplete="off"
+					type="text"
+					name="spot"
+					required="true"
+					class="form-control"
+					value="{{event.spot}}"
+				/>
+			</div>
+		</div>
+
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<label class="text-light">Fecha</label>
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="date"
+					name="date"
+                    pattern="dd-mm-yy"
+					required="true"
+					value="{{event.date}}"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<label class="text-light">Hora</label>
+				<input
+					autocomplete="off"
+					class="form-control"
+					type="time"
+					name="hour"
+					required="true"
+					value="{{event.hour}}"
+				/>
+			</div>
+		</div>
+		<div class="d-flex justify-content-center mb-3">
+			<button class="btn btn-primary-dark px-5" type="submit">
+				Modificar
+			</button>
+		</div>
+	</form>
+	{% if error %}
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-danger">{{ error }}</div>
+	</div>
+	{% endif %}
+</article>
+
+{% endblock %}

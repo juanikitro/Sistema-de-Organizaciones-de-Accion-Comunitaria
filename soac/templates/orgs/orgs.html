@@ -1,8 +1,9 @@
 {% extends "base.html" %} {% block head_content %}
-<title>SOAC - Busqueda de usuarios {{ username }}</title>
+<title>SOAC - Busqueda de organizaciónes</title>
 {% endblock%} {% block body %}
-<article class="container d-flex flex-column text-white p-5">
-	<h1 class="text-white display-2 text-center mb-5">Buscar Organizacion</h1>
+<article class="container d-flex flex-column text-light p-5">
+	<article class="container p-5"><a href="javascript: history.go(-1)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle mt-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/></svg></a>
+	<h1 class="text-light display-2 text-center mb-5">Buscar Organización</h1>
 
 	<form action="{% url 'orgs' %}" method="POST">
 		{% csrf_token %}
@@ -17,22 +18,19 @@
 				/>
 			</div>
 			<div class="col mx-1 form-group">
-				<select
-					aria-label="Default select example"
-					name="domain"
+				<input
 					class="form-control"
-				>
-					<option value="0" selected>Dominio</option>
-					<option value="nn">No especificado</option>
-					<option value="1">Propia</option>
-					<option value="2">Alquilada</option>
-				</select>
+					type="text"
+					placeholder="Dominio"
+					name="domain"
+					value="{{values.domain}}"
+				/>
 			</div>
 			<div class="col mx-1 form-group">
 				<input
 					class="form-control"
 					type="text"
-					placeholder="Direccion"
+					placeholder="Dirección"
 					name="address"
 					value="{{values.address}}"
 				/>
@@ -47,21 +45,30 @@
 				/>
 			</div>
 			<div class="col mx-1 form-group">
-				<input
-					class="form-control"
-					type="text"
-					placeholder="Comuna"
-					name="commune"
-					value="{{values.commune}}"
-				/>
+				<select name='commune' class="form-select">
+					<option value="">Comuna</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				  </select>
 			</div>
 		</div>
-		<div class="form-row d-flex justify-content-around">
+
+		<div class="form-row d-flex justify-content-around my-3">
 			<div class="col mx-1 form-group">
 				<input
 					class="form-control"
 					type="text"
-					placeholder="Areas"
+					placeholder="Áreas"
 					name="areas"
 					pattern="\d*"
 					maxlength="11"
@@ -69,15 +76,11 @@
 				/>
 			</div>
 			<div class="col mx-1 form-group">
-				<select
-					aria-label="Default select example"
-					name="igj"
-					class="form-control"
-				>
-					<option value="0">IGJ</option>
-					<option value="2">No</option>
-					<option value="1">Si</option>
-				</select>
+				<select name='igj' class="form-select">
+					<option value="">iGJ</option>
+					<option value="No">No</option>
+					<option value="Si">Si</option>
+				  </select>
 			</div>
 			<div class="col mx-1 form-group">
 				<input
@@ -92,19 +95,21 @@
 				<input
 					class="form-control"
 					type="text"
-					placeholder="Publico"
+					placeholder="Público"
 					name="public"
 					value="{{values.public}}"
 				/>
 			</div>
 			<div class="col mx-1 form-group">
-				<input
-					class="form-control"
-					type="text"
-					placeholder="Codigo postal"
-					name="postal_code"
-					value="{{values.postal_code}}"
-				/>
+				<select name='state' class="form-select">
+					<option value="">Estado</option>
+					<option value="no-registrada">no-registrada</option>
+					<option value="pre-activa">pre-activa</option>
+					<option value="editar">editar</option>
+					<option value="firmar">firmar</option>
+					<option value="activa">activa</option>
+					<option value="suspendida">suspendida</option>
+				  </select>
 			</div>
 		</div>
 		<div
@@ -114,42 +119,43 @@
 				justify-content-center
 			"
 		>
-			<label for="flexSwitchCheckDefault">ROAC</label>
-			<input
-				class="mx-4 form-check-input"
-				type="checkbox"
-				name="roac"
-				id="flexSwitchCheckDefault"
-			/>
 		</div>
 
-		<div class="d-flex justify-content-center">
-			<button class="w-25 btn btn-warning px-3 mb-3" type="submit">
-				Buscar
-			</button>
+		<div class="form-row d-flex justify-content-around my-3">
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-primary-dark mb-3"
+					href="{% url 'orgs_report' %}"
+					role="button"
+					>Exportar</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-primary-dark mb-3"
+					href="{% url 'orgs' %}"
+					role="button"
+					>Limpiar filtros</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<button
+					class="btn btn-primary-dark px-3 mb-3 form-control"
+					type="submit"
+				>
+					Buscar
+				</button>
+			</div>
 		</div>
 	</form>
-	<div class="d-flex justify-content-center">
-		<a
-			class="w-25 btn btn-outline-warning mb-3"
-			href="{% url 'user_report' %}"
-			role="button"
-			>Exportar</a
-		>
-	</div>
-	<table class="table table-dark text-center">
+	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
+	<table class="table text-light">
 		<thead>
 			<tr>
 				<th scope="col">Nombre</th>
-				<th scope="col">Dominio</th>
-				<th scope="col">Direccion</th>
-				<th scope="col">Barrio</th>
-				<th scope="col">Comuna</th>
-				<th scope="col">Areas</th>
 				<th scope="col">IGJ</th>
-				<th scope="col">Tipo</th>
-				<th scope="col">Publico</th>
-				<th scope="col">Codigo postal</th>
+				<th scope="col">Estado</th>
+				<th scope="col">ROAC</th>
 				<th scope="col"></th>
 			</tr>
 		</thead>
@@ -157,18 +163,14 @@
 			{% for u in org %}
 			<tr>
 				<td>{{u.name}}</td>
-				<td>{{u.domain}}</td>
-				<td>{{u.address}}</td>
-				<td>{{u.nhood}}</td>
-				<td>{{u.commune}}</td>
-				<td>{{u.areas}}</td>
 				<td>{{u.igj}}</td>
-				<td>{{u.type}}</td>
-				<td>{{u.public}}</td>
-				<td>{{u.postal_code}}</td>
+				<td>{{u.state}}</td>
+				<td>
+				{{u.roac}}
+				</td>
 				<td>
 					<a
-						class="btn btn-outline-warning"
+						class="btn btn-primary-dark"
 						href="org/{{u.id}}/"
 						role="button"
 						>Ver</a
@@ -178,6 +180,7 @@
 			{% endfor %}
 		</tbody>
 	</table>
+</div>
 </article>
 
 {% endblock %}

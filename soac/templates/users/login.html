@@ -18,13 +18,18 @@
 			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 			crossorigin="anonymous"
 		/>
+
+		<!-- Extras -->
+		<link rel="stylesheet" href="{% static 'css/alerts.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/scrollreveal.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 	</head>
-	<body class="bg-dark">
-	<section class='container p-5'>
-	<h1 class="text-white display-2 text-center mb-5">Sistema de Organizaciones de Accion Comunitaria</h1>
+	<body class="bg-lightblue">
+	<section class=' container p-5'>
+	<h1 class="text-light display-2 text-center mb-5">Sistema de Organizaciones de Acción Comunitaria</h1>
 		<form class="form-group p-5 d-flex align-items-center flex-column" method="POST" action="{% url "login" %}">
 			{% csrf_token %}
-			<label class="text-white">Cuit</label>
+			<label class="text-light">Cuit</label>
 			<input
 				autocomplete="off" 
 				class="form-control w-50 mb-3"
@@ -35,7 +40,7 @@
 				placeholder="Cuit"
 				name="username"
 				required="true" />
-			<label class="text-white">Contraseña</label>
+			<label class="text-light">Contraseña</label>
 			<input
 				autocomplete="off" 
 				class="form-control w-50 mb-3"
@@ -43,9 +48,9 @@
 				placeholder="Contraseña"
 				name="password"
 				required="true" />
-			<a name="" id="" class="btn btn-sm btn-outline-primary mb-3" href="{% url 'send_reset_password' %}" role="button">Olvide mi contraseña</a>
+			<a name="" id="" class="btn btn-sm btn-primary-dark mb-3" href="{% url 'send_reset_password' %}" role="button">Olvidé mi contraseña</a>
 			<button
-					class="btn btn-primary btn-block form-control w-50"
+					class="btn btn-primary-dark btn-block form-control w-50"
 					type="submit"
 				>
 					Ingresar
@@ -53,7 +58,9 @@
 
 		</form>
 			{% if error %}
-				<div class="alert alert-danger fixed-bottom text-center" style="color: red;">{{ error }}</div>
+			<div class="d-flex justify-content-center">
+				<div class="msg msg-danger"> {{ error }}</div>
+			</div>
 			{% endif%}
 	</section>
     

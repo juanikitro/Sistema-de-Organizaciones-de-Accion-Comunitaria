@@ -9,26 +9,41 @@ class Org(models.Model):
     commune = models.CharField(max_length=3)
     areas = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
-    igj = models.BooleanField(default=False)
+    igj = models.CharField(default='No', max_length=10)
+    email = models.EmailField(max_length=255)
+    mobile = models.CharField(max_length = 255)
 
     # Opcionales
     public = models.CharField(max_length=255, default='No especificado')
-    postal_code = models.CharField(max_length=10, default='No especificado')
+    postal_code = models.CharField(max_length=255, default='No especificado')
     domain = models.CharField(max_length=255, default='No especificado')
 
     # ROAC
-    roac = models.BooleanField(default=False)
-    nota_solicitud_inscripcion = models.FileField(upload_to='Org')
-    acta_libro_actas = models.FileField(upload_to='Org')
-    acta_asamblea = models.FileField(upload_to='Org')
-    estatuto_social = models.FileField(upload_to='Org')
-    nomina_comision = models.FileField(upload_to='Org')
-    dni_comision = models.FileField(upload_to='Org')
-    nomina_asociados = models.FileField(upload_to='Org')
-    sede_social = models.FileField(upload_to='Org')
-    abl = models.FileField(upload_to='Org')
-    extra = models.FileField(upload_to='Org')
+    roac = models.CharField(default='No', max_length=10)
+    doc = models.FileField(default='', upload_to='roac/doc/',)
+    msg = models.CharField(max_length=255, default='', null=True, blank=True)
+
+    # nota_solicitud_inscripcion = models.FileField(default='', upload_to='roac/nota_solicitud_inscripcion/',)
+    # acta_libro_actas = models.FileField(default='', upload_to='roac/acta_libro_actas/')
+    # acta_asamblea = models.FileField(default='', upload_to='roac/acta_asamblea')
+    # estatuto_social = models.FileField(default='', upload_to='roac/estatuto_social')
+    # nomina_comision = models.FileField(default='', upload_to='roac/nomina_comision')
+    # dni_comision = models.FileField(default='', upload_to='roac/dni_comision')
+    # nomina_asociados = models.FileField(default='', upload_to='roac/nomina_asociados')
+    # sede_social = models.FileField(default='', upload_to='roac/sede_social')
+    # abl = models.FileField(default='', upload_to='roac/abl')
+    # extras = models.FileField(default='', upload_to='roac/extras')
 
     # Extras
-    created = models.DateTimeField(editable=False)
-    modified = models.DateTimeField()
+    state = models.CharField(max_length=255, default='no-registrada') # no-registrada pre-activa, firmar, activa, suspendida, editar
+    created= models.DateTimeField(auto_now_add=True, null=True)
+    registration_request= models.DateTimeField(null=True)
+    enrolled = models.DateTimeField(null=True)
+    renoved = models.DateTimeField(null=True)
+    expiration = models.DateTimeField(null=True)
+    modified = models.DateTimeField(null=True)
+    # no-registrada <-> preactiva
+    # editar <-> pre-activa
+    # pre-activa <-> firmar
+    # firmar -> activa
+    # activa -> suspendida

@@ -19,24 +19,22 @@
 			crossorigin="anonymous"
 		/>
 		<!-- Extras -->
+		<link rel="stylesheet" href="{% static 'css/alerts.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/scrollreveal.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/accordions.css' %}" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap"
 			rel="stylesheet"
 		/>
-		<title>SOAC</title>
 		<script src="https://unpkg.com/scrollreveal@4"></script>
-		<!-- Estilos -->
-		<style>
-			html.sr .load-hidden {
-				visibility: hidden;
-			}
-		</style>
+		<title>SOAC</title>
 	</head>
 	<body
 		style="font-family: 'Montserrat'; max-width: 100vw; overflow-x: hidden"
-		class="row bg-dark"
+		class="row bg-lightblue text-light"
 	>
 		<section
 			class="
@@ -44,8 +42,8 @@
 				col-sm-1
 				flex-column flex-shrink-0
 				p-3
-				text-dark
-				bg-light
+				bg-lightblue
+				text-light
 				sticky-top
 			"
 			style="width: 200px; height: 100vh"
@@ -57,7 +55,7 @@
 					align-items-center
 					mb-3 mb-md-0
 					me-md-auto
-					text-dark text-decoration-none
+					text-light text-decoration-none
 				"
 			>
 				<span class="mx-2"
@@ -73,7 +71,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -86,26 +84,26 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
 							aria-labelledby="dropdownUser1"
 						>
 							<li>
-								<a class="dropdown-item" href="{% url 'soac' %}"
+								<a class="dropdown-item text-light" href="{% url 'soac' %}"
 									>Cargar en SOAC</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
-								<a class="dropdown-item" href="#"
+								<a class="dropdown-item text-light" href="{% url 'roac' %}"
 									>Registrar en ROAC</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
-								<a class="dropdown-item" href="{% url 'orgs' %}"
+								<a class="dropdown-item text-light" href="{% url 'orgs' %}"
 									>Buscar organizaciones</a
 								>
 							</li>
@@ -119,51 +117,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
-								dropdown-toggle
-								mb-4
-								mx-2
-							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
-						>
-							Usuarios
-						</a>
-						<ul
-							class="
-								dropdown-menu dropdown-menu-light
-								text-small
-								shadow
-							"
-							aria-labelledby="dropdownUser1"
-						>
-							<li>
-								<a
-									class="dropdown-item"
-									href="{% url 'signup' %}"
-									>Crear usuario</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a
-									class="dropdown-item"
-									href="{% url 'users' %}"
-									>Buscar usuarios</a
-								>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li class="mb-1">
-					<div class="dropdown">
-						<a
-							href="#"
-							class="
-								d-flex
-								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -176,7 +130,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
@@ -184,25 +138,134 @@
 						>
 							<li>
 								<a
-									class="dropdown-item"
-									href="{% url 'signup' %}"
-									>Firma</a
+									class="dropdown-item text-light"
+									href="{% url 'edit' %}"
+									>Edición</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
-									href="{% url 'signup' %}"
+									class="dropdown-item text-light"
+									href="{% url 'analysis' %}"
 									>Analisis</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
-									href="{% url 'users' %}"
-									>Edicion</a
+									class="dropdown-item text-light"
+									href="{% url 'sign' %}"
+									>Firma</a
+								>
+							</li>
+							
+						</ul>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="{% url 'calendar' %}"
+							class="
+								d-flex
+								align-items-center
+								text-light text-decoration-none
+								mb-4
+								mx-2
+							"
+						>
+							Calendario
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="{% url 'visits' %}"
+							class="
+								d-flex
+								align-items-center
+								text-light text-decoration-none
+								mb-4
+								mx-2
+							"
+						>
+							Visitas
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="{% url 'activities' %}"
+							class="
+								d-flex
+								align-items-center
+								text-light text-decoration-none
+								mb-4
+								mx-2
+							"
+						>
+							Actividades
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="{% url 'events' %}"
+							class="
+								d-flex
+								align-items-center
+								text-light text-decoration-none
+								mb-4
+								mx-2
+							"
+						>
+							Eventos
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div class="dropdown">
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								text-light text-decoration-none
+								dropdown-toggle
+								mb-4
+								mx-2
+							"
+							id="dropdownUser1"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Comunicaciones
+						</a>
+						<ul
+							class="
+								dropdown-menu dropdown-menu-dark
+								text-small
+								shadow
+							"
+							aria-labelledby="dropdownUser1"
+						>
+							<li>
+								<a
+									class="dropdown-item text-light"
+									href="{% url 'comunications_users' %}"
+									>Usuarios</a
+								>
+							</li>
+							<li><hr class="dropdown-divider" /></li>
+							<li>
+								<a
+									class="dropdown-item text-light"
+									href="{% url 'comunications_orgs' %}"
+									>Organizaciones</a
 								>
 							</li>
 						</ul>
@@ -215,7 +278,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -228,7 +291,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-light
+								dropdown-menu dropdown-menu-dark
 								text-small
 								shadow
 							"
@@ -236,7 +299,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-light"
 									href="{% url 'signup' %}"
 									>Altas</a
 								>
@@ -244,15 +307,15 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
-									>Renovaciones</a
+									>Renovaciónes</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
 									>Estados</a
 								>
@@ -260,22 +323,30 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-light"
 									href="{% url 'users' %}"
-									>Vinculaciones</a
+									>Vinculaciónes</a
+								>
+							</li>
+							<li>
+								<a
+									class="dropdown-item text-light"
+									href="{% url 'users' %}"
+									>Historial</a
 								>
 							</li>
 						</ul>
 					</div>
 				</li>
 				<li class="mb-1">
-					<div>
+					<div class="dropdown">
 						<a
 							href="#"
 							class="
 								d-flex
 								align-items-center
-								text-dark text-decoration-none
+								text-light text-decoration-none
+								dropdown-toggle
 								mb-4
 								mx-2
 							"
@@ -283,27 +354,32 @@
 							data-bs-toggle="dropdown"
 							aria-expanded="false"
 						>
-							Visitas
+							Usuarios
 						</a>
-					</div>
-				</li>
-				<li class="mb-1">
-					<div>
-						<a
-							href="#"
+						<ul
 							class="
-								d-flex
-								align-items-center
-								text-dark text-decoration-none
-								mb-4
-								mx-2
+								dropdown-menu dropdown-menu-dark
+								text-small
+								shadow
 							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
+							aria-labelledby="dropdownUser1"
 						>
-							Historial
-						</a>
+							<li>
+								<a
+									class="dropdown-item text-light"
+									href="{% url 'signup' %}"
+									>Crear usuario</a
+								>
+							</li>
+							<li><hr class="dropdown-divider" /></li>
+							<li>
+								<a
+									class="dropdown-item text-light"
+									href="{% url 'users' %}"
+									>Buscar usuarios</a
+								>
+							</li>
+						</ul>
 					</div>
 				</li>
 			</ul>
@@ -314,7 +390,8 @@
 					class="
 						d-flex
 						align-items-center
-						text-dark text-decoration-none
+						text-light
+						text-decoration-none
 						dropdown-toggle
 						justify-content-center
 					"
@@ -325,22 +402,22 @@
 					<strong>{{request.user.username}}</strong>
 				</a>
 				<ul
-					class="dropdown-menu dropdown-menu-light text-small shadow"
+					class="dropdown-menu dropdown-menu-dark text-small shadow"
 					aria-labelledby="dropdownUser1"
 				>
 					<li>
-						<a class="dropdown-item" href="#">Reportar un error</a>
+						<a class="dropdown-item text-light" href="#">Reportar un error</a>
 					</li>
 					<li><hr class="dropdown-divider" /></li>
 					<li>
-						<a class="dropdown-item" href="{% url 'logout' %}"
+						<a class="dropdown-item text-light" href="{% url 'logout' %}"
 							>Cerrar sesion</a
 						>
 					</li>
 				</ul>
 			</div>
 		</section>
-		<section class="col load-hidden content">
+		<section class="col bg-blue load-hidden content">
 			{% block body %}{% endblock%}
 		</section>
 
@@ -358,5 +435,9 @@
 
 		<!-- Scroll Reveal -->
 		<script src="{% static 'js/js_reveal.js' %}"></script>
+
+		<!-- Custom JS -->
+		{% block custom_js %}{% endblock %}
+		
 	</body>
 </html>
