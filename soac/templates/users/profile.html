@@ -16,37 +16,37 @@
 			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
 		/></svg
 ></a>
-	<h1 class="text-light display-2 text-center mb-5">{{ name }}</h1>
+	<h1 class="text-light display-2 text-center mb-3">{{ name }}</h1>
 
 	<h3 class="text-center">{{ username }}</h3>
 	<div class="bg-lightblue text-light card p-3 ">
-	<table class="text-light table w-100 ">
-		<tr class="py-3">
-			<td><strong>ID:</strong></td>
-			<td class="py-3 text-end">{{ id }}</td>
-		</tr>
-		<tr class="mb-3">
-			<td><strong>Email:</strong></td>
-			<td class="py-3 text-end">{{ email }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Número de contacto:</strong></td>
-			<td class="py-3 text-end">{{ mobile }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Rol:</strong></td>
-			<td class="py-3 text-end">{{ level }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Creado:</strong></td>
-			<td class="py-3 text-end">{{ created }}</td>
-		</tr>
-		<tr class="py-3">
-			<td><strong>Modificado:</strong></td>
-			<td class="py-3 text-end">{{ modified }}</td>
-		</tr>
-	</table>
-</div>
+		<table class="text-light table w-100 ">
+			<tr class="py-3">
+				<td><strong>ID:</strong></td>
+				<td class="py-3 text-end">{{ id }}</td>
+			</tr>
+			<tr class="mb-3">
+				<td><strong>Email:</strong></td>
+				<td class="py-3 text-end">{{ email }}</td>
+			</tr>
+			<tr class="py-3">
+				<td><strong>Número de contacto:</strong></td>
+				<td class="py-3 text-end">{{ mobile }}</td>
+			</tr>
+			<tr class="py-3">
+				<td><strong>Rol:</strong></td>
+				<td class="py-3 text-end">{{ level }}</td>
+			</tr>
+			<tr class="py-3">
+				<td><strong>Creado:</strong></td>
+				<td class="py-3 text-end">{{ created | date:"d-m-Y" }}</td>
+			</tr>
+			<tr class="py-3">
+				<td><strong>Modificado:</strong></td>
+				<td class="py-3 text-end">{{ modified | date:"d-m-Y" }}</td>
+			</tr>
+		</table>
+	</div>
 	<div class="d-flex justify-content-around mt-5">
 		<a
 			href="#"
@@ -70,7 +70,7 @@
 				>
 			</li>
 			<li>
-				<a class="text-center dropdown-item" href="profile/{{id}}/"
+				<a class="text-center dropdown-item" href=""
 					>No</a
 				>
 			</li>

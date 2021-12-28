@@ -22,7 +22,7 @@
 
 		<div class="form-row d-flex justify-content-around mb-3 ">
 			<div class="form-group col-md-5">
-				<label class="text-light">Nombre</label>
+				<label class="text-light">Nombre *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -46,7 +46,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Calle y altura</label>
+				<label class="text-light">Calle y altura *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -58,7 +58,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Departamento</label>
+				<label class="text-light">Departamento *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -73,7 +73,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Barrio</label>
+				<label class="text-light">Barrio *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -85,22 +85,26 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Comuna</label>
-				<input
-					autocomplete="off"
-					type="text"
-					maxlength="2"
-					placeholder="Ej: 4"
-					name="commune"
-					required="true"
-					class="form-control"
-					value="{{values.commune}}"
-				/>
+				<label class="text-light">Comuna *</label>
+				<select name='commune' class="form-select">
+					<option selected value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				  </select>
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Áreas</label>
+				<label class="text-light">Áreas *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -126,7 +130,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Tipo de organización</label>
+				<label class="text-light">Tipo de organización *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -153,16 +157,15 @@
 			<div class="form-group col-md-5">
 				<label class="text-light">Inscripta en IGJ</label>
 				<select
-					aria-label="Default select example"
 					name="igj"
 					class="form-control"
 				>
-					<option value="False">No</option>
+					<option selected value="False">No</option>
 					<option value="True">Si</option>
 				</select>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light text-center">Email</label
+				<label class="text-light text-center">Email *</label
 				><input
 					autocomplete="off"
 					class="form-control"

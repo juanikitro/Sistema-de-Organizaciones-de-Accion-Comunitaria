@@ -91,19 +91,19 @@
 							aria-labelledby="dropdownUser1"
 						>
 							<li>
-								<a class="dropdown-item" href="{% url 'soac' %}"
+								<a class="dropdown-item text-dark" href="{% url 'soac' %}"
 									>Cargar en SOAC</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
-								<a class="dropdown-item" href="{% url 'roac' %}"
+								<a class="dropdown-item text-dark" href="{% url 'roac' %}"
 									>Registrar en ROAC</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
-								<a class="dropdown-item" href="{% url 'orgs' %}"
+								<a class="dropdown-item text-dark" href="{% url 'orgs' %}"
 									>Buscar organizaciones</a
 								>
 							</li>
@@ -138,7 +138,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'edit' %}"
 									>Edición</a
 								>
@@ -146,7 +146,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'analysis' %}"
 									>Analisis</a
 								>
@@ -154,7 +154,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'sign' %}"
 									>Firma</a
 								>
@@ -166,7 +166,7 @@
 				<li class="mb-1">
 					<div>
 						<a
-							href="#"
+							href="{% url 'calendar' %}"
 							class="
 								d-flex
 								align-items-center
@@ -174,9 +174,22 @@
 								mb-4
 								mx-2
 							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
+						>
+							Calendario
+						</a>
+					</div>
+				</li>
+				<li class="mb-1">
+					<div>
+						<a
+							href="{% url 'visits' %}"
+							class="
+								d-flex
+								align-items-center
+								text-light text-decoration-none
+								mb-4
+								mx-2
+							"
 						>
 							Visitas
 						</a>
@@ -185,7 +198,7 @@
 				<li class="mb-1">
 					<div>
 						<a
-							href="#"
+							href="{% url 'activities' %}"
 							class="
 								d-flex
 								align-items-center
@@ -193,9 +206,6 @@
 								mb-4
 								mx-2
 							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
 						>
 							Actividades
 						</a>
@@ -204,7 +214,7 @@
 				<li class="mb-1">
 					<div>
 						<a
-							href="#"
+							href="{% url 'events' %}"
 							class="
 								d-flex
 								align-items-center
@@ -212,9 +222,6 @@
 								mb-4
 								mx-2
 							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
 						>
 							Eventos
 						</a>
@@ -248,7 +255,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'comunications_users' %}"
 									>Usuarios</a
 								>
@@ -256,7 +263,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'comunications_orgs' %}"
 									>Organizaciones</a
 								>
@@ -292,7 +299,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'signup' %}"
 									>Altas</a
 								>
@@ -300,7 +307,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Renovaciónes</a
 								>
@@ -308,7 +315,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Estados</a
 								>
@@ -316,14 +323,14 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Vinculaciónes</a
 								>
 							</li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Historial</a
 								>
@@ -359,7 +366,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'signup' %}"
 									>Crear usuario</a
 								>
@@ -367,7 +374,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Buscar usuarios</a
 								>
@@ -399,11 +406,11 @@
 					aria-labelledby="dropdownUser1"
 				>
 					<li>
-						<a class="dropdown-item" href="#">Reportar un error</a>
+						<a class="dropdown-item text-dark" href="#">Reportar un error</a>
 					</li>
 					<li><hr class="dropdown-divider" /></li>
 					<li>
-						<a class="dropdown-item" href="{% url 'logout' %}"
+						<a class="dropdown-item text-dark" href="{% url 'logout' %}"
 							>Cerrar sesion</a
 						>
 					</li>
@@ -428,5 +435,9 @@
 
 		<!-- Scroll Reveal -->
 		<script src="{% static 'js/js_reveal.js' %}"></script>
+
+		<!-- Custom JS -->
+		{% block custom_js %}{% endblock %}
+		
 	</body>
 </html>

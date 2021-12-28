@@ -47,3 +47,12 @@ li {
 	max-height: 450px;
 	overflow-y: scroll;
 }
+
+a {
+	color: #f8f9fa !important;
+	text-decoration: none !important;
+}
+
+.errorlist > li {
+	display: none;
+}

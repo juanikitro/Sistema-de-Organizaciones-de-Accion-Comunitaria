@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block head_content %}
-<title>SOAC - Home</title>
+<title>SOAC - Comunicado a organizaciones</title>
 {% endblock%} {% block body %}
 
 <article class="container p-5">
@@ -25,8 +25,10 @@
                     {% csrf_token %}
                     {{ form.as_table }}
                 </div>
-                <button value="Submit"	class="btn btn-primary-dark w-25" type="submit">Enviar</button>
-            </div>
+                <div class="form-row d-flex justify-content-around my-3">
+                    <button value="Submit"	class="btn btn-primary-dark w-75" type="submit">Enviar</button>
+                </div>
+                </div>
             <div class="col-md-5 d-flex flex-column">
                 <label>Comunicado:</label>
                 <textarea maxlength='500' name='msg' class="form-control h-75 card" id="exampleFormControlTextarea1"></textarea>

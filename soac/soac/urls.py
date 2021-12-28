@@ -9,8 +9,10 @@ from home import views as home_views
 from users import views as users_views
 from organizations import views as organizations_views
 from inbox import views as inbox_views
-
 from comunications import views as comunications_views
+from events import views as events_views
+from activities import views as activities_views
+from visits import views as visits_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -51,7 +53,26 @@ urlpatterns = [
     path('inbox/sign', inbox_views.sign_view, name='sign'),
     path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
 
-    path('comunication/users', comunications_views.comunications_users_view, name='comunications_users'),
-    path('comunication/orgs', comunications_views.comunications_orgs_view, name='comunications_orgs'),
+    path('comunication/users/', comunications_views.comunications_users_view, name='comunications_users'),
+    path('comunication/orgs/', comunications_views.comunications_orgs_view, name='comunications_orgs'),
+
+    #Eventos
+    path('calendar/', events_views.general_calendar_view, name='calendar'),
+    path('events/', events_views.events_view, name='events'),
+    path('events/<str:pk>/', events_views.event_view, name='event'),
+    path('events/<str:pk>/modify/', events_views.event_modify_view, name='modify_event'),
+    path('events/<str:pk>/delete/', events_views.event_delete_view, name='delete_event'),
+
+    #Actividades
+    path('activities/', activities_views.activities_view, name='activities'),
+    path('activities/<str:pk>/', activities_views.activity_view, name='activity'),
+    path('activities/<str:pk>/modify/', activities_views.activity_modify_view, name='modify_activity'),
+    path('activities/<str:pk>/delete/', activities_views.activity_delete_view, name='delete_activity'),
+
+    #Visitas
+    path('visits/', visits_views.visits_view, name='visits'),
+    path('visits/<str:pk>/', visits_views.visit_view, name='visit'),
+    path('visits/<str:pk>/modify/', visits_views.visit_modify_view, name='modify_visit'),
+    path('visits/<str:pk>/delete/', visits_views.visit_delete_view, name='delete_visit'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
