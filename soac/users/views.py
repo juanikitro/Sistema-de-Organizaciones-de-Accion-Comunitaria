@@ -47,6 +47,9 @@ def signup_view(request):
     user similar
     Se usa atomic por si hay error en uno de los dos save() '''
 
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     values = {}
     if request.method == 'POST':
         username = request.POST['username']        
@@ -83,9 +86,9 @@ def signup_view(request):
             'mobile': request.POST['mobile'],
         }
         
-        return render(request, 'users/signup.html', {'alert': 'Usuario creado con exito'})
+        return render(request, 'users/signup.html', {'alert': 'Usuario creado con exito', 'level': profile_level})
 
-    return render(request, 'users/signup.html', {'values': values})
+    return render(request, 'users/signup.html', {'values': values, 'level': profile_level})
 
 @login_required
 def logout_view(request):
@@ -101,6 +104,9 @@ def users_view(request):
     Values = void dict para que los inputs empiecen en 0 y se guarden para hacer busquedas similares
     Prepara todos los datos para mostrar en la tabla 
     Se filtran los usuarios y se envian al template '''
+
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
 
     global profile
     profile = Profile.objects.all()
@@ -131,7 +137,7 @@ def users_view(request):
         }
         profile = Profile.objects.filter(first_name__startswith=name, last_name__startswith=lastname, username__startswith=cuit, email__startswith=email, mobile__startswith=mobile, level__startswith=level)
 
-    return render(request, 'users/users.html', {'profile': profile, 'values': values})
+    return render(request, 'users/users.html', {'profile': profile, 'values': values, 'level': profile_level})
 
 class Excel_report(TemplateView):
     '''Export de usuarios
@@ -198,6 +204,9 @@ def profile_view(request, pk):
     Se busca que perfil coincide con la url y que usuario coincide con este perfil
     Se preparan todos los datos a mostrar en la tabla y se envian como context '''
 
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     profile = Profile.objects.get(id=pk)
     user = User.objects.get(id=profile.user_id)
 
@@ -227,7 +236,8 @@ def profile_view(request, pk):
     'mobile':mobile,
     'modified':modified,
     'created':created,
-    'level':level
+    'level':level,
+    'level': profile_level
     }
 
     return render(request, 'users/profile.html', context)
@@ -255,6 +265,9 @@ def modify_profile_view(request, pk):
     Guarda temporalmente la información vieja del perfil a modificar
     Extrae los datos del template para la modificación y previene el uso de un username(cuit) utilizado
     Sustituye los datos del usuario por los nuevamente colocados y guarda '''
+
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
 
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
@@ -285,16 +298,19 @@ def modify_profile_view(request, pk):
             selected_user.save()
             selected_profile.save()
         except IntegrityError:
-            return render(request, 'users/modify_profile.html', {'old': old_info, 'error': 'El cuit o email ya esta en uso'})
+            return render(request, 'users/modify_profile.html', {'old': old_info, 'error': 'El cuit o email ya esta en uso', 'level': profile_level})
             
         return redirect('profile', selected_profile.id)
 
-    return render(request, 'users/modify_profile.html', {'old': old_info})
+    return render(request, 'users/modify_profile.html', {'old': old_info, 'level': profile_level})
 
 @login_required
 def reset_password_view(request, pk):
     '''Reseteo de password de Django
     Pide confirmación de password para evitar futuros problemas '''
+
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
 
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
@@ -314,9 +330,9 @@ def reset_password_view(request, pk):
             selected_user.save()
             return redirect('profile', selected_profile.id)
         else:
-            return render(request, 'users/reset_password.html', {'old': old_info, 'error': 'Las contraseñas no coinciden'})
+            return render(request, 'users/reset_password.html', {'old': old_info, 'error': 'Las contraseñas no coinciden', 'level': profile_level})
 
-    return render(request, 'users/reset_password.html', {'old': old_info})
+    return render(request, 'users/reset_password.html', {'old': old_info, 'level': profile_level})
 
 def send_reset_password_view(request):
     '''Reseteo de password para usuario no logeado

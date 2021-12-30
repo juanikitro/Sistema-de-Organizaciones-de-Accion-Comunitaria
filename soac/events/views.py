@@ -10,12 +10,13 @@ from .models import Event
 from activities.models import Activity
 from visits.models import Visit
 from organizations.models import Org
-
-#Forms
-from comunications.forms import SendToOrgs
+from users.models import Profile
 
 @login_required
 def general_calendar_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     events = Event.objects.all()
     activities = Activity.objects.all()
     visits = Visit.objects.all()
@@ -27,53 +28,55 @@ def general_calendar_view(request):
        'activity': activities,
        'visit': visits,
        'year' : year,
+       'level': profile_level
        }
 
     return render(request,'events/calendar.html', data)
 
 @login_required
 def events_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     events = Event.objects.all().order_by('date')
     orgs = Org.objects.all()
     today = datetime.now().date()
     year = today.year
-    form = SendToOrgs(request.POST)
-   
+
     data = {
        'event': events,
        'orgs': orgs,
        'year' : year,
-       'form' : form,
+       'level': profile_level
        }
 
     if request.method == 'POST':
-        if form.is_valid():
-            event = Event()
-            event.event_name = request.POST.get('event_name')     
-            event.date = request.POST.get('date')     
-            event.hour = request.POST.get('hour')     
-            event.spot = request.POST.get('spot') 
-            event.save() 
+        event = Event()
+        event.event_name = request.POST.get('event_name')     
+        event.date = request.POST.get('date')     
+        event.hour = request.POST.get('hour')     
+        event.spot = request.POST.get('spot') 
+        event.save() 
 
-            if request.POST.get('notify') == 'on':
-                orgs_id = form.cleaned_data.get('orgs')
-                emails = []
-                subject = f'SOAC: Invitacion al evento "{event.event_name}"'
-                link = f'http://127.0.0.1:8000/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
-                email_from = settings.EMAIL_HOST_USER
-                message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} te invito al evento "{event.event_name}". 
-                Fecha: {event.date}
-                Hora: {event.hour}
-                Lugar: {event.spot}
-                Podes ver mas sobre este entrando al siguiente link:
-                {link}'''
+        if request.POST.get('notify') == 'on':
+            orgs_id = request.POST.getlist('orgs')
+            emails = []
+            subject = f'SOAC: Invitacion al evento "{event.event_name}"'
+            link = f'http://127.0.0.1:8000/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
+            email_from = settings.EMAIL_HOST_USER
+            message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} te invito al evento "{event.event_name}". 
+            Fecha: {event.date}
+            Hora: {event.hour}
+            Lugar: {event.spot}
+            Podes ver mas sobre este entrando al siguiente link:
+            {link}'''
 
-                for u in orgs_id:
-                    org = Org.objects.get(id=u)
-                    event.orgs.add(org)
-                    emails.append(org.email)
-                    
-                send_mail(subject, message, email_from, emails)
+            for u in orgs_id:
+                org = Org.objects.get(id=u)
+                event.orgs.add(org)
+                emails.append(org.email)
+                
+            send_mail(subject, message, email_from, emails)
 
         return redirect('events')
 
@@ -81,6 +84,9 @@ def events_view(request):
 
 @login_required
 def event_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     event = Event.objects.get(id=pk)
 
     orgs = ''
@@ -91,7 +97,7 @@ def event_view(request, pk):
         orgs_names = (f'{org.name}, ')
         orgs = orgs + orgs_names
     
-    return render(request,'events/event.html', {'event':event, 'orgs':orgs})
+    return render(request,'events/event.html', {'event':event, 'orgs':orgs, 'level': profile_level})
 
 @login_required
 def event_delete_view(request, pk):
@@ -117,6 +123,9 @@ def event_delete_view(request, pk):
 
 @login_required
 def event_modify_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+    
     event = Event.objects.get(id=pk)
 
     if request.method == 'POST':
@@ -148,4 +157,4 @@ def event_modify_view(request, pk):
         event.save()
         return redirect('event', event.id)
 
-    return render(request, 'events/modify_event.html', {'event': event})
+    return render(request, 'events/modify_event.html', {'event': event, 'level': profile_level})

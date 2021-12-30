@@ -72,61 +72,67 @@
 		/></svg
 	></a>
 	<h1 class="text-light display-2 text-center mb-5">Visitas</h1>
-
-	<article class="row bg-blue justify-content-between">
-        <div class="bg-lightblue card col-8 ">
-		    <div class='' id="calendar"></div>
-        </div>
-        <div class='col-4 card bg-lightblue h-100'>
-            <form class="mt-3" autocomplete="off" action="{% url 'visits' %}" method="POST">
-                {% csrf_token %}
-                <div class="d-flex flex-column justify-content-around mb-3">
-                    <label class="text-light">Fecha: *</label>
-                    <input
-                        autocomplete="off"
-                        class="form-control mb-3"
-                        type="date"
-                        placeholder="Fecha"
-                        name="date"
-                        required="true"
-                    />
-                    <label class="text-light">Hora: *</label>
-                    <input
-                        autocomplete="off"
-                        class="form-control mb-3"
-                        type="time"
-                        placeholder="Hora"
-                        name="hour"
-                        value="00:00:00"
-                        required="true"
-                        /> 
-                    <label class="text-light">Observaciones: </label>
-                    <textarea 
-                    maxlength='200' 
-                    name='observation' 
-                    class="form-control mb-3" 
-                    id="exampleFormControlTextarea1" 
-                    rows="3"></textarea>
-                    <label class="text-light">Organizacion: </label>
-                    <select
-                        class="form-control mb-3"
-                        name="org"
-                        required="true">
-                        {% for o in orgs %}
-                            <option value="{{o.id}}">{{o.name}}</option>
-                        {% endfor %}
-                    </select>
-                    <button
-                        class="btn btn-primary-dark btn-block form-control mb-3"
-                        type="submit"
-                    >
-                        Registrar
-                    </button>
-                </div>
-            </form>
-        </div>
-	</article>
-
+    {% if level == 'central' or level == 'admin' %}
+        <article class="row bg-blue justify-content-between">
+            <div class="bg-lightblue card col-8 ">
+                <div class='' id="calendar"></div>
+            </div>
+            <div class='col-4 card bg-lightblue h-100'>
+                <form class="mt-3" autocomplete="off" action="{% url 'visits' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="d-flex flex-column justify-content-around mb-3">
+                        <label class="text-light">Fecha: *</label>
+                        <input
+                            autocomplete="off"
+                            class="form-control mb-3"
+                            type="date"
+                            placeholder="Fecha"
+                            name="date"
+                            required="true"
+                        />
+                        <label class="text-light">Hora: *</label>
+                        <input
+                            autocomplete="off"
+                            class="form-control mb-3"
+                            type="time"
+                            placeholder="Hora"
+                            name="hour"
+                            value="00:00:00"
+                            required="true"
+                            /> 
+                        <label class="text-light">Observaciones: </label>
+                        <textarea 
+                        maxlength='200' 
+                        name='observation' 
+                        class="form-control mb-3" 
+                        id="exampleFormControlTextarea1" 
+                        rows="3"></textarea>
+                        <label class="text-light">Organizacion: </label>
+                        <select
+                            class="form-control mb-3"
+                            name="org"
+                            required="true">
+                            {% for o in orgs %}
+                                <option value="{{o.id}}">{{o.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <button
+                            class="btn btn-primary-dark btn-block form-control mb-3"
+                            type="submit"
+                        >
+                            Registrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </article>
+    {% else %}
+        <article class="row bg-blue justify-content-between">
+            <div class="bg-lightblue card col ">
+                <div class='' id="calendar"></div>
+            </div>
+        </article>
+    {% endif %}
     <article class='p-3 bg-lightblue card mt-5'>
         <table class="table text-light">
             <thead>

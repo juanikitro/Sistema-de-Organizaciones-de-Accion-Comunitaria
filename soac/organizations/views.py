@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 
 # Models
 from organizations.models import Org
+from users.models import Profile
 from visits.models import Visit
 from organizations.forms import DocumentForm
 
@@ -19,6 +20,10 @@ from django.http.response import HttpResponse
 
 @login_required
 def push_soac_view(request):
+    
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     values = {}
     if request.method == 'POST':
         name = request.POST['name']
@@ -44,16 +49,19 @@ def push_soac_view(request):
         # org.renoved = date.today()
 
         if Org.objects.filter(name=name).first(): 
-            return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values})
+            return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
 
         org.save()
         
-        return render(request, 'orgs/soac.html', {'alert': 'Organización cargada con exito', 'values': values})
+        return render(request, 'orgs/soac.html', {'alert': 'Organización cargada con exito', 'values': values, 'level': profile_level})
 
-    return render(request, 'orgs/soac.html', {'values': values})
+    return render(request, 'orgs/soac.html', {'values': values, 'level': profile_level})
 
 @login_required
 def push_roac_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     values = {}
     if request.method == 'POST':
         name = request.POST['name']
@@ -79,12 +87,12 @@ def push_roac_view(request):
         org.expiration = date.today() + timedelta(days=730)
 
         if Org.objects.filter(name=name).first(): 
-            return render(request, 'orgs/roac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values})
+            return render(request, 'orgs/roac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
 
         org.save()
         return redirect('register_roac', org.id)
 
-    return render(request, 'orgs/roac.html', {'values': values})
+    return render(request, 'orgs/roac.html', {'values': values, 'level': profile_level})
 
 @login_required
 def orgs_view(request):
@@ -230,6 +238,10 @@ def  register_request_view(request, pk):
 
 @login_required
 def org_view(request, pk):
+
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     org = Org.objects.get(id=pk)
     visits = Visit.objects.filter(org_name = org.name).order_by('date')
 
@@ -256,6 +268,7 @@ def org_view(request, pk):
     doc = org.doc
     
     context = {
+    'level': profile_level,
     'org':org,
     'id':id,
     'name':name,
@@ -292,6 +305,9 @@ def delete_org_view(request, pk):
 
 @login_required
 def modify_org_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     selected_org = Org.objects.get(id=pk)
     old_info = {
         'id': selected_org.id,
@@ -330,11 +346,11 @@ def modify_org_view(request, pk):
         try:
             selected_org.save()
         except IntegrityError:
-            return render(request, 'orgs/modify_org.html', {'old': old_info, 'error': 'Ese nombre ya esta en uso'})
+            return render(request, 'orgs/modify_org.html', {'old': old_info, 'level': profile_level, 'error': 'Ese nombre ya esta en uso'})
             
         return redirect('orgs')
 
-    return render(request, 'orgs/modify_org.html', {'old': old_info})
+    return render(request, 'orgs/modify_org.html', {'old': old_info, 'level': profile_level})
 
 @login_required
 def down_org_view(request, pk):
