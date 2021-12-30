@@ -64,52 +64,54 @@
 			</a>
 			<hr />
 			<ul class="nav nav-pills flex-column mb-auto">
-				<li class="mb-1">
-					<div class="dropdown">
-						<a
-							href="#"
-							class="
-								d-flex
-								align-items-center
-								text-light text-decoration-none
-								dropdown-toggle
-								mb-4
-								mx-2
-							"
-							id="dropdownUser1"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
-						>
-							Organizaciones
-						</a>
-						<ul
-							class="
-								dropdown-menu dropdown-menu-dark
-								text-small
-								shadow
-							"
-							aria-labelledby="dropdownUser1"
-						>
-							<li>
-								<a class="dropdown-item text-light" href="{% url 'soac' %}"
-									>Cargar en SOAC</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a class="dropdown-item text-light" href="{% url 'roac' %}"
-									>Registrar en ROAC</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a class="dropdown-item text-light" href="{% url 'orgs' %}"
-									>Buscar organizaciones</a
-								>
-							</li>
-						</ul>
-					</div>
-				</li>
+				{% if level != 'presidente' %}
+					<li class="mb-1">
+						<div class="dropdown">
+							<a
+								href="#"
+								class="
+									d-flex
+									align-items-center
+									text-light text-decoration-none
+									dropdown-toggle
+									mb-4
+									mx-2
+								"
+								id="dropdownUser1"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								Organizaciones
+							</a>
+							<ul
+								class="
+									dropdown-menu dropdown-menu-dark
+									text-small
+									shadow
+								"
+								aria-labelledby="dropdownUser1"
+							>
+								<li>
+									<a class="dropdown-item text-light" href="{% url 'soac' %}"
+										>Cargar en SOAC</a
+									>
+								</li>
+								<li><hr class="dropdown-divider" /></li>
+								<li>
+									<a class="dropdown-item text-light" href="{% url 'roac' %}"
+										>Registrar en ROAC</a
+									>
+								</li>
+								<li><hr class="dropdown-divider" /></li>
+								<li>
+									<a class="dropdown-item text-light" href="{% url 'orgs' %}"
+										>Buscar organizaciones</a
+									>
+								</li>
+							</ul>
+						</div>
+					</li>
+				{% endif %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -136,33 +138,37 @@
 							"
 							aria-labelledby="dropdownUser1"
 						>
-							<li>
-								<a
+							{% if level != 'presidente' %}
+								<li>
+									<a
 									class="dropdown-item text-light"
 									href="{% url 'edit' %}"
 									>Edición</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a
-									class="dropdown-item text-light"
-									href="{% url 'analysis' %}"
-									>Analisis</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a
-									class="dropdown-item text-light"
-									href="{% url 'sign' %}"
-									>Firma</a
-								>
-							</li>
-							
+									>
+								</li>
+							{% endif %}
+							{% if level == 'central' or level == 'admin' %}
+								<li>
+									<a
+										class="dropdown-item text-light"
+										href="{% url 'analysis' %}"
+										>Analisis</a
+									>
+								</li>
+							{% endif %}
+							{% if level == 'presidente' or level == 'admin' %}
+								<li>
+									<a
+										class="dropdown-item text-light"
+										href="{% url 'sign' %}"
+										>Firma</a
+									>
+								</li>
+							{% endif %}
 						</ul>
 					</div>
 				</li>
+				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -179,6 +185,8 @@
 						</a>
 					</div>
 				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -195,6 +203,8 @@
 						</a>
 					</div>
 				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -211,6 +221,8 @@
 						</a>
 					</div>
 				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -227,6 +239,8 @@
 						</a>
 					</div>
 				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -271,6 +285,8 @@
 						</ul>
 					</div>
 				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -328,6 +344,7 @@
 									>Vinculaciónes</a
 								>
 							</li>
+							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
 									class="dropdown-item text-light"
@@ -338,6 +355,8 @@
 						</ul>
 					</div>
 				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -382,6 +401,7 @@
 						</ul>
 					</div>
 				</li>
+				{% endif %}
 			</ul>
 			<hr />
 			<div class="dropdown">

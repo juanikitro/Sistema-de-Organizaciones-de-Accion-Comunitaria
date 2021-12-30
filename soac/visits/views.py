@@ -8,14 +8,15 @@ from django.conf import settings
 #Modelos
 from visits.models import Visit
 from organizations.models import Org
-
-#Forms
-from comunications.forms import SendToOrgs
+from users.models import Profile
 
     #TODO: Visualizar en las tablas solo las visitaes/eventos/visitas que aun no pasaron
 
 @login_required
 def visits_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     visits = Visit.objects.all().order_by('date')
     orgs = Org.objects.all()
     today = datetime.now().date()
@@ -25,6 +26,7 @@ def visits_view(request):
        'visit': visits,
        'orgs': orgs,
        'year' : year,
+       'level': profile_level
        }
 
     if request.method == 'POST':
@@ -56,9 +58,12 @@ def visits_view(request):
 
 @login_required
 def visit_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     visit = Visit.objects.get(id=pk)
     
-    return render(request,'visits/visit.html', {'visit':visit})
+    return render(request,'visits/visit.html', {'visit':visit, 'level': profile_level})
 
 @login_required
 def visit_delete_view(request, pk):
@@ -77,6 +82,9 @@ def visit_delete_view(request, pk):
 
 @login_required
 def visit_modify_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+    
     visit = Visit.objects.get(id=pk)
 
     if request.method == 'POST':
@@ -100,4 +108,4 @@ def visit_modify_view(request, pk):
         send_mail(subject, message, email_from, emails)
         return redirect('visit', visit.id)
 
-    return render(request, 'visits/modify_visit.html', {'visit': visit})
+    return render(request, 'visits/modify_visit.html', {'visit': visit, 'level': profile_level})
