@@ -3,6 +3,8 @@
 {% block head_content %}
 <title>SOAC - Actividades</title>
 <link href="{% static 'css/fullcalendar/main.min.css' %}" rel='stylesheet' />
+<link rel="stylesheet" href="{% static 'css/multiselect/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/multiselect/bootstrap-select.min.css' %}">
 <script src="{% static 'js/fullcalendar/main.min.js' %}"></script>
 <script src="{% static 'js/fullcalendar/locales-all.min.js' %}"></script>
 
@@ -116,15 +118,26 @@
                         id="flexCheckChecked"
                         checked
                         />
-                        <label class="form-check-label" for="flexCheckChecked">
+                        <label class="form-check-label mx-3" for="flexCheckChecked">
                             Notificar a las organizaciones
                         </label>   
                     </div>
-                        <div style="max-height: 250px;" class="mini-results">
-                            {{ form.as_p }}
+                    <div class="my-3">
+                        <label>Organizaciones: *</label>
+                        <div class="">
+                            <div class="justify-content-center">
+                                <div style='color:#333 !important' class="">
+                                    <select name='orgs' class="selectpicker form-control" multiple="multiple" data-max-options="5000">
+                                        {% for o in orgs %}
+                                            <option style='color:#333 !important' value="{{o.id}}">{{o.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>  
                         </div>
+                    </div>
                     <button
-                        class="btn btn-primary-dark btn-block form-control mb-3"
+                        class="btn btn-primary-dark btn-block form-control mt-5 mb-3"
                         type="submit"
                     >
                         Registrar
@@ -171,4 +184,10 @@
         </table>
     </article>
 </section>
+
+<script src="{% static 'js/multiselect/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/multiselect/popper.min.js' %}"></script>
+<script src="{% static 'js/multiselect/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/multiselect/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'js/multiselect/main.js' %}"></script>
 {% endblock %}
