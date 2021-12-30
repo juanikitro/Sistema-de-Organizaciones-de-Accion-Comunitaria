@@ -8,14 +8,15 @@ from django.conf import settings
 #Modelos
 from activities.models import Activity
 from organizations.models import Org
-
-#Forms
-from comunications.forms import SendToOrgs
+from users.models import Profile
 
     #TODO: Visualizar en las tablas solo las actividades/eventos/visitas que aun no pasaron
 
 @login_required
 def activities_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     activities = Activity.objects.all().order_by('date')
     today = datetime.now().date()
     year = today.year
@@ -48,15 +49,18 @@ def activities_view(request):
                 org = Org.objects.get(id=u)
                 activity.orgs.add(org)
                 emails.append(org.email)
-                
+
             send_mail(subject, message, email_from, emails)
 
         return redirect('activities')
 
-    return render(request,'activities/activities.html', { 'activity': activities, 'orgs': orgs, 'year': year})
+    return render(request,'activities/activities.html', { 'activity': activities, 'orgs': orgs, 'year': year, 'level': profile_level})
 
 @login_required
 def activity_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+    
     activity = Activity.objects.get(id=pk)
 
     orgs = ''
@@ -67,7 +71,7 @@ def activity_view(request, pk):
         orgs_names = (f'{org.name}, ')
         orgs = orgs + orgs_names
     
-    return render(request,'activities/activity.html', {'activity':activity, 'orgs':orgs})
+    return render(request,'activities/activity.html', {'activity':activity, 'orgs':orgs, 'level': profile_level})
 
 @login_required
 def activity_delete_view(request, pk):
@@ -93,6 +97,9 @@ def activity_delete_view(request, pk):
 
 @login_required
 def activity_modify_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     activity = Activity.objects.get(id=pk)
 
     if request.method == 'POST':
@@ -122,4 +129,4 @@ def activity_modify_view(request, pk):
         activity.save()
         return redirect('activity', activity.id)
 
-    return render(request, 'activities/modify_activ.html', {'activity': activity})
+    return render(request, 'activities/modify_activ.html', {'activity': activity, 'level': profile_level})

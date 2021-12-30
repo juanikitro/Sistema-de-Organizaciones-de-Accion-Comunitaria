@@ -124,7 +124,9 @@
 		  </div>
 		</div>
 	</div>
-	<div class="d-flex justify-content-around mt-5">
+	<div class="d-flex justify-content-around mt-5"
+	>
+	{% if level == 'central' or level == 'admin' %}
 		<a
 			href="#"
 			class=" text-decoration-none btn btn-danger"
@@ -152,25 +154,30 @@
 				>
 			</li>
 		</ul>
-		{% if roac == 1 and state == 'activa' %}
+	{% endif %}
+	{% if level == 'central' or level == 'admin' %}
+		{% if  roac == 1 and state == 'activa' %}
 		<a
 			href="down/"
 			class=" text-decoration-none btn btn-danger"
 			>Dar de baja
 		</a>
 		{% endif %}
+	{% endif %}
 		<a class="btn btn-primary-dark" href="org_report/" role="button"
 			>Exportar</a
 		>
+	{% if level == 'central' or level == 'admin' %}
 		<a class="btn btn-primary-dark" href="modify/" role="button"
 			>Modificar</a
 		>
-		{% if state == 'no-registrada' or state == 'editar' %}
+	{% endif %}
+	{% if state == 'no-registrada' or state == 'editar' %}
 		<a class="btn btn-primary-dark" href="register/" role="button">Registrar</a>	
-		{% endif %}
-		{% if state == 'pre-activa' or state == 'activa' or state == 'firmar'%}
+	{% endif %}
+	{% if state == 'pre-activa' or state == 'activa' or state == 'firmar'%}
 		<a class="btn btn-primary-dark" target="_blank" href="/media/{{doc}}">Ver documentacion</a>
-		{% endif %}
+	{% endif %}
 	</div>
 </article>
 
