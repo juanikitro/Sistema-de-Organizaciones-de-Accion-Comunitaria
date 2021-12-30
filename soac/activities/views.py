@@ -17,49 +17,43 @@ from comunications.forms import SendToOrgs
 @login_required
 def activities_view(request):
     activities = Activity.objects.all().order_by('date')
-    orgs = Org.objects.all()
     today = datetime.now().date()
     year = today.year
-    form = SendToOrgs(request.POST)
-   
-    data = {
-       'activity': activities,
-       'orgs': orgs,
-       'year' : year,
-       'form' : form,
-       }
+    orgs = Org.objects.all()
 
     if request.method == 'POST':
-        if form.is_valid():
-            activity = Activity()
-            activity.activity_type = request.POST.get('activity_type')     
-            activity.date = request.POST.get('date')     
-            activity.hour = request.POST.get('hour')     
-            activity.save() 
 
-            if request.POST.get('notify') == 'on':
-                orgs_id = form.cleaned_data.get('orgs')
-                emails = []
-                subject = f'SOAC: Actividad: {activity.activity_type}'
-                link = f'http://127.0.0.1:8000/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
-                email_from = settings.EMAIL_HOST_USER
-                message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} creo la actividad: {activity.activity_type}. 
-                Fecha: {activity.date}
-                Hora: {activity.hour}
-                Tipo: {activity.activity_type}
-                Podes ver mas sobre esta entrando al siguiente link:
-                {link}'''
+        activity = Activity()
+        activity.activity_type = request.POST.get('activity_type')     
+        activity.date = request.POST.get('date')     
+        activity.hour = request.POST.get('hour')     
+        activity.save() 
 
-                for u in orgs_id:
-                    org = Org.objects.get(id=u)
-                    activity.orgs.add(org)
-                    emails.append(org.email)
+        if request.POST.get('notify') == 'on':
+            orgs_id = request.POST.getlist('orgs')
+            emails = []
 
-                send_mail(subject, message, email_from, emails)
+
+            subject = f'SOAC: Actividad: {activity.activity_type}'
+            link = f'http://127.0.0.1:8000/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
+            email_from = settings.EMAIL_HOST_USER
+            message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} creo la actividad: {activity.activity_type}. 
+            Fecha: {activity.date}
+            Hora: {activity.hour}
+            Tipo: {activity.activity_type}
+            Podes ver mas sobre esta entrando al siguiente link:
+            {link}'''
+
+            for u in orgs_id:
+                org = Org.objects.get(id=u)
+                activity.orgs.add(org)
+                emails.append(org.email)
+                
+            send_mail(subject, message, email_from, emails)
 
         return redirect('activities')
 
-    return render(request,'activities/activities.html', data)
+    return render(request,'activities/activities.html', { 'activity': activities, 'orgs': orgs, 'year': year})
 
 @login_required
 def activity_view(request, pk):
