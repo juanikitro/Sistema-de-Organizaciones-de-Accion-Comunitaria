@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from organizations.models import Org
 from users.models import Profile
 
+#Forms
+from inbox.forms import SignForm
+
 #Analisis
 @login_required
 def analysis_view(request):
@@ -33,7 +36,6 @@ def return_pre_view(request, pk):
 
     return render(request, 'inbox/return_pre.html', {'org': selected_org, 'level': profile_level})
 
-
 @login_required
 def sign_pre_view(request, pk):
     selected_org = Org.objects.get(id=pk)
@@ -55,7 +57,7 @@ def edit_view(request):
 
     return render(request, 'inbox/edit.html', {'editar': editar, 'nothing': nothing, 'level': profile_level})
     
-#Sign
+#Firma
 @login_required
 def sign_view(request):
     user_id = request.user.id
@@ -80,3 +82,23 @@ def return_sign_view(request, pk):
         return redirect('sign') 
 
     return render(request, 'inbox/return_sign.html', {'org': selected_org, 'level': profile_level})
+
+def signing_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+    
+    selected_org = Org.objects.get(id=pk)
+    if request.method == 'POST':
+        form = SignForm(request.POST, request.FILES, instance = selected_org)
+
+        if form.is_valid():
+            selected_org.state = 'activa'
+            selected_org.roac = 'Si'
+            selected_org.save()
+            form.save()
+            return redirect('org', selected_org.id)
+
+    else:
+        form = SignForm()
+
+    return render(request, 'inbox/signing.html', {'org': selected_org, 'form': form, 'level': profile_level})
