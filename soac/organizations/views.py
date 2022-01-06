@@ -84,7 +84,6 @@ def push_roac_view(request):
         org.created = date.today()
         org.modified = date.today()
         org.registration_request = date.today()
-        org.expiration = date.today() + timedelta(days=730)
 
         if Org.objects.filter(name=name).first(): 
             return render(request, 'orgs/roac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
@@ -96,6 +95,9 @@ def push_roac_view(request):
 
 @login_required
 def orgs_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     global org
     org = Org.objects.all()
     values = {}
@@ -128,7 +130,7 @@ def orgs_view(request):
 
         org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state )
 
-    return render(request, 'orgs/orgs.html', {'org': org, 'values': values})
+    return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
 
 class Excel_report(TemplateView):
     def get(self, *args, **kwargs):
@@ -214,6 +216,9 @@ class Excel_report(TemplateView):
 
 @login_required
 def  register_request_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     selected_org = Org.objects.get(id=pk)
 
     info = {
@@ -234,11 +239,10 @@ def  register_request_view(request, pk):
     else:
         form = DocumentForm()
 
-    return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form})
+    return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form, 'level': profile_level})
 
 @login_required
 def org_view(request, pk):
-
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -461,3 +465,32 @@ def download_org_view(request, pk):
     response['Content-Disposition'] = content
     wb.save(response)
     return response
+
+@login_required
+def signing_org_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
+    selected_org = Org.objects.get(id=pk)
+
+    info = {
+        'id': selected_org.id,
+        'name': selected_org.name,
+        'doc': selected_org.doc
+    }
+
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES, instance = selected_org)
+
+        if form.is_valid():
+            selected_org.state = 'activa'
+            selected_org.roac = 'Si'
+            selected_org.expiration = date.today() + timedelta(days=730)
+            selected_org.msg = ''
+            form.save()
+            return redirect('org', selected_org.id)
+            
+    else:
+        form = DocumentForm()
+
+    return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form})

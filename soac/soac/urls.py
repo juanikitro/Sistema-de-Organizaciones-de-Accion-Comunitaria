@@ -52,7 +52,9 @@ urlpatterns = [
     path('organizations/org/<str:pk>/noregister/', organizations_views.noregister_org_view, name='noregister_org'),
     path('inbox/sign', inbox_views.sign_view, name='sign'),
     path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
+    path('inbox/sign/signing/<str:pk>/', inbox_views.signing_view, name='signing'),
 
+    #Comunicaciones
     path('comunication/users/', comunications_views.comunications_users_view, name='comunications_users'),
     path('comunication/orgs/', comunications_views.comunications_orgs_view, name='comunications_orgs'),
 
