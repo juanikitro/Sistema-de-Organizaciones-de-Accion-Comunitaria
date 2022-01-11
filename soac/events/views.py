@@ -9,6 +9,7 @@ from django.conf import settings
 from .models import Event
 from activities.models import Activity
 from visits.models import Visit
+from history.models import Item
 from organizations.models import Org
 from users.models import Profile
 
@@ -58,6 +59,11 @@ def events_view(request):
         event.spot = request.POST.get('spot') 
         event.save() 
 
+        history_item = Item()
+        history_item.action = f'Creacion de evento: {event.event_name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         if request.POST.get('notify') == 'on':
             orgs_id = request.POST.getlist('orgs')
             emails = []
@@ -101,6 +107,7 @@ def event_view(request, pk):
 
 @login_required
 def event_delete_view(request, pk):
+    user_id = request.user.id
     event = Event.objects.get(id=pk)
 
     emails = []
@@ -116,6 +123,10 @@ def event_delete_view(request, pk):
 
     send_mail(subject, message, email_from, emails)
 
+    history_item = Item()
+    history_item.action = f'Eliminacion de evento: {event.event_name}'
+    history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+    history_item.save()
 
     event.delete()
     
@@ -134,6 +145,11 @@ def event_modify_view(request, pk):
         event.hour = request.POST.get('hour')     
         event.spot = request.POST.get('spot')     
         event.save()
+
+        history_item = Item()
+        history_item.action = f'Modificacion de actividad: {event.event_name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
 
         emails = []
         subject = f'SOAC: Modificacion al evento "{event.event_name}"'
