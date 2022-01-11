@@ -10,9 +10,11 @@ from django.views.generic import TemplateView
 from django.db import IntegrityError
 from django.conf import settings
 from django.core.mail import send_mail
+
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
+from history.models import Item
 
 # Open Py XL (Para el excel)
 from openpyxl import Workbook
@@ -86,6 +88,11 @@ def signup_view(request):
             'mobile': request.POST['mobile'],
         }
         
+        history_item = Item()
+        history_item.action = f'Creacion de usuario: {profile.username}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return render(request, 'users/signup.html', {'alert': 'Usuario creado con exito', 'level': profile_level})
 
     return render(request, 'users/signup.html', {'values': values, 'level': profile_level})
@@ -249,8 +256,14 @@ def delete_profile_view(request, pk):
     Busca que usuario y perfil coincide con la url
     Elimina el usuario y perfil '''
 
+    user_id = request.user.id
     selected_profile = Profile.objects.get(id=pk)
     selected_user = User.objects.get(id=selected_profile.user_id)
+
+    history_item = Item()
+    history_item.action = f'Eliminacion de usuario: {selected_profile.username}'
+    history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+    history_item.save()
 
     selected_profile.delete()
     selected_user.delete()
@@ -295,6 +308,11 @@ def modify_profile_view(request, pk):
         selected_profile.mobile = request.POST['mobile']
 
         try:
+            history_item = Item()
+            history_item.action = f'Modificacion de usuario: {selected_profile.username}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
             selected_user.save()
             selected_profile.save()
         except IntegrityError:
@@ -327,6 +345,12 @@ def reset_password_view(request, pk):
 
         if new_password == confirm_new_password:
             selected_user.set_password(new_password)
+
+            history_item = Item()
+            history_item.action = f'Blanqueo de clave de usuario: {selected_profile.username}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
             selected_user.save()
             return redirect('profile', selected_profile.id)
         else:

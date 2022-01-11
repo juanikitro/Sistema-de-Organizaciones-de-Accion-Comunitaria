@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect
 from organizations.models import Org
 from users.models import Profile
 from visits.models import Visit
+from history.models import Item
 from organizations.forms import DocumentForm
 
 # Open Py XL (Para el excel)
@@ -45,14 +46,16 @@ def push_soac_view(request):
         org.modified = date.today()
         org.state = 'no-registrada'
 
-        # org.expiration = date.today() + timedelta(days=730)
-        # org.renoved = date.today()
-
         if Org.objects.filter(name=name).first(): 
             return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
 
         org.save()
-        
+
+        history_item = Item()
+        history_item.action = f'Creacion de organizacion: {name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return render(request, 'orgs/soac.html', {'alert': 'Organización cargada con exito', 'values': values, 'level': profile_level})
 
     return render(request, 'orgs/soac.html', {'values': values, 'level': profile_level})
@@ -89,6 +92,12 @@ def push_roac_view(request):
             return render(request, 'orgs/roac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
 
         org.save()
+
+        history_item = Item()
+        history_item.action = f'Creacion de organizacion registrada: {name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return redirect('register_roac', org.id)
 
     return render(request, 'orgs/roac.html', {'values': values, 'level': profile_level})
@@ -112,8 +121,6 @@ def orgs_view(request):
         type = request.POST.get('type', False)
         public = request.POST.get('public', False)
         state = request.POST.get('state', False)
-
-        print(igj, state)
 
         values={
             'name': name,
@@ -234,6 +241,12 @@ def  register_request_view(request, pk):
             selected_org.msg = ''
             selected_org.registration_request = date.today()
             form.save()
+
+            history_item = Item()
+            history_item.action = f'Solicitud de registro: {selected_org.name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
             return redirect('org', selected_org.id)
             
     else:
@@ -302,8 +315,15 @@ def org_view(request, pk):
 
 login_required
 def delete_org_view(request, pk):
+    user_id = request.user.id
+
     selected_org = Org.objects.get(id=pk)
     selected_org.delete()
+
+    history_item = Item()
+    history_item.action = f'Eliminacion de organizacion: {selected_org.name}'
+    history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+    history_item.save()
 
     return redirect('orgs')
 
@@ -349,6 +369,12 @@ def modify_org_view(request, pk):
 
         try:
             selected_org.save()
+
+            history_item = Item()
+            history_item.action = f'Modificacion de organizacion: {selected_org.name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
         except IntegrityError:
             return render(request, 'orgs/modify_org.html', {'old': old_info, 'level': profile_level, 'error': 'Ese nombre ya esta en uso'})
             
@@ -358,6 +384,7 @@ def modify_org_view(request, pk):
 
 @login_required
 def down_org_view(request, pk):
+    user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
     selected_org.roac = 0
@@ -365,6 +392,12 @@ def down_org_view(request, pk):
 
     try:
         selected_org.save()
+        
+        history_item = Item()
+        history_item.action = f'Suspencion de organizacion: {selected_org.name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
     except IntegrityError:
         return redirect('org', selected_org.id)
 
@@ -372,6 +405,7 @@ def down_org_view(request, pk):
 
 @login_required
 def noregister_org_view(request, pk):
+    user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
     selected_org.state = 'no-registrada'
@@ -379,6 +413,12 @@ def noregister_org_view(request, pk):
 
     try:
         selected_org.save()
+
+        history_item = Item()
+        history_item.action = f'Devolucion de registro de organizacion: {selected_org.name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return redirect('edit')
     except IntegrityError:
         return redirect('edit')
@@ -488,6 +528,12 @@ def signing_org_view(request, pk):
             selected_org.expiration = date.today() + timedelta(days=730)
             selected_org.msg = ''
             form.save()
+
+            history_item = Item()
+            history_item.action = f'Activacion de organizacion: {selected_org.name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
             return redirect('org', selected_org.id)
             
     else:

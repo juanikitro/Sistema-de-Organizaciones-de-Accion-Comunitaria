@@ -8,6 +8,7 @@ from django.conf import settings
 #Modelos
 from activities.models import Activity
 from organizations.models import Org
+from history.models import Item
 from users.models import Profile
 
     #TODO: Visualizar en las tablas solo las actividades/eventos/visitas que aun no pasaron
@@ -30,11 +31,20 @@ def activities_view(request):
         activity.hour = request.POST.get('hour')     
         activity.save() 
 
+        orgs_id = request.POST.getlist('orgs')
+        emails = []
+
+        history_item = Item()
+        history_item.action = f'Creacion de actividad: {activity.activity_type}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
+        for u in orgs_id:
+                        org = Org.objects.get(id=u)
+                        activity.orgs.add(org)
+                        emails.append(org.email)
+
         if request.POST.get('notify') == 'on':
-            orgs_id = request.POST.getlist('orgs')
-            emails = []
-
-
             subject = f'SOAC: Actividad: {activity.activity_type}'
             link = f'http://127.0.0.1:8000/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
             email_from = settings.EMAIL_HOST_USER
@@ -45,10 +55,7 @@ def activities_view(request):
             Podes ver mas sobre esta entrando al siguiente link:
             {link}'''
 
-            for u in orgs_id:
-                org = Org.objects.get(id=u)
-                activity.orgs.add(org)
-                emails.append(org.email)
+            
 
             send_mail(subject, message, email_from, emails)
 
@@ -75,6 +82,7 @@ def activity_view(request, pk):
 
 @login_required
 def activity_delete_view(request, pk):
+    user_id = request.user.id
     activity = Activity.objects.get(id=pk)
 
     emails = []
@@ -90,6 +98,10 @@ def activity_delete_view(request, pk):
 
     send_mail(subject, message, email_from, emails)
 
+    history_item = Item()
+    history_item.action = f'Eliminacion de actividad: {activity.activity_type}'
+    history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+    history_item.save()
 
     activity.delete()
     
@@ -125,6 +137,11 @@ def activity_modify_view(request, pk):
             emails.append(org.email)
 
         send_mail(subject, message, email_from, emails)
+
+        history_item = Item()
+        history_item.action = f'Modificacion de actividad: {activity.activity_type}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
 
         activity.save()
         return redirect('activity', activity.id)
