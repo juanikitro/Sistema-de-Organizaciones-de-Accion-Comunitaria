@@ -1,3 +1,7 @@
+* {
+	transition: color 0.1s;
+}
+
 .bg-blue {
 	background-color: #253048;
 }
@@ -55,4 +59,8 @@ a {
 
 .errorlist > li {
 	display: none;
+}
+
+.bi-arrow-left-circle:hover {
+	color: #001033;
 }

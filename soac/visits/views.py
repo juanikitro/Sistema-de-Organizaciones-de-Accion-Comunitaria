@@ -8,6 +8,7 @@ from django.conf import settings
 #Modelos
 from visits.models import Visit
 from organizations.models import Org
+from history.models import Item
 from users.models import Profile
 
     #TODO: Visualizar en las tablas solo las visitaes/eventos/visitas que aun no pasaron
@@ -35,7 +36,7 @@ def visits_view(request):
         visit.hour = request.POST.get('hour')     
         visit.observation = request.POST.get('observation')     
         visit.org = request.POST.get('org')  
-        visit.org_name = Org.objects.get( id = request.POST.get('org')).name
+        visit.org_name = Org.objects.get(id = request.POST.get('org')).name
         email = Org.objects.get(id = request.POST.get('org')).email
         visit.save() 
     
@@ -52,6 +53,11 @@ def visits_view(request):
 
         send_mail(subject, message, email_from, emails)
 
+        history_item = Item()
+        history_item.action = f'Creacion de visita: {visit.org_name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return redirect('visits')
 
     return render(request,'visits/visits.html', data)
@@ -67,6 +73,7 @@ def visit_view(request, pk):
 
 @login_required
 def visit_delete_view(request, pk):
+    user_id = request.user.id
     visit = Visit.objects.get(id=pk)
     email = Org.objects.get(id = visit.org).email
 
@@ -76,8 +83,14 @@ def visit_delete_view(request, pk):
     message = f'''Hola! Te contacto desde SOAC para informarte que la visita del dia: {visit.date} ha sido eliminada.'''
 
     send_mail(subject, message, email_from, emails)
+
+    history_item = Item()
+    history_item.action = f'Eliminiacion de visita: {visit.org_name}'
+    history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+    history_item.save()
+
     visit.delete()
-    
+
     return redirect('visits')
 
 @login_required
@@ -106,6 +119,12 @@ def visit_modify_view(request, pk):
         {link}'''
 
         send_mail(subject, message, email_from, emails)
+
+        history_item = Item()
+        history_item.action = f'Modificacion de visita: {visit.org_name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return redirect('visit', visit.id)
 
     return render(request, 'visits/modify_visit.html', {'visit': visit, 'level': profile_level})

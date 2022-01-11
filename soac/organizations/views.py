@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect
 from organizations.models import Org
 from users.models import Profile
 from visits.models import Visit
+from history.models import Item
 from organizations.forms import DocumentForm
 
 # Open Py XL (Para el excel)
@@ -45,14 +46,16 @@ def push_soac_view(request):
         org.modified = date.today()
         org.state = 'no-registrada'
 
-        # org.expiration = date.today() + timedelta(days=730)
-        # org.renoved = date.today()
-
         if Org.objects.filter(name=name).first(): 
             return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
 
         org.save()
-        
+
+        history_item = Item()
+        history_item.action = f'Creacion de organizacion: {name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return render(request, 'orgs/soac.html', {'alert': 'Organización cargada con exito', 'values': values, 'level': profile_level})
 
     return render(request, 'orgs/soac.html', {'values': values, 'level': profile_level})
@@ -84,18 +87,26 @@ def push_roac_view(request):
         org.created = date.today()
         org.modified = date.today()
         org.registration_request = date.today()
-        org.expiration = date.today() + timedelta(days=730)
 
         if Org.objects.filter(name=name).first(): 
             return render(request, 'orgs/roac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
 
         org.save()
+
+        history_item = Item()
+        history_item.action = f'Creacion de organizacion registrada: {name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return redirect('register_roac', org.id)
 
     return render(request, 'orgs/roac.html', {'values': values, 'level': profile_level})
 
 @login_required
 def orgs_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     global org
     org = Org.objects.all()
     values = {}
@@ -110,8 +121,6 @@ def orgs_view(request):
         type = request.POST.get('type', False)
         public = request.POST.get('public', False)
         state = request.POST.get('state', False)
-
-        print(igj, state)
 
         values={
             'name': name,
@@ -128,7 +137,7 @@ def orgs_view(request):
 
         org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state )
 
-    return render(request, 'orgs/orgs.html', {'org': org, 'values': values})
+    return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
 
 class Excel_report(TemplateView):
     def get(self, *args, **kwargs):
@@ -214,6 +223,9 @@ class Excel_report(TemplateView):
 
 @login_required
 def  register_request_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
     selected_org = Org.objects.get(id=pk)
 
     info = {
@@ -229,16 +241,21 @@ def  register_request_view(request, pk):
             selected_org.msg = ''
             selected_org.registration_request = date.today()
             form.save()
+
+            history_item = Item()
+            history_item.action = f'Solicitud de registro: {selected_org.name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
             return redirect('org', selected_org.id)
             
     else:
         form = DocumentForm()
 
-    return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form})
+    return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form, 'level': profile_level})
 
 @login_required
 def org_view(request, pk):
-
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -298,8 +315,15 @@ def org_view(request, pk):
 
 login_required
 def delete_org_view(request, pk):
+    user_id = request.user.id
+
     selected_org = Org.objects.get(id=pk)
     selected_org.delete()
+
+    history_item = Item()
+    history_item.action = f'Eliminacion de organizacion: {selected_org.name}'
+    history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+    history_item.save()
 
     return redirect('orgs')
 
@@ -345,6 +369,12 @@ def modify_org_view(request, pk):
 
         try:
             selected_org.save()
+
+            history_item = Item()
+            history_item.action = f'Modificacion de organizacion: {selected_org.name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
         except IntegrityError:
             return render(request, 'orgs/modify_org.html', {'old': old_info, 'level': profile_level, 'error': 'Ese nombre ya esta en uso'})
             
@@ -354,6 +384,7 @@ def modify_org_view(request, pk):
 
 @login_required
 def down_org_view(request, pk):
+    user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
     selected_org.roac = 0
@@ -361,6 +392,12 @@ def down_org_view(request, pk):
 
     try:
         selected_org.save()
+        
+        history_item = Item()
+        history_item.action = f'Suspencion de organizacion: {selected_org.name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
     except IntegrityError:
         return redirect('org', selected_org.id)
 
@@ -368,6 +405,7 @@ def down_org_view(request, pk):
 
 @login_required
 def noregister_org_view(request, pk):
+    user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
     selected_org.state = 'no-registrada'
@@ -375,6 +413,12 @@ def noregister_org_view(request, pk):
 
     try:
         selected_org.save()
+
+        history_item = Item()
+        history_item.action = f'Devolucion de registro de organizacion: {selected_org.name}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
         return redirect('edit')
     except IntegrityError:
         return redirect('edit')
@@ -461,3 +505,38 @@ def download_org_view(request, pk):
     response['Content-Disposition'] = content
     wb.save(response)
     return response
+
+@login_required
+def signing_org_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
+    selected_org = Org.objects.get(id=pk)
+
+    info = {
+        'id': selected_org.id,
+        'name': selected_org.name,
+        'doc': selected_org.doc
+    }
+
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES, instance = selected_org)
+
+        if form.is_valid():
+            selected_org.state = 'activa'
+            selected_org.roac = 'Si'
+            selected_org.expiration = date.today() + timedelta(days=730)
+            selected_org.msg = ''
+            form.save()
+
+            history_item = Item()
+            history_item.action = f'Activacion de organizacion: {selected_org.name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
+            return redirect('org', selected_org.id)
+            
+    else:
+        form = DocumentForm()
+
+    return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form})
