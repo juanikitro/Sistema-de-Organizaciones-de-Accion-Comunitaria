@@ -102,7 +102,7 @@
                             /> 
                         <label class="text-light">Observaciones: </label>
                         <textarea 
-                        maxlength='200' 
+                        maxlength='60' 
                         name='observation' 
                         class="form-control mb-3" 
                         id="exampleFormControlTextarea1" 
@@ -146,6 +146,7 @@
             </thead>
             <tbody>
                 {% for e in visit %}
+                {% if e.date > today %}
                 <tr>
                     <td>{{e.created}}</td>
                     <td>{{e.date}}</td>
@@ -157,14 +158,15 @@
                     <td>{{e.observation}}</td>
                     <td>
                         <a
-                            class="btn btn-primary-dark"
-                            href="{% url 'visit' e.id %}"
-                            role="button"
-                            target="_blank"
-                            >Ver</a
+                        class="btn btn-primary-dark"
+                        href="{% url 'visit' e.id %}"
+                        role="button"
+                        target="_blank"
+                        >Ver</a
                         >
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>

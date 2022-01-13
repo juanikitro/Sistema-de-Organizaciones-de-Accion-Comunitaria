@@ -27,7 +27,8 @@ def visits_view(request):
        'visit': visits,
        'orgs': orgs,
        'year' : year,
-       'level': profile_level
+       'level': profile_level,
+       'today': datetime.now()
        }
 
     if request.method == 'POST':
