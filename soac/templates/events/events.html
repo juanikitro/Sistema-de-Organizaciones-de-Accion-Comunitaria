@@ -176,26 +176,28 @@
             </thead>
             <tbody>
                 {% for e in event %}
+                {% if e.date > today %}
                 <tr>
                     <td>{{e.event_name}}</td>
                     <td>{{e.created}}</td>
                     <td>{{e.date}}</td>
                     {% if e.hour != '00:00:00' %}
-                        <td>{{e.hour}}</td>
+                    <td>{{e.hour}}</td>
                     {% else %}
-                        <td>Todo el dia</td>
+                    <td>Todo el dia</td>
                     {% endif %}
                     <td>{{e.spot}}</td>
                     <td>
                         <a
-                            class="btn btn-primary-dark"
-                            href="{% url 'event' e.id %}"
-                            role="button"
-                            target="_blank"
-                            >Ver</a
+                        class="btn btn-primary-dark"
+                        href="{% url 'event' e.id %}"
+                        role="button"
+                        target="_blank"
+                        >Ver</a
                         >
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>

@@ -40,9 +40,9 @@ def activities_view(request):
         history_item.save()
 
         for u in orgs_id:
-                        org = Org.objects.get(id=u)
-                        activity.orgs.add(org)
-                        emails.append(org.email)
+            org = Org.objects.get(id=u)
+            activity.orgs.add(org)
+            emails.append(org.email)
 
         if request.POST.get('notify') == 'on':
             subject = f'SOAC: Actividad: {activity.activity_type}'
@@ -61,7 +61,7 @@ def activities_view(request):
 
         return redirect('activities')
 
-    return render(request,'activities/activities.html', { 'activity': activities, 'orgs': orgs, 'year': year, 'level': profile_level})
+    return render(request,'activities/activities.html', {'today': datetime.now(), 'activity': activities, 'orgs': orgs, 'year': year, 'level': profile_level})
 
 @login_required
 def activity_view(request, pk):

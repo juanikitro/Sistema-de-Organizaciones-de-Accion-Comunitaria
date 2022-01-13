@@ -167,25 +167,27 @@
             </thead>
             <tbody>
                 {% for e in activity %}
+                {% if e.date > today %}
                 <tr>
                     <td>{{e.activity_type}}</td>
                     <td>{{e.created}}</td>
                     <td>{{e.date}}</td>
                     {% if e.hour != '00:00:00' %}
-                        <td>{{e.hour}}</td>
+                    <td>{{e.hour}}</td>
                     {% else %}
-                        <td>Todo el dia</td>
+                    <td>Todo el dia</td>
                     {% endif %}
                     <td>
                         <a
-                            class="btn btn-primary-dark"
-                            href="{% url 'activity' e.id %}"
-                            role="button"
-                            target="_blank"
-                            >Ver</a
+                        class="btn btn-primary-dark"
+                        href="{% url 'activity' e.id %}"
+                        role="button"
+                        target="_blank"
+                        >Ver</a
                         >
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>

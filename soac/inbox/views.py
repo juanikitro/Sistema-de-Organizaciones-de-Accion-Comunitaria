@@ -1,6 +1,7 @@
 #Django
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 #Models
 from organizations.models import Org
@@ -94,6 +95,7 @@ def signing_view(request, pk):
         if form.is_valid():
             selected_org.state = 'activa'
             selected_org.roac = 'Si'
+            selected_org.enrolled = datetime.now().date()
             selected_org.save()
             form.save()
             return redirect('org', selected_org.id)

@@ -48,7 +48,8 @@ def events_view(request):
        'event': events,
        'orgs': orgs,
        'year' : year,
-       'level': profile_level
+       'level': profile_level,
+       'today': datetime.now()
        }
 
     if request.method == 'POST':
@@ -56,7 +57,7 @@ def events_view(request):
         event.event_name = request.POST.get('event_name')     
         event.date = request.POST.get('date')     
         event.hour = request.POST.get('hour')     
-        event.spot = request.POST.get('spot') 
+        event.spot = request.POST.get('spot')
         event.save() 
 
         history_item = Item()
@@ -64,9 +65,14 @@ def events_view(request):
         history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
         history_item.save()
 
+        emails = []
+        orgs_id = request.POST.getlist('orgs')
+        for u in orgs_id:
+            org = Org.objects.get(id=u)
+            event.orgs.add(org)
+            emails.append(org.email)
+                
         if request.POST.get('notify') == 'on':
-            orgs_id = request.POST.getlist('orgs')
-            emails = []
             subject = f'SOAC: Invitacion al evento "{event.event_name}"'
             link = f'http://127.0.0.1:8000/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
             email_from = settings.EMAIL_HOST_USER
@@ -77,11 +83,6 @@ def events_view(request):
             Podes ver mas sobre este entrando al siguiente link:
             {link}'''
 
-            for u in orgs_id:
-                org = Org.objects.get(id=u)
-                event.orgs.add(org)
-                emails.append(org.email)
-                
             send_mail(subject, message, email_from, emails)
 
         return redirect('events')

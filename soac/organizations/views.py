@@ -1,5 +1,5 @@
 # Python
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 # Django
 from django.contrib.auth.decorators import login_required
@@ -135,7 +135,7 @@ def orgs_view(request):
             'state': state,
         }
 
-        org = Org.objects.filter(name__startswith=name, domain__startswith=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state )
+        org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
 
@@ -283,6 +283,7 @@ def org_view(request, pk):
     modified = org.modified
     roac = org.roac
     doc = org.doc
+    igj = org.igj
     
     context = {
     'level': profile_level,
@@ -309,6 +310,9 @@ def org_view(request, pk):
     'doc': doc,
     'enrolled': enrolled,
     'visit': visits,
+    'igj': igj,
+    'today': datetime.now()
+
     }
 
     return render(request, 'orgs/org.html', context)

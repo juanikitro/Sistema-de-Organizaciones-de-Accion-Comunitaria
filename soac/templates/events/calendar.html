@@ -68,7 +68,7 @@
 		{% endfor %}
 		{% for v in visit %}
 			{
-				title: '{{v.visit_org.name}}',
+				title: '{{v.org_name}}',
 				start: '{{v.date}}T{{v.hour}}',
 				extendedProps: {
 					org: '{{v.visit_org}}',
