@@ -22,13 +22,17 @@
 			</div>
 			<div class="form-group col-md-5">
 				<label class="text-dark">Dominio</label>
-				<input
-					class="form-control"
-					type="text"
-					placeholder="Ej: Cesion GCBA"
+				<select
 					name="domain"
-					value="{{values.domain}}"
-				/>
+					required="true"
+					class="form-control form-select"
+					value="{{values.domain}}" >
+						<option selected value="alquiler">Alquiler</option>
+						<option value="propietario">Propietario</option>
+						<option value="cesion gcba">Cesión de uso GCBA</option>
+						<option value="cesion privado">Cesión de uso PRIVADO</option>
+						<option value="otra">Otra</option>
+				</select>
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
@@ -61,15 +65,60 @@
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
 				<label class="text-dark">Barrio *</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Barracas"
+				<select
 					name="nhood"
 					required="true"
-					class="form-control"
-					value="{{values.nhood}}"
-				/>
+					class="form-control form-select"
+					value="{{values.nhood}}">
+						<option selected value="puerto madero">Puerto Madero</option>
+						<option value="retiro">Retiro</option>
+						<option value="san nicolas">San Nicolas</option>
+						<option value="monserrat">Monserrat</option>
+						<option value="constitucion">Constitución</option>
+						<option value="san telmo">San Telmo</option>
+						<option value="recoleta">Recoleta</option>
+						<option value="balvanera">Balvanera</option>
+						<option value="san cristobal">San Cristobal</option>
+						<option value="la boca">La Boca</option>
+						<option value="barracas">Barracas</option>
+						<option value="parque patricios">Parque Patricios</option>
+						<option value="nueva pompeya">Nueva Pompeya</option>
+						<option value="almagro">Almagro</option>
+						<option value="boedo">Boedo</option>
+						<option value="caballito">Caballito</option>
+						<option value="parque chacabuco">Parque Chacabuco</option>
+						<option value="flores">Flores</option>
+						<option value="villa soldati">Villa Soldati</option>
+						<option value="villa riachuelo">Villa Riachuelo</option>
+						<option value="villa lugano">Villa Lugano</option>
+						<option value="mataderos">Mataderos</option>
+						<option value="parque avellaneda">Parque Avellaneda</option>
+						<option value="liniers">Liniers</option>
+						<option value="velez sarfield">Velez Sarfield</option>
+						<option value="villa luro">Villa Luro</option>
+						<option value="floresta">Floresta</option>
+						<option value="monte castro">Monte Castro</option>
+						<option value="villa real">Villa Real</option>
+						<option value="versalles">Versalles</option>
+						<option value="villa general mitre">Villa General Mitre</option>
+						<option value="villa santa rita">Villa Santa Rita</option>
+						<option value="villa del parque">Villa del Parque</option>
+						<option value="villa devoto">Villa Devoto</option>
+						<option value="villa pueyrredon">Villa Pueyrredón</option>
+						<option value="villa urquiza">Villa Urquiza</option>
+						<option value="saavedra">Saavedra</option>
+						<option value="coghlan">Coghlan</option>
+						<option value="nunez">Núñez</option>
+						<option value="belgrano">Belgrano</option>
+						<option value="colegiales">Colegiales</option>
+						<option value="palermo">Palermo</option>
+						<option value="agronomia">Agronomia</option>
+						<option value="paternal">Paternal</option>
+						<option value="chacarita">Chacarita</option>
+						<option value="villa ortuzar">Villa Ortúzar</option>
+						<option value="villa crespo">Villa Crespo</option>
+						<option value="barrio vulnerable">Barrio Vulnerable</option>
+				</select>
 			</div>
 			<div class="form-group col-md-5">
 				<label class="text-dark">Comuna *</label>
@@ -95,15 +144,22 @@
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
 				<label class="text-dark">Áreas *</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Cultura"
+				<select
 					name="areas"
 					required="true"
-					class="form-control"
-					value="{{values.areas}}"
-				/>
+					class="form-control form-select"
+					value="{{values.areas}}" >
+						<option selected value="social">Social</option>
+						<option value="cultural">Cultural</option>
+						<option value="deportiva o recreativa">Deportiva o Reacreativa</option>
+						<option value="ambiente">Ambiente</option>
+						<option value="genero">Género</option>
+						<option value="diversidad">Diversidad</option>
+						<option value="discapacidad">Discapacidad</option>
+						<option value="educacion">Educación</option>
+						<option value="salud">Salud</option>
+						<option value="religion">Religión</option>
+				</select>
 			</div>
 			<div class="form-group col-md-5">
 				<label class="text-dark">Código postal</label>
@@ -121,26 +177,34 @@
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
 				<label class="text-dark">Tipo de organización *</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Fundación"
+				<select
 					name="type"
 					required="true"
 					class="form-control"
-					value="{{values.type}}"
-				/>
+					value="{{values.type}}" >
+						<option selected value="fundacion">Fundación</option>
+						<option value="jubilados y pensionados">Centro de Jubilados y Pensionados</option>
+						<option value="centro comunitario">Centro Comunitario</option>
+						<option value="centro o asociacion cultural">Centro o Asociación Cultural</option>
+						<option value="comedor">Comedor</option>
+						<option value="asociacion de fomento">Asociación de Fomento</option>
+						<option value="club o asociacion deportiva">Club o Asociación Deportiva</option>
+						<option value="actor independiente">Actor Independiente</option>
+				</select>
 			</div>
 			<div class="form-group col-md-5">
 				<label class="text-dark">Tipo de público</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Juventud"
+				<select
 					name="public"
-					class="form-control"
-					value="{{values.public}}"
-				/>
+					required="true"
+					class="form-control form-select"
+					value="{{values.public}}" >
+						<option selected value="ninez">Niñez</option>
+						<option value="adolescencia o juventud">Adolescencia o juventud</option>
+						<option value="tercera edad">Tercera edad</option>
+						<option value="familia">Familia</option>
+						<option value="mujer">Mujer</option>
+				</select>
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
