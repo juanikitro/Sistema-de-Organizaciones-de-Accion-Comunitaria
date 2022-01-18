@@ -12,4 +12,4 @@ class DocumentForm(forms.ModelForm):
         
         def __init__(self, *args, **kwargs):
             super(DocumentForm, self).__init__(*args, **kwargs)
-            self.fields['doc'].label = "Documentacion:"
+            self.fields['doc'].label = ""

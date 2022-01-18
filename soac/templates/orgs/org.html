@@ -194,7 +194,7 @@
 		</ul>
 	{% endif %}
 	{% if level == 'central' or level == 'admin' %}
-		{% if  roac == 1 and state == 'activa' %}
+		{% if  roac == 'Si' %}
 		<a
 			href="down/"
 			class=" text-decoration-none btn btn-danger"
@@ -213,7 +213,7 @@
 			>Modificar</a
 		>
 	{% endif %}
-	{% if state == 'no-registrada' or state == 'editar' %}
+	{% if state == 'no-registrada' or state == 'editar' or state == 'suspendida' %}
 		<a class="btn btn-primary-dark" href="register/" role="button">Registrar</a>	
 	{% endif %}
 	{% if state == 'pre-activa' or state == 'activa' or state == 'firmar'%}

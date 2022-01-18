@@ -12,4 +12,4 @@ class SignForm(forms.ModelForm):
         
         def __init__(self, *args, **kwargs):
             super(SignForm, self).__init__(*args, **kwargs)
-            self.fields['doc'].label = "Documentacion firmada:"
+            self.fields['doc'].label = "Certificado firmado:"
