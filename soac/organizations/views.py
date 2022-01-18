@@ -135,7 +135,7 @@ def orgs_view(request):
             'state': state,
         }
 
-        org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state )
+        org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__contains=nhood, commune__contains=commune, areas__contains=areas, igj__contains=igj, type__contains=type, public__contains=public, state__contains=state )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
 

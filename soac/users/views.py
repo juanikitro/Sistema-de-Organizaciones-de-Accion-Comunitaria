@@ -142,7 +142,7 @@ def users_view(request):
             'email': email,
             'mobile': mobile,
         }
-        profile = Profile.objects.filter(first_name__contains=name, last_name__contains=lastname, username__contains=cuit, email__contains=email, mobile__startswith=mobile, level__startswith=level)
+        profile = Profile.objects.filter(first_name__contains=name, last_name__contains=lastname, username__contains=cuit, email__contains=email, mobile__contains=mobile, level__contains=level)
 
     return render(request, 'users/users.html', {'profile': profile, 'values': values, 'level': profile_level})
 
