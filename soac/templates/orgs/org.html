@@ -120,6 +120,48 @@
 		  </div>
 		</div>
 	</div>
+	<div class="d-flex mt-5">
+		<div class="card h-100 w-100 bg-lightblue">
+			<div class="card-header-dark text-center">
+				<h5>Reclamos</h5>
+			</div>
+			<div class="card-body">
+				<table class="table text-dark">
+					<thead>
+						<tr>
+							<th scope="col">Creacion</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">observacion</th>
+                            <th scope="col">Organizacion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for e in claims %}
+						{% if e.state == 'abierto' %}
+						<tr>
+							<td>{{e.created}}</td>
+							<td>{{e.by}}</td>
+							<td>{{e.observation}}</td>
+							<td>{{e.org_name}}</td>
+							<td>{{e.state}}</td>
+							<td>
+								<a
+								class="btn btn-primary-dark"
+								href="/claim/{{e.id}}/"
+								role="button"
+								>Ver</a
+								>
+							</td>
+						</tr>
+						{% endif %}
+                		{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 	<div class="d-flex justify-content-around mt-5"
 	>
 	{% if level == 'central' or level == 'admin' %}
@@ -162,6 +204,9 @@
 	{% endif %}
 		<a class="btn btn-primary-dark" href="org_report/" role="button"
 			>Exportar</a
+		>
+		<a class="btn btn-primary-dark" href="setupclaim/" role="button"
+			>Crear reclamo</a
 		>
 	{% if level == 'central' or level == 'admin' %}
 		<a class="btn btn-primary-dark" href="modify/" role="button"

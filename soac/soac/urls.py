@@ -14,6 +14,7 @@ from events import views as events_views
 from activities import views as activities_views
 from visits import views as visits_views
 from history import views as history_views
+from claims import views as claims_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -81,5 +82,13 @@ urlpatterns = [
     #Historial
     path('history/', history_views.history_view, name='history'),
     path('history/report/', history_views.Excel_report.as_view(), name='history_report'),
+
+    #Reclamos
+    path('claims/', claims_views.claims_view, name='claims'), 
+    path('claim/<str:pk>/', claims_views.claim_view, name='claim'), 
+    path('organizations/org/<str:pk>/setupclaim/', claims_views.setupclaim_view, name='setup_claim'), 
+    path('claims/report/', claims_views.Excel_report.as_view(), name='claims_report'),
+    path('claim/<str:pk>/modify/', claims_views.claim_modify_view, name='modify_claim'),
+    path('claim/<str:pk>/delete/', claims_views.claim_delete_view, name='delete_claim'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

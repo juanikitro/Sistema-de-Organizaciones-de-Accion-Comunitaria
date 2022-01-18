@@ -12,6 +12,7 @@ from organizations.models import Org
 from users.models import Profile
 from visits.models import Visit
 from history.models import Item
+from claims.models import Claim
 from organizations.forms import DocumentForm
 
 # Open Py XL (Para el excel)
@@ -135,7 +136,7 @@ def orgs_view(request):
             'state': state,
         }
 
-        org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__startswith=nhood, commune__contains=commune, areas__startswith=areas, igj__startswith=igj, type__startswith=type, public__startswith=public, state__startswith=state )
+        org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__contains=nhood, commune__contains=commune, areas__contains=areas, igj__contains=igj, type__contains=type, public__contains=public, state__contains=state )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
 
@@ -259,6 +260,8 @@ def org_view(request, pk):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
+    claims = Claim.objects.filter(org = pk)
+
     org = Org.objects.get(id=pk)
     visits = Visit.objects.filter(org_name = org.name).order_by('date')
 
@@ -311,6 +314,7 @@ def org_view(request, pk):
     'enrolled': enrolled,
     'visit': visits,
     'igj': igj,
+    'claims': claims,
     'today': datetime.now()
 
     }

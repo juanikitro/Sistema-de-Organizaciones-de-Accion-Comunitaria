@@ -170,7 +170,7 @@
 						</ul>
 					</div>
 				</li>
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -188,7 +188,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -206,7 +206,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -224,7 +224,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -238,6 +238,24 @@
 							"
 						>
 							Eventos
+						</a>
+					</div>
+				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				<li class="mb-1">
+					<div>
+						<a
+							href="{% url 'claims' %}"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+						>
+							Reclamos
 						</a>
 					</div>
 				</li>
