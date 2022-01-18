@@ -107,9 +107,13 @@ def push_roac_view(request):
 def orgs_view(request):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
+    profile_commune = Profile.objects.get(user_id = user_id).commune
 
     global org
     org = Org.objects.all()
+    if profile_level == 'comunal':
+        org = Org.objects.filter(commune__contains=profile_commune)
+
     values = {}
     if request.method == 'POST':
         name = request.POST.get('name', False)
@@ -137,6 +141,9 @@ def orgs_view(request):
         }
 
         org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__contains=nhood, commune__contains=commune, areas__contains=areas, igj__contains=igj, type__contains=type, public__contains=public, state__contains=state )
+
+        if profile_level == 'comunal':
+            org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__contains=nhood, commune__contains=profile_commune, areas__contains=areas, igj__contains=igj, type__contains=type, public__contains=public, state__contains=state )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
 
