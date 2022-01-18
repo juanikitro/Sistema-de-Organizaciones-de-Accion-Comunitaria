@@ -22,7 +22,17 @@
 			</tr>
 			<tr class="py-3">
 				<td><strong>Rol:</strong></td>
-				<td class="py-3 text-end">{{ level }}</td>
+				<td class="py-3 text-end">{{ profile_level }}</td>
+			</tr>
+			<tr class="py-3">
+				<td><strong>Comuna:</strong></td>
+				<td class="py-3 text-end">
+					{% if commune == '00' %}
+					No aplica
+					{% else %}
+					{{ commune }}
+					{% endif %}
+				</td>
 			</tr>
 			<tr class="py-3">
 				<td><strong>Creado:</strong></td>
