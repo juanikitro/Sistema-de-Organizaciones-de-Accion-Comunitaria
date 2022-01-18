@@ -402,7 +402,7 @@ def down_org_view(request, pk):
     user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
-    selected_org.roac = 0
+    selected_org.roac = 'No'
     selected_org.state = 'suspendida'
 
     try:
@@ -520,38 +520,3 @@ def download_org_view(request, pk):
     response['Content-Disposition'] = content
     wb.save(response)
     return response
-
-@login_required
-def signing_org_view(request, pk):
-    user_id = request.user.id
-    profile_level = Profile.objects.get(user_id = user_id).level
-
-    selected_org = Org.objects.get(id=pk)
-
-    info = {
-        'id': selected_org.id,
-        'name': selected_org.name,
-        'doc': selected_org.doc
-    }
-
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES, instance = selected_org)
-
-        if form.is_valid():
-            selected_org.state = 'activa'
-            selected_org.roac = 'Si'
-            selected_org.expiration = date.today() + timedelta(days=730)
-            selected_org.msg = ''
-            form.save()
-
-            history_item = Item()
-            history_item.action = f'Activacion de organizacion: {selected_org.name}'
-            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
-            history_item.save()
-
-            return redirect('org', selected_org.id)
-            
-    else:
-        form = DocumentForm()
-
-    return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form})
