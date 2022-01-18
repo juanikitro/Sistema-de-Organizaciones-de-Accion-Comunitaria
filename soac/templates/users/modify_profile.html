@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block head_content %}
 <title>SOAC - Modificación de usuario: {{ old.username }}</title>
 {% endblock%} {% block body %}
-<article class="container d-flex flex-column text-light p-5">
+<article class="container d-flex flex-column text-dark p-5">
 	<a href="javascript: history.go(-1)"
 	><svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@
 			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
 		/></svg
 	></a>
-	<h1 class="text-light display-2 text-center mb-5">Modificar a {{ old.name }}</h1>
+	<h1 class="text-dark display-2 text-center mb-5">Modificar a {{ old.name }}</h1>
 	<form
 		autocomplete="off"
 		action="{% url 'modify_profile' old.id %}"
@@ -26,7 +26,7 @@
 		{% csrf_token %}
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Cuit</label>
+				<label class="text-dark">Cuit</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -41,7 +41,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Nivel</label>
+				<label class="text-dark">Nivel</label>
 				<select
 					aria-label="Default select example"
 					name="level"
@@ -58,7 +58,7 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Nombre</label>
+				<label class="text-dark">Nombre</label>
 				<input
 					autocomplete="off"
 					class="form-control"
@@ -70,7 +70,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Apellido</label>
+				<label class="text-dark">Apellido</label>
 				<input
 					autocomplete="off"
 					class="form-control"
@@ -85,7 +85,7 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Número de contacto</label>
+				<label class="text-dark">Número de contacto</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -98,7 +98,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Email</label>
+				<label class="text-dark">Email</label>
 				<input
 					autocomplete="off"
 					class="form-control"
