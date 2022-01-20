@@ -1,12 +1,13 @@
 {% extends "base.html" %} {% block head_content %}
 <title>SOAC - Registrando {{ info.name }}</title>
 {% endblock%} {% block body %}
-<article class="container d-flex flex-column text-light p-5">
-	<h1 class="text-light display-2 text-center mb-5">Registrar organizacion</h1>
-	<table class="table text-light">
+<article class="container d-flex flex-column text-dark p-5">
+	<h1 class="text-dark display-2 text-center mb-5">Registrar organizacion</h1>
+	<table class="table text-dark">
 		<form method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div class="form-group">
+				<label>Documentacion:</label>
 				{{ form.as_p }}
 			</div>
 	</table>

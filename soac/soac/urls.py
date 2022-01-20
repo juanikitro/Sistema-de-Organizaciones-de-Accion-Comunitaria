@@ -14,6 +14,7 @@ from events import views as events_views
 from activities import views as activities_views
 from visits import views as visits_views
 from history import views as history_views
+from claims import views as claims_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,6 +23,7 @@ urlpatterns = [
 
     #Usuarios
     path('signup/', users_views.signup_view, name='signup'),
+    path('signup_comunal/', users_views.signup_comunal_view, name='signup_comunal'),
     path('logout/', users_views.logout_view, name='logout'),
     path('login/', users_views.login_view, name='login'),
     path('users/', users_views.users_view, name='users'),
@@ -54,6 +56,7 @@ urlpatterns = [
     path('inbox/sign', inbox_views.sign_view, name='sign'),
     path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
     path('inbox/sign/signing/<str:pk>/', inbox_views.signing_view, name='signing'),
+    path('inbox/sign/signing/<str:pk>/certificate', inbox_views.Certificate_ROAC.as_view(), name='certificate'),
 
     #Comunicaciones
     path('comunication/users/', comunications_views.comunications_users_view, name='comunications_users'),
@@ -81,5 +84,13 @@ urlpatterns = [
     #Historial
     path('history/', history_views.history_view, name='history'),
     path('history/report/', history_views.Excel_report.as_view(), name='history_report'),
+
+    #Reclamos
+    path('claims/', claims_views.claims_view, name='claims'), 
+    path('claim/<str:pk>/', claims_views.claim_view, name='claim'), 
+    path('organizations/org/<str:pk>/setupclaim/', claims_views.setupclaim_view, name='setup_claim'), 
+    path('claims/report/', claims_views.Excel_report.as_view(), name='claims_report'),
+    path('claim/<str:pk>/modify/', claims_views.claim_modify_view, name='modify_claim'),
+    path('claim/<str:pk>/delete/', claims_views.claim_delete_view, name='delete_claim'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

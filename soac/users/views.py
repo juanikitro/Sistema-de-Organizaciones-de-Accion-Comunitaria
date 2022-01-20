@@ -39,6 +39,7 @@ def login_view(request):
 
     return render(request, 'users/login.html')
 
+
 @login_required
 @atomic
 def signup_view(request):
@@ -77,6 +78,7 @@ def signup_view(request):
         profile.first_name = request.POST['first_name']
         profile.last_name = request.POST['last_name']
         profile.level = request.POST['level']
+        profile.commune = '00'
         profile.mobile = request.POST['mobile']
         profile.save()
 
@@ -97,12 +99,74 @@ def signup_view(request):
 
     return render(request, 'users/signup.html', {'values': values, 'level': profile_level})
 
+
+@login_required
+@atomic
+def signup_comunal_view(request):
+    '''Signup
+    Values = void dict para que los inputs empiecen en 0 y se guarden para hacer cargas similares
+    Se verifica que el username(cuit) y email no esten en uso
+    Se guarda el usuario y el perfil.
+    user similar
+    Se usa atomic por si hay error en uno de los dos save() '''
+
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
+    values = {}
+    if request.method == 'POST':
+        username = request.POST['username']        
+        password = request.POST['password']
+        email = request.POST['email']
+
+
+        if Profile.objects.filter(username=username).first(): 
+            return render(request, 'users/signup.html', {'error': 'El cuit ya pertenece a una cuenta'})
+        if Profile.objects.filter(email=email).first(): 
+            return render(request, 'users/signup.html', {'error': 'El email ya pertenece a una cuenta'})
+
+        user = User.objects.create_user(username, email, password)
+        user.username = username
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.save()
+
+        profile = Profile()
+        profile.user = user
+        profile.email = email
+        profile.username = username
+        profile.first_name = request.POST['first_name']
+        profile.last_name = request.POST['last_name']
+        profile.level = 'comunal'
+        profile.commune = request.POST['commune']
+        profile.mobile = request.POST['mobile']
+        profile.save()
+
+        values={
+            'name': request.POST['first_name'],
+            'lastname': request.POST['last_name'],
+            'cuit': username,
+            'email': email,
+            'mobile': request.POST['mobile'],
+        }
+        
+        history_item = Item()
+        history_item.action = f'Creacion de usuario: {profile.username}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
+        return render(request, 'users/signup_comunal.html', {'alert': 'Usuario creado con exito', 'level': profile_level})
+
+    return render(request, 'users/signup_comunal.html', {'values': values, 'level': profile_level})
+
+
 @login_required
 def logout_view(request):
     '''Logout de Django... '''
 
     logout(request)
     return redirect('login')
+
 
 @login_required
 def users_view(request):
@@ -126,15 +190,6 @@ def users_view(request):
         mobile = request.POST.get('mobile', False)
         level = request.POST.get('level', False)
 
-        if level == '1':
-            level = 'comunal'
-        elif level == '2':
-            level = 'central'
-        elif level == '3':
-            level = 'presi'
-        elif level == '0':
-            level = ''
-
         values={
             'name': name,
             'lastname': lastname,
@@ -142,9 +197,10 @@ def users_view(request):
             'email': email,
             'mobile': mobile,
         }
-        profile = Profile.objects.filter(first_name__contains=name, last_name__contains=lastname, username__contains=cuit, email__contains=email, mobile__startswith=mobile, level__startswith=level)
+        profile = Profile.objects.filter(first_name__contains=name, last_name__contains=lastname, username__contains=cuit, email__contains=email, mobile__contains=mobile, level__contains=level)
 
     return render(request, 'users/users.html', {'profile': profile, 'values': values, 'level': profile_level})
+
 
 class Excel_report(TemplateView):
     '''Export de usuarios
@@ -205,6 +261,7 @@ class Excel_report(TemplateView):
         wb.save(response)
         return response
 
+
 @login_required
 def profile_view(request, pk):
     '''Vista del perfil 1:1 con usuarios
@@ -221,33 +278,28 @@ def profile_view(request, pk):
     username = user.username
     name = user.first_name + ' ' + user.last_name
     email = user.email
+    commune = profile.commune
     mobile = profile.mobile
     created = profile.created
     modified = profile.modified
-    level = ''
-    if profile.level == 'admin':
-        level = 'Administrador de ROAC'
-    elif profile.level == 'presidente':
-        level = 'Presidente'
-    elif profile.level == 'central':
-        level = 'Usuario de sede central'
-    elif profile.level == 'comunal':
-        level = 'Usuario de sede comunal'
-    
+    level = profile.level
+
     context = {
     'profile':profile,
     'id':id,
     'username':username,
     'name':name,
     'email':email,
+    'commune': commune,
     'mobile':mobile,
     'modified':modified,
     'created':created,
-    'level':level,
+    'profile_level':level,
     'level': profile_level
     }
 
     return render(request, 'users/profile.html', context)
+
 
 @login_required
 @atomic
@@ -269,6 +321,7 @@ def delete_profile_view(request, pk):
     selected_user.delete()
 
     return redirect('users')
+
 
 @login_required
 @atomic
@@ -322,6 +375,7 @@ def modify_profile_view(request, pk):
 
     return render(request, 'users/modify_profile.html', {'old': old_info, 'level': profile_level})
 
+
 @login_required
 def reset_password_view(request, pk):
     '''Reseteo de password de Django
@@ -358,6 +412,7 @@ def reset_password_view(request, pk):
 
     return render(request, 'users/reset_password.html', {'old': old_info, 'level': profile_level})
 
+
 def send_reset_password_view(request):
     '''Reseteo de password para usuario no logeado
     Se pide cuit y se envia mail al usuario dueno del cuit
@@ -388,6 +443,7 @@ def send_reset_password_view(request):
             return render(request, 'users/send_reset_password.html', {'alert': 'No se ha podido enviar el mail, contacta con un usuario central / administrador para soluciónar'})
 
     return render(request, 'users/send_reset_password.html')
+
 
 def reset_password_user_view(request, pk):
     '''Reseteo de contrasena manual para usuarios

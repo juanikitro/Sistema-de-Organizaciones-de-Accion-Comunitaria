@@ -13,6 +13,7 @@ class Profile(models.Model):
 
     #Importante
     level = models.CharField(max_length=255)
+    commune = models.CharField(max_length=255)
 
     #Extras
     mobile = models.CharField(max_length = 255, default = '-')

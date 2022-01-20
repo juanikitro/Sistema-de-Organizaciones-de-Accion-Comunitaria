@@ -23,8 +23,8 @@
 		<link rel="stylesheet" href="{% static 'css/scrollreveal.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/accordions.css' %}" />
-		<link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
-		<link rel="icon" href="{% static 'img/logo.png' %}" type="image/x-icon">
+		<link rel="shortcut icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
+		<link rel="icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -36,7 +36,7 @@
 	</head>
 	<body
 		style="font-family: 'Montserrat'; max-width: 100vw; overflow-x: hidden"
-		class="row bg-lightblue text-light"
+		class="row bg-lightblue text-dark"
 	>
 		<section
 			class="
@@ -45,7 +45,7 @@
 				flex-column flex-shrink-0
 				p-3
 				bg-lightblue
-				text-light
+				text-dark
 				sticky-top
 			"
 			style="width: 200px; height: 100vh"
@@ -57,7 +57,7 @@
 					align-items-center
 					mb-3 mb-md-0
 					me-md-auto
-					text-light text-decoration-none
+					text-dark text-decoration-none
 				"
 			>
 				<span class="mx-2"
@@ -74,7 +74,7 @@
 								class="
 									d-flex
 									align-items-center
-									text-light text-decoration-none
+									text-dark text-decoration-none
 									dropdown-toggle
 									mb-4
 									mx-2
@@ -87,26 +87,26 @@
 							</a>
 							<ul
 								class="
-									dropdown-menu dropdown-menu-dark
+									dropdown-menu dropdown-menu-light
 									text-small
 									shadow
 								"
 								aria-labelledby="dropdownUser1"
 							>
 								<li>
-									<a class="dropdown-item text-light" href="{% url 'soac' %}"
+									<a class="dropdown-item text-dark" href="{% url 'soac' %}"
 										>Cargar en SOAC</a
 									>
 								</li>
 								<li><hr class="dropdown-divider" /></li>
 								<li>
-									<a class="dropdown-item text-light" href="{% url 'roac' %}"
+									<a class="dropdown-item text-dark" href="{% url 'roac' %}"
 										>Registrar en ROAC</a
 									>
 								</li>
 								<li><hr class="dropdown-divider" /></li>
 								<li>
-									<a class="dropdown-item text-light" href="{% url 'orgs' %}"
+									<a class="dropdown-item text-dark" href="{% url 'orgs' %}"
 										>Buscar organizaciones</a
 									>
 								</li>
@@ -121,7 +121,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -134,7 +134,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-dark
+								dropdown-menu dropdown-menu-light
 								text-small
 								shadow
 							"
@@ -143,7 +143,7 @@
 							{% if level != 'presidente' %}
 								<li>
 									<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'edit' %}"
 									>Edición</a
 									>
@@ -152,7 +152,7 @@
 							{% if level == 'central' or level == 'admin' %}
 								<li>
 									<a
-										class="dropdown-item text-light"
+										class="dropdown-item text-dark"
 										href="{% url 'analysis' %}"
 										>Analisis</a
 									>
@@ -161,7 +161,7 @@
 							{% if level == 'presidente' or level == 'admin' %}
 								<li>
 									<a
-										class="dropdown-item text-light"
+										class="dropdown-item text-dark"
 										href="{% url 'sign' %}"
 										>Firma</a
 									>
@@ -170,7 +170,7 @@
 						</ul>
 					</div>
 				</li>
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -178,7 +178,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								mb-4
 								mx-2
 							"
@@ -188,7 +188,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -196,7 +196,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								mb-4
 								mx-2
 							"
@@ -206,7 +206,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -214,7 +214,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								mb-4
 								mx-2
 							"
@@ -224,7 +224,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -232,12 +232,30 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								mb-4
 								mx-2
 							"
 						>
 							Eventos
+						</a>
+					</div>
+				</li>
+				{% endif %}
+				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				<li class="mb-1">
+					<div>
+						<a
+							href="{% url 'claims' %}"
+							class="
+								d-flex
+								align-items-center
+								text-dark text-decoration-none
+								mb-4
+								mx-2
+							"
+						>
+							Reclamos
 						</a>
 					</div>
 				</li>
@@ -250,7 +268,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -263,7 +281,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-dark
+								dropdown-menu dropdown-menu-light
 								text-small
 								shadow
 							"
@@ -271,7 +289,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'comunications_users' %}"
 									>Usuarios</a
 								>
@@ -279,7 +297,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'comunications_orgs' %}"
 									>Organizaciones</a
 								>
@@ -296,7 +314,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -309,7 +327,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-dark
+								dropdown-menu dropdown-menu-light
 								text-small
 								shadow
 							"
@@ -317,7 +335,7 @@
 						>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'signup' %}"
 									>Altas</a
 								>
@@ -325,7 +343,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Renovaciónes</a
 								>
@@ -333,7 +351,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Estados</a
 								>
@@ -341,7 +359,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Vinculaciónes</a
 								>
@@ -349,7 +367,7 @@
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'history' %}"
 									>Historial</a
 								>
@@ -366,7 +384,7 @@
 							class="
 								d-flex
 								align-items-center
-								text-light text-decoration-none
+								text-dark text-decoration-none
 								dropdown-toggle
 								mb-4
 								mx-2
@@ -379,7 +397,7 @@
 						</a>
 						<ul
 							class="
-								dropdown-menu dropdown-menu-dark
+								dropdown-menu dropdown-menu-light
 								text-small
 								shadow
 							"
@@ -387,15 +405,23 @@
 						>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
 									href="{% url 'signup' %}"
-									>Crear usuario</a
+									>Crear usuario avanzado</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
-									class="dropdown-item text-light"
+									class="dropdown-item text-dark"
+									href="{% url 'signup_comunal' %}"
+									>Crear usuario comunal</a
+								>
+							</li>
+							<li><hr class="dropdown-divider" /></li>
+							<li>
+								<a
+									class="dropdown-item text-dark"
 									href="{% url 'users' %}"
 									>Buscar usuarios</a
 								>
@@ -412,7 +438,7 @@
 					class="
 						d-flex
 						align-items-center
-						text-light
+						text-dark
 						text-decoration-none
 						dropdown-toggle
 						justify-content-center
@@ -424,15 +450,15 @@
 					<strong>{{request.user.username}}</strong>
 				</a>
 				<ul
-					class="dropdown-menu dropdown-menu-dark text-small shadow"
+					class="dropdown-menu dropdown-menu-light text-small shadow"
 					aria-labelledby="dropdownUser1"
 				>
 					<li>
-						<a class="dropdown-item text-light" href="#">Reportar un error</a>
+						<a class="dropdown-item text-dark" href="#">Reportar un error</a>
 					</li>
 					<li><hr class="dropdown-divider" /></li>
 					<li>
-						<a class="dropdown-item text-light" href="{% url 'logout' %}"
+						<a class="dropdown-item text-dark" href="{% url 'logout' %}"
 							>Cerrar sesion</a
 						>
 					</li>

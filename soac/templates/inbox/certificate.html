@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+
+		{% block head_content %}{% endblock %}
+
+		<!-- Bootstrap CSS v5.0.2 -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<!-- Extras -->
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+		<link rel="shortcut icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
+		<link rel="icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/scrollreveal@4"></script>
+		<title>Certificado ROAC: {{ org.name }}</title>
+	</head>
+<body style="font-family: 'Montserrat'">
+    <header>
+        <div>
+            <h1>CERTIFICADO DE INSCRIPCIÓN</h1>
+            <h2>REGISTRO DE ORGANIZACIONES DE ACCIÓN COMUNITARIA - (ROAC)</h2>
+        </div>
+        <div>
+        </div>
+    </header>
+    <main>
+        <p class='fs-5'>
+        Certifico que la entidad <strong>"{{ org.name }}"</strong>, con domicilio constituido en calle {{ org.address }} de la Ciudad Autónoma de Buenos Aires, se encuentra inscripta bajo el Legajo N°3718 en el Registro de Organizaciones de Acción Comunitaria (ROAC) dependiente de la Subsecretaría de Gestión Comunal.
+        <br />
+        <br />
+        A solicitud de la parte interesada, se expide el presente, a efectos de ser presentado ante quien corresponda,en la Ciudad Autónoma de Buenos Aires en la fecha {{ today | date:"d-m-Y"}}.
+        <br />
+        <br />
+        El presente tendrá validez hasta la fecha: {{ expiration | date:"d-m-Y"}}.
+        </p>
+        <span class="mx-2"
+					><img width="100px" src="{% static 'img/logo.png' %}"
+				/></span>
+    </main>
+    </body>
+</html>

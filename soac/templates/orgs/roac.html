@@ -3,13 +3,13 @@
 {% endblock%} {% block body %}
 <article class="container p-5">
 	<article class="container p-5"><a href="javascript: history.go(-1)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle mt-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/></svg></a>
-	<h1 class="text-light display-2 text-center mb-5">Registrar organización en ROAC</h1>
+	<h1 class="text-dark display-2 text-center mb-5">Registrar organización en ROAC</h1>
 	<form class="bg-lightblue card py-5" autocomplete="off" action="{% url 'roac' %}" method="POST">
 		{% csrf_token %}
 
 		<div class="form-row d-flex justify-content-around mb-3 ">
 			<div class="form-group col-md-5">
-				<label class="text-light">Nombre *</label>
+				<label class="text-dark">Nombre *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -21,19 +21,23 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Dominio</label>
-				<input
-					class="form-control"
-					type="text"
-					placeholder="Ej: Cesion GCBA"
+				<label class="text-dark">Dominio</label>
+				<select
 					name="domain"
-					value="{{values.domain}}"
-				/>
+					required="true"
+					class="form-control form-select"
+					value="{{values.domain}}" >
+						<option selected value="alquiler">Alquiler</option>
+						<option value="propietario">Propietario</option>
+						<option value="cesion gcba">Cesión de uso GCBA</option>
+						<option value="cesion privado">Cesión de uso PRIVADO</option>
+						<option value="otra">Otra</option>
+				</select>
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Calle y altura *</label>
+				<label class="text-dark">Calle y altura *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -45,7 +49,7 @@
 				/>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Departamento *</label>
+				<label class="text-dark">Departamento *</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -60,19 +64,65 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Barrio *</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Barracas"
+				<label class="text-dark">Barrio *</label>
+				<select
 					name="nhood"
 					required="true"
-					class="form-control"
-					value="{{values.nhood}}"
-				/>
+					class="form-control form-select"
+					value="{{values.nhood}}" >
+
+						<option selected value="puerto madero">Puerto Madero</option>
+						<option value="retiro">Retiro</option>
+						<option value="san nicolas">San Nicolas</option>
+						<option value="monserrat">Monserrat</option>
+						<option value="constitucion">Constitución</option>
+						<option value="san telmo">San Telmo</option>
+						<option value="recoleta">Recoleta</option>
+						<option value="balvanera">Balvanera</option>
+						<option value="san cristobal">San Cristobal</option>
+						<option value="la boca">La Boca</option>
+						<option value="barracas">Barracas</option>
+						<option value="parque patricios">Parque Patricios</option>
+						<option value="nueva pompeya">Nueva Pompeya</option>
+						<option value="almagro">Almagro</option>
+						<option value="boedo">Boedo</option>
+						<option value="caballito">Caballito</option>
+						<option value="parque chacabuco">Parque Chacabuco</option>
+						<option value="flores">Flores</option>
+						<option value="villa soldati">Villa Soldati</option>
+						<option value="villa riachuelo">Villa Riachuelo</option>
+						<option value="villa lugano">Villa Lugano</option>
+						<option value="mataderos">Mataderos</option>
+						<option value="parque avellaneda">Parque Avellaneda</option>
+						<option value="liniers">Liniers</option>
+						<option value="velez sarfield">Velez Sarfield</option>
+						<option value="villa luro">Villa Luro</option>
+						<option value="floresta">Floresta</option>
+						<option value="monte castro">Monte Castro</option>
+						<option value="villa real">Villa Real</option>
+						<option value="versalles">Versalles</option>
+						<option value="villa general mitre">Villa General Mitre</option>
+						<option value="villa santa rita">Villa Santa Rita</option>
+						<option value="villa del parque">Villa del Parque</option>
+						<option value="villa devoto">Villa Devoto</option>
+						<option value="villa pueyrredon">Villa Pueyrredón</option>
+						<option value="villa urquiza">Villa Urquiza</option>
+						<option value="saavedra">Saavedra</option>
+						<option value="coghlan">Coghlan</option>
+						<option value="nunez">Núñez</option>
+						<option value="belgrano">Belgrano</option>
+						<option value="colegiales">Colegiales</option>
+						<option value="palermo">Palermo</option>
+						<option value="agronomia">Agronomia</option>
+						<option value="paternal">Paternal</option>
+						<option value="chacarita">Chacarita</option>
+						<option value="villa ortuzar">Villa Ortúzar</option>
+						<option value="villa crespo">Villa Crespo</option>
+						<option value="barrio vulnerable">Barrio Vulnerable</option>
+				</select>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Comuna *</label>
+				<label class="text-dark">Comuna *</label>
 				<select name='commune' class="form-select">
 					<option selected value="01">01</option>
 					<option value="02">02</option>
@@ -86,24 +136,34 @@
 					<option value="10">10</option>
 					<option value="11">11</option>
 					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
 				  </select>
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Áreas *</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Cultura"
+				<label class="text-dark">Áreas *</label>
+				<select
 					name="areas"
 					required="true"
-					class="form-control"
-					value="{{values.areas}}"
-				/>
+					class="form-control form-select"
+					value="{{values.areas}}" >
+						<option selected value="social">Social</option>
+						<option value="cultural">Cultural</option>
+						<option value="deportiva o recreativa">Deportiva o Reacreativa</option>
+						<option value="ambiente">Ambiente</option>
+						<option value="genero">Género</option>
+						<option value="diversidad">Diversidad</option>
+						<option value="discapacidad">Discapacidad</option>
+						<option value="educacion">Educación</option>
+						<option value="salud">Salud</option>
+						<option value="religion">Religión</option>
+				</select>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Código postal</label>
+				<label class="text-dark">Código postal</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -117,43 +177,52 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Tipo de organización *</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Fundación"
+				<label class="text-dark">Tipo de organización *</label>
+				<select
 					name="type"
 					required="true"
-					class="form-control"
-					value="{{values.type}}"
-				/>
+					class="form-control form-select"
+					value="{{values.type}}" >
+						<option selected value="fundacion">Fundación</option>
+						<option value="jubilados y pensionados">Centro de Jubilados y Pensionados</option>
+						<option value="centro comunitario">Centro Comunitario</option>
+						<option value="centro o asociacion cultural">Centro o Asociación Cultural</option>
+						<option value="comedor">Comedor</option>
+						<option value="asociacion de fomento">Asociación de Fomento</option>
+						<option value="club o asociacion deportiva">Club o Asociación Deportiva</option>
+						<option value="actor independiente">Actor Independiente</option>
+				</select>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light">Tipo de público</label>
-				<input
-					autocomplete="off"
-					type="text"
-					placeholder="Ej: Juventud"
+				<label class="text-dark">Tipo de público</label>
+				<select
 					name="public"
-					class="form-control"
-					value="{{values.public}}"
-				/>
+					required="true"
+					class="form-control form-select"
+					value="{{values.public}}" >
+						<option selected value="na">No aclara</option>
+						<option value="ninez">Niñez</option>
+						<option value="adolescencia o juventud">Adolescencia o juventud</option>
+						<option value="tercera edad">Tercera edad</option>
+						<option value="familia">Familia</option>
+						<option value="mujer">Mujer</option>
+				</select>
 			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light">Inscripta en IGJ</label>
+				<label class="text-dark">Inscripta en IGJ</label>
 				<select
 					aria-label="Default select example"
 					name="igj"
-					class="form-control"
+					class="form-control form-select"
 				>
 					<option value="No">No</option>
 					<option value="Si">Si</option>
 				</select>
 			</div>
 			<div class="form-group col-md-5">
-				<label class="text-light text-center">Email *</label
+				<label class="text-dark text-center">Email *</label
 				><input
 					autocomplete="off"
 					class="form-control"
@@ -167,7 +236,7 @@
 		</div>
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-light text-center">Número de contacto</label>
+				<label class="text-dark text-center">Número de contacto</label>
 				<input
 					autocomplete="off"
 					type="text"
@@ -179,8 +248,7 @@
 					value="{{values.mobile}}"
 				/>
 			</div>
-			<div class="form-group col-md-5 d-flex flex-column align-items-end">
-				<label style="color:#36415f">:)</label>
+			<div class="form-group col-md-5 d-flex flex-column justify-content-end align-items-end">
 				<button
 					class="btn btn-primary-dark btn-block form-control"
 					type="submit"

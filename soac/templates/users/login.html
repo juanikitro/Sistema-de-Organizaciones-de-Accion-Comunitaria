@@ -26,10 +26,10 @@
 	</head>
 	<body class="bg-lightblue">
 	<section class=' container p-5'>
-	<h1 class="text-light display-2 text-center mb-5">Sistema de Organizaciones de Acción Comunitaria</h1>
+	<h1 class="text-dark display-2 text-center mb-5">Sistema de Organizaciones de Acción Comunitaria</h1>
 		<form class="form-group p-5 d-flex align-items-center flex-column" method="POST" action="{% url "login" %}">
 			{% csrf_token %}
-			<label class="text-light">Cuit</label>
+			<label class="text-dark">Cuit</label>
 			<input
 				autocomplete="off" 
 				class="form-control w-50 mb-3"
@@ -40,7 +40,7 @@
 				placeholder="Cuit"
 				name="username"
 				required="true" />
-			<label class="text-light">Contraseña</label>
+			<label class="text-dark">Contraseña</label>
 			<input
 				autocomplete="off" 
 				class="form-control w-50 mb-3"

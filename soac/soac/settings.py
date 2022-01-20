@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'events',
     'activities',
     'visits',
-    'history'
+    'history',
+    'claims',
 ]
 
 MIDDLEWARE = [
