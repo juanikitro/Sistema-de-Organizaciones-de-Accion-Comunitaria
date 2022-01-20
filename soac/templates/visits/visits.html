@@ -141,6 +141,7 @@
                     <th scope="col">Fecha</th>
                     <th scope="col">Hora</th>
                     <th scope="col">Observacion</th>
+                    <th scope="col">Observacion</th>
                     <th scope="col"></th
                 </tr>
             </thead>
@@ -150,6 +151,7 @@
                 <tr>
                     <td>{{e.created}}</td>
                     <td>{{e.date}}</td>
+                    <td>{{e.org_name}}</td>
                     {% if e.hour != '00:00:00' %}
                     <td>{{e.hour}}</td>
                     {% else %}
