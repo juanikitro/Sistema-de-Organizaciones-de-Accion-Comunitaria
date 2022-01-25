@@ -201,9 +201,30 @@
 		</a>
 		{% endif %}
 	{% endif %}
-		<a class="btn btn-primary-dark" href="org_report/" role="button"
-			>Exportar</a
+		<a
+			href="#"
+			class=" text-decoration-none btn btn-success"
+			id="dropdownUser1"
+			data-bs-toggle="dropdown"
+			aria-expanded="false"
+			>Exportar
+		</a>
+		<ul
+			class="dropdown-menu dropdown-menu-light text-small shadow"
+			aria-labelledby="dropdownUser1"
 		>
+			<li>
+				<a class="text-center dropdown-item" href="org_report/"
+					>Excel</a
+				>
+			</li>
+			<li><hr class="dropdown-divider" /></li>
+			<li>
+				<a class="text-center dropdown-item" target='_blank' href="org_pdf/"
+					>PDF</a
+				>
+			</li>
+		</ul>
 		<a class="btn btn-primary-dark" href="setupclaim/" role="button"
 			>Crear reclamo</a
 		>

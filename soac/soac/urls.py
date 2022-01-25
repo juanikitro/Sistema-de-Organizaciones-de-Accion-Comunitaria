@@ -46,6 +46,7 @@ urlpatterns = [
     path('organizations/org/<str:pk>/register/', organizations_views.register_request_view, name='register_roac'),
     path('organizations/org/<str:pk>/modify/', organizations_views.modify_org_view, name='modify_org'),
     path('organizations/org/<str:pk>/org_report/', organizations_views.download_org_view, name='org_report'),
+    path('organizations/org/<str:pk>/org_pdf/', organizations_views.PdfExport.as_view(), name='org_report_pdf'),
 
     #Bandejas
     path('inbox/analysis', inbox_views.analysis_view, name='analysis'),
@@ -56,7 +57,7 @@ urlpatterns = [
     path('inbox/sign', inbox_views.sign_view, name='sign'),
     path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
     path('inbox/sign/signing/<str:pk>/', inbox_views.signing_view, name='signing'),
-    path('inbox/sign/signing/<str:pk>/certificate', inbox_views.Certificate_ROAC.as_view(), name='certificate'),
+    path('inbox/sign/signing/<str:pk>/certificate/', inbox_views.Certificate_ROAC.as_view(), name='certificate'),
 
     #Comunicaciones
     path('comunication/users/', comunications_views.comunications_users_view, name='comunications_users'),

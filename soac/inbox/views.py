@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
+from pymysql import NULL
+
 
 #Models
 from organizations.models import Org
@@ -117,7 +119,12 @@ def signing_view(request, pk):
         if form.is_valid():
             selected_org.state = 'activa'
             selected_org.roac = 'Si'
-            selected_org.enrolled = datetime.now().date()
+
+            if selected_org.enrolled == None:
+                selected_org.enrolled = datetime.now().date()
+            else: 
+                selected_org.renoved = datetime.now().date()
+
             selected_org.expiration = date.today() + timedelta(days=730)
             form.save()
 
