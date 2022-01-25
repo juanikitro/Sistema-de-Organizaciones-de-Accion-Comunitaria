@@ -96,6 +96,7 @@ class Excel_report(TemplateView):
         return response
 
 
+@login_required
 def claim_view(request, pk):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
@@ -150,6 +151,7 @@ def claim_delete_view(request, pk):
     claim.delete()
 
     return redirect('claims')
+
 
 @login_required
 def claim_modify_view(request, pk):

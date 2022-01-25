@@ -1,4 +1,5 @@
 #Django & python
+from ast import If
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -6,13 +7,13 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 #Modelos
-from visits.models import Visit
+from visits.models import Visit, Act
+from claims.models import Claim
 from organizations.models import Org
 from history.models import Item
 from users.models import Profile
 
-    #TODO: Visualizar en las tablas solo las visitaes/eventos/visitas que aun no pasaron
-
+# Visitas
 @login_required
 def visits_view(request):
     user_id = request.user.id
@@ -63,6 +64,7 @@ def visits_view(request):
 
     return render(request,'visits/visits.html', data)
 
+
 @login_required
 def visit_view(request, pk):
     user_id = request.user.id
@@ -70,7 +72,8 @@ def visit_view(request, pk):
 
     visit = Visit.objects.get(id=pk)
     
-    return render(request,'visits/visit.html', {'visit':visit, 'level': profile_level})
+    return render(request,'visits/visit.html', {'visit':visit,'today': datetime.now(), 'level': profile_level})
+
 
 @login_required
 def visit_delete_view(request, pk):
@@ -93,6 +96,7 @@ def visit_delete_view(request, pk):
     visit.delete()
 
     return redirect('visits')
+
 
 @login_required
 def visit_modify_view(request, pk):
@@ -129,3 +133,75 @@ def visit_modify_view(request, pk):
         return redirect('visit', visit.id)
 
     return render(request, 'visits/modify_visit.html', {'visit': visit, 'level': profile_level})
+
+
+#Acta 
+@login_required
+def create_act_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
+    visit = Visit.objects.get(id = pk)
+   
+    data = {
+       'level': profile_level,
+       'visit': visit
+       }
+
+    if request.method == 'POST': #TODO: Chequear que funciona el form :D
+        act = Act()
+        act.date = visit.date
+        act.agent = request.POST.get('agent')     
+        act.receptor_name = request.POST.get('receptor_name')
+        act.receptor_charge = request.POST.get('receptor_charge')
+        act.beneficiaries = request.POST.get('beneficiaries')
+        act.partners = request.POST.get('partners')
+        act.tasks = request.POST.get('tasks')
+        act.subsidies = request.POST.get('subsidies')
+        act.subsidies_what = request.POST.get('subsidies_what')
+        act.links = request.POST.get('links')
+        act.visit = visit        
+
+        claim = Claim()
+        claim.observation = request.POST.get('observation')     
+        claim.state = request.POST.get('state')     
+        claim.org = visit.org
+        claim.org_name = Org.objects.get(id = visit.org).name
+        claim.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        claim.save() 
+        act.claim = claim
+
+        act.save() 
+
+        visit.act_id = act.id
+        visit.save()
+
+        history_item = Item()
+        history_item.action = f'Creacion de acta a visita: {visit.id}'
+        history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+        history_item.save()
+
+        return redirect('visit', pk)
+
+    return render(request,'visits/create_act.html', data)
+
+
+@login_required
+def act_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
+    visit = Visit.objects.get(id = pk)
+    act = Act.objects.get(visit_id = pk)
+    claim = Claim.objects.get(id = act.claim.id)
+   
+    data = {
+       'level': profile_level,
+       'visit': visit,
+       'act': act,
+       'claim': claim
+       }
+
+    return render(request,'visits/act.html', data)
+
+

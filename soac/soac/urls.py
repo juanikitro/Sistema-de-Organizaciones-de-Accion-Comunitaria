@@ -80,6 +80,8 @@ urlpatterns = [
     path('visits/<str:pk>/', visits_views.visit_view, name='visit'),
     path('visits/<str:pk>/modify/', visits_views.visit_modify_view, name='modify_visit'),
     path('visits/<str:pk>/delete/', visits_views.visit_delete_view, name='delete_visit'),
+    path('visits/<str:pk>/create_act/', visits_views.create_act_view, name='create_act'),
+    path('visits/<str:pk>/act/', visits_views.act_view, name='act'),
 
     #Historial
     path('history/', history_views.history_view, name='history'),
