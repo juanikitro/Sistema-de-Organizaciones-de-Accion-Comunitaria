@@ -16,10 +16,6 @@
 				<td class="py-3 text-end">{{ event.created | date:"d-m-Y" }}</td>
 			</tr>
 			<tr class="py-3">
-				<td><strong>Fecha:</strong></td>
-				<td class="py-3 text-end">{{ event.date | date:"d-m-Y" }}</td>
-			</tr>
-			<tr class="py-3">
 				<td><strong>Hora:</strong></td>
 				{% if event.hour != '00:00:00' %}
 				<td class="py-3 text-end">{{ event.hour }}</td>
@@ -29,11 +25,11 @@
 			</tr>
 			<tr class="py-3">
 				<td><strong>Lugar:</strong></td>
-				<td class="py-3 text-end">{{ event.spot  }}</td>
+				<td style="max-height:100px; max-width:200px" class="py-3 text-end">{{ event.spot  }}</td>
 			</tr>
 			<tr class="py-3">
 				<td><strong>Invitados:</strong></td>
-				<td class="py-3 text-end">{{ orgs }}</td>
+				<td style="max-height:100px; max-width:200px" class="py-3 text-end">{{ orgs }}</td>
 			</tr>
 		</table>
 	</div>
@@ -52,7 +48,7 @@
 			aria-labelledby="dropdownUser1"
 		>
 			<li>
-				<p class="text-center">¿Esta segurx?</p>
+				<p class="text-center">¿Esta seguro?</p>
 			</li>
 			<li><hr class="dropdown-divider" /></li>
 			<li>

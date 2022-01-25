@@ -2,7 +2,7 @@
 <title>SOAC - Busqueda de organizaciónes</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
-	<h1 class="text-dark display-2 text-center mb-5">Buscar Organización</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Buscar Organización</h1>
 
 	<form action="{% url 'orgs' %}" method="POST">
 		{% csrf_token %}
@@ -229,7 +229,7 @@
 				<th scope="col">Comuna</th>
 				<th scope="col">IGJ</th>
 				<th scope="col">Estado</th>
-				<th scope="col">ROAC</th>
+				<th scope="col">"ROAC"</th>
 				<th scope="col"></th>
 			</tr>
 		</thead>

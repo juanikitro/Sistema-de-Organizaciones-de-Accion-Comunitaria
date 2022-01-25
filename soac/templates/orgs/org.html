@@ -2,10 +2,10 @@
 <title>SOAC - {{ name }}</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
-	<h1 class="text-dark display-2 text-center mb-5">{{ name }}</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>{{ name }}</h1>
 	<div class="d-flex text-dark justify-content-around mb-3">
 		<h5><strong> Id: </strong> {{ id }}</h5>
-		<h5><strong> ROAC: </strong>{{ roac }}</h5>
+		<h5><strong> "ROAC": </strong>{{ roac }}</h5>
 	</div>
 	<div class="d-flex justify-content-around ">
 		<div class="d-flex flex-column w-50">
@@ -37,7 +37,7 @@
 		<div class="d-flex mt-5">
 			<div class="card h-100 w-100 bg-lightblue">
 				<div class="card-header-dark text-center">
-					<h5>Vinculación</h5>
+					<h5>Visitas</h5>
 				</div>
 				<div class="card-body">
 					<table class="table text-dark">
@@ -53,7 +53,7 @@
 							{% for e in visit %}
 							{% if e.date > today %}
 							<tr>
-								<td>{{e.date}}</td>
+								<td>{{e.date | date:"d-m-Y"}}</td>
 								{% if e.hour != '00:00:00' %}
 								<td>{{e.hour}}</td>
 								{% else %}
@@ -95,11 +95,11 @@
 			<div class="card-body">
 				<p><strong> Estado: </strong> {{ state }}</p>
 					<p>
-						<strong> Fecha de inscripcion a SOAC: </strong> {{ created | date:"d-m-Y" }}
+						<strong> Fecha de inscripcion a "SOAC": </strong> {{ created | date:"d-m-Y" }}
 					</p>
 					{% if roac == 'Si' and state == 'activa'%}
 					<p>
-						<strong> Fecha de inscripción a ROAC: </strong> {{ enrolled | date:"d-m-Y" }}
+						<strong> Fecha de inscripción a "ROAC": </strong> {{ enrolled | date:"d-m-Y" }}
 					</p>
 					<p><strong> Fecha de renovación: </strong> {{ renoved | date:"d-m-Y" }}
 					</p>
@@ -130,7 +130,7 @@
 						<tr>
 							<th scope="col">Creacion</th>
                             <th scope="col">Usuario</th>
-                            <th scope="col">observacion</th>
+                            <th scope="col">Observacion</th>
                             <th scope="col">Organizacion</th>
                             <th scope="col">Estado</th>
                             <th scope="col"></th>
@@ -140,9 +140,9 @@
 						{% for e in claims %}
 						{% if e.state == 'abierto' %}
 						<tr>
-							<td>{{e.created}}</td>
+							<td>{{e.created | date:"d-m-Y" }}</td>
 							<td>{{e.by}}</td>
-							<td>{{e.observation}}</td>
+							<td style="max-height:100px; max-width:200px">{{e.observation}}</td>
 							<td>{{e.org_name}}</td>
 							<td>{{e.state}}</td>
 							<td>
@@ -177,7 +177,7 @@
 			aria-labelledby="dropdownUser1"
 		>
 			<li>
-				<p class="text-center">¿Esta segurx?</p>
+				<p class="text-center">¿Esta seguro?</p>
 			</li>
 			<li><hr class="dropdown-divider" /></li>
 			<li>

@@ -60,7 +60,7 @@
 {% block body %}
 <section class="container p-5">
 	
-	<h1 class="text-dark display-2 text-center mb-5">Eventos</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Eventos</h1>
     {% if level == 'central' or level == 'admin' %}
         <article class="row bg-blue justify-content-between">
             <div class="bg-lightblue p-3 card col-8">
@@ -69,6 +69,7 @@
             <div class='col-4 card bg-lightblue h-100'>
                 <form class="mt-3" autocomplete="off" action="{% url 'events' %}" method="POST">
                     {% csrf_token %}
+                    <h3 class='text-dark text-center'>Crear</h2>
                     <div class="d-flex flex-column justify-content-around mb-3">
                         <label class="text-dark">Nombre del evento: *</label>
                         <input
@@ -77,6 +78,7 @@
                             type="text"
                             placeholder=""
                             name="event_name"
+                            maxlength='100'
                             required="true"
                         />
                         <label class="text-dark">Lugar del evento: *</label>
@@ -86,13 +88,15 @@
                         type="text"
                         placeholder=""
                         name="spot"
+                        maxlength='100'
+
                     />
-                        <label class="text-dark">Fecha: *</label>
+                        <label class="text-dark">Fecha del evento: *</label>
                         <input
                             autocomplete="off"
                             class="form-control mb-3"
                             type="date"
-                            placeholder="Fecha"
+                            pattern="dd-mm-yy"
                             name="date"
                             required="true"
                         />
@@ -155,7 +159,7 @@
                 <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">Creacion</th>
-                    <th scope="col">Fecha</th>
+                    <th scope="col">Fecha del evento</th>
                     <th scope="col">Hora</th>
                     <th scope="col">Lugar</th>
                     <th scope="col"></th
@@ -165,15 +169,15 @@
                 {% for e in event %}
                 {% if e.date > today %}
                 <tr>
-                    <td>{{e.event_name}}</td>
-                    <td>{{e.created}}</td>
-                    <td>{{e.date}}</td>
+                    <td style="max-height:100px; max-width:200px">{{e.event_name}}</td>
+                    <td>{{e.created | date:"d-m-Y" }}</td>
+                    <td>{{e.date | date:"d-m-Y"}}</td>
                     {% if e.hour != '00:00:00' %}
                     <td>{{e.hour}}</td>
                     {% else %}
                     <td>Todo el dia</td>
                     {% endif %}
-                    <td>{{e.spot}}</td>
+                    <td style="max-height:100px; max-width:200px">{{e.spot}}</td>
                     <td>
                         <a
                         class="btn btn-primary-dark"

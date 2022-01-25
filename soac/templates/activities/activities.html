@@ -72,7 +72,7 @@
 			fill-rule="evenodd"
 			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
 		/></svg></a>
-	<h1 class="text-dark display-2 text-center mb-5">Actividades</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Actividades</h1>
     {% if level == 'central' or level == 'admin' %}
         <article class="row bg-blue justify-content-between">
             <div class="bg-lightblue card col-8 ">
@@ -81,21 +81,22 @@
             <div class='col-4 card bg-lightblue h-100'>
                 <form class="mt-3" autocomplete="off" action="{% url 'activities' %}" method="POST">
                     {% csrf_token %}
+                    <h3 class='text-dark text-center'>Crear</h2>
                     <div class="d-flex flex-column justify-content-around mb-3">
                         <label class="text-dark">Tipo de actividad: *</label>
-                        <select>
+                        <select
                             class="form-control mb-3"
                             name="activity_type"
                             required="true">
                             <option selected value="Pintura">Pintura</option>
                             <option value="Refacciones">Refacciones</option>
                         </select>
-                        <label class="text-dark">Fecha: *</label>
+                        <label class="text-dark">Fecha de la actividad: *</label>
                         <input
                             autocomplete="off"
                             class="form-control mb-3"
                             type="date"
-                            placeholder="Fecha"
+                            pattern="dd-mm-yy"
                             name="date"
                             required="true"
                         />
@@ -159,7 +160,7 @@
                 <tr>
                     <th scope="col">Tipo</th>
                     <th scope="col">Creacion</th>
-                    <th scope="col">Fecha</th>
+                    <th scope="col">Fecha de evento</th>
                     <th scope="col">Hora</th>
                     <th scope="col"></th
                 </tr>
@@ -169,8 +170,8 @@
                 {% if e.date > today %}
                 <tr>
                     <td>{{e.activity_type}}</td>
-                    <td>{{e.created}}</td>
-                    <td>{{e.date}}</td>
+                    <td>{{e.created | date:"d-m-Y"}}</td>
+                    <td>{{e.date | date:"d-m-Y"}}</td>
                     {% if e.hour != '00:00:00' %}
                     <td>{{e.hour}}</td>
                     {% else %}

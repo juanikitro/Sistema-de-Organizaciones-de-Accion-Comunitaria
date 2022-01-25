@@ -2,7 +2,7 @@
 <title>SOAC - Cargar organización</title>
 {% endblock%} {% block body %}
 <article class="container p-5">
-	<h1 class="text-dark display-2 text-center mb-5">Cargar organización en SOAC</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Cargar organización en "SOAC"</h1>
 	<form class="bg-lightblue card py-5" autocomplete="off" action="{% url 'soac' %}" method="POST">
 		{% csrf_token %}
 

@@ -2,7 +2,7 @@
 <title>SOAC - Busqueda de usuarios</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
-	<h1 class="text-dark display-2 text-center mb-5">Buscar usuario</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Buscar usuario</h1>
 
 	<form action="{% url 'users' %}" method="POST">
 		{% csrf_token %}
@@ -67,7 +67,7 @@
 					<option value="1">Usuario comunal</option>
 					<option value="2">Usuario central</option>
 					<option value="3">Presidente</option>
-					<option value="4">Administrador de ROAC</option>
+					<option value="4">Administrador de "ROAC"</option>
 				</select>
 			</div>
 		</div>

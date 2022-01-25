@@ -3,7 +3,7 @@
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
 	
-	<h1 class="text-dark display-2 text-center mb-5">Modificar visita a {{ visit.org_name }}</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Modificar visita a {{ visit.org_name }}</h1>
 	<form
 		autocomplete="off"
 		action="{% url 'modify_visit' visit.id %}"
@@ -18,6 +18,7 @@
 					autocomplete="off"
 					type="text"
 					name="observation"
+					maxlength='60' 
 					required="true"
 					class="form-control"
 					value="{{visit.observation}}"
@@ -27,7 +28,7 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-dark">Fecha</label>
+				<label class="text-dark">Fecha de visita</label>
 				<input
 					autocomplete="off"
 					class="form-control"
