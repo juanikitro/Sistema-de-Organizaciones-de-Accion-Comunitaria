@@ -36,10 +36,10 @@
                         id: '{{e.id}}',
 						type: 'visit',
 					},
-                    {% if e.hour != '00:00:00' %}
-                    allDay: false,
-                    {% else %}
+                    {% if e.allday == 'Si' %}
                     allDay: true,
+                    {% else %}
+                    allDay: false,
                     {% endif %}
 					backgroundColor: '#198754',
 					borderColor: '#198754',
@@ -88,6 +88,17 @@
                             value="00:00:00"
                             required="true"
                             /> 
+                        <div class='mb-3 d-flex flex-row'>
+                            <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name='allday'
+                            id="flexCheckChecked"
+                            />
+                            <label class="form-check-label mx-3" for="flexCheckChecked">
+                                Dia completo
+                            </label>   
+                        </div>
                         <label class="text-dark">Observaciones: </label>
                         <textarea 
                         maxlength='60' 
@@ -105,10 +116,10 @@
                             {% endfor %}
                         </select>
                         <button
-                            class="btn btn-primary-dark btn-block form-control mb-3"
+                            class="btn btn-primary-dark btn-block form-control my-3"
                             type="submit"
                         >
-                            Registrar
+                            Crear
                         </button>
                     </div>
                 </form>
@@ -140,11 +151,8 @@
                     <td>{{e.created | date:"d-m-Y" }}</td>
                     <td>{{e.date | date:"d-m-Y"}}</td>
                     <td>{{e.org_name}}</td>
-                    {% if e.hour != '00:00:00' %}
-                    <td>{{e.hour}}</td>
-                    {% else %}
-                    <td>Todo el dia</td>
-                    {% endif %}
+                                        <td>{{e.hour}}</td>
+
                     <td style="max-height:100px; max-width:200px">{{e.observation}}</td>
                     <td>
                         <a

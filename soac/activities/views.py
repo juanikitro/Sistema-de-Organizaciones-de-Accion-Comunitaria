@@ -28,7 +28,11 @@ def activities_view(request):
         activity = Activity()
         activity.activity_type = request.POST.get('activity_type')     
         activity.date = request.POST.get('date')     
-        activity.hour = request.POST.get('hour')     
+        activity.hour = request.POST.get('hour') 
+        if request.POST.get('allday') == 'on':
+            activity.allday = 'Si'
+        else: 
+            activity.allday = 'No'    
         activity.save() 
 
         orgs_id = request.POST.getlist('orgs')

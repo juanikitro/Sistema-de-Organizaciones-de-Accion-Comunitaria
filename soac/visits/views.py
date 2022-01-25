@@ -18,7 +18,6 @@ from users.models import Profile
 def visits_view(request):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
-
     visits = Visit.objects.all().order_by('date')
     orgs = Org.objects.all()
     today = datetime.now().date()
@@ -39,6 +38,10 @@ def visits_view(request):
         visit.observation = request.POST.get('observation')     
         visit.org = request.POST.get('org')  
         visit.org_name = Org.objects.get(id = request.POST.get('org')).name
+        if request.POST.get('allday') == 'on':
+            visit.allday = 'Si'
+        else: 
+            visit.allday = 'No'
         email = Org.objects.get(id = request.POST.get('org')).email
         visit.save() 
     

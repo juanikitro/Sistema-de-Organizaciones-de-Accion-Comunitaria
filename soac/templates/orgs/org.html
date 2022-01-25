@@ -54,11 +54,7 @@
 							{% if e.date > today %}
 							<tr>
 								<td>{{e.date | date:"d-m-Y"}}</td>
-								{% if e.hour != '00:00:00' %}
 								<td>{{e.hour}}</td>
-								{% else %}
-								<td>Todo el dia</td>
-								{% endif %}
 								<td style='max-height:50px; max-width:50px'>{{e.observation}}</td>
 								<td>
 									<a

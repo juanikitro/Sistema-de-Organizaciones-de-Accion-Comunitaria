@@ -37,11 +37,7 @@
 						spot: '{{e.spot}}',
 						type: 'event',
 					},
-					{% if e.hour != '00:00:00' %}
                     allDay: false,
-                    {% else %}
-                    allDay: true,
-                    {% endif %}
 					backgroundColor: '#0dcaf0',
 					borderColor: '#0dcaf0',
 					url: '{% url 'event' e.id %}',
@@ -56,11 +52,7 @@
 					id: '{{a.id}}',
 					type: 'activity',
 				},
-				{% if a.hour != '00:00:00' %}
 				allDay: false,
-				{% else %}
-				allDay: true,
-				{% endif %}
 				backgroundColor: '#dc3545',
 				borderColor: '#dc3545',
 				url: '{% url 'activity' a.id %}',
@@ -75,11 +67,7 @@
 					id: '{{v.id}}',
 					type: 'visit',
 				},
-				{% if v.hour != '00:00:00' %}
 				allDay: false,
-				{% else %}
-				allDay: true,
-				{% endif %}
 				backgroundColor: '#198754',
 				borderColor: '#198754',
 				url: '{% url 'visit' v.id %}',
@@ -97,7 +85,7 @@
 {% block body %}
 <section class="container p-5">
 	
-	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Calendario general</h1>
+	<h1 class="text-dark display-2 text-center mb-5">Calendario general</h1>
 
 	<article class="text-dark card bg-lightblue">
 		<div id="calendar"></div>
