@@ -24,7 +24,7 @@
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/accordions.css' %}" />
 		<link rel="shortcut icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
-		<link rel="icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
+		<link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -36,7 +36,7 @@
 	</head>
 	<body
 		style="font-family: 'Montserrat'; max-width: 100vw; overflow-x: hidden"
-		class="row bg-lightblue text-dark"
+		class=" bg-blue row text-dark"
 	>
 		<section
 			class="
@@ -60,9 +60,9 @@
 					text-dark text-decoration-none
 				"
 			>
-				<span class="mx-2"
-					><img width="100px" src="{% static 'img/logo.png' %}"
-				/></span>
+				<div class="mx-2"
+					><img width="40px" src="{% static 'img/favicon.png' %}"
+				/></div>
 			</a>
 			<hr />
 			<ul class="nav nav-pills flex-column mb-auto">
@@ -453,10 +453,6 @@
 					class="dropdown-menu dropdown-menu-light text-small shadow"
 					aria-labelledby="dropdownUser1"
 				>
-					<li>
-						<a class="dropdown-item text-dark" href="#">Reportar un error</a>
-					</li>
-					<li><hr class="dropdown-divider" /></li>
 					<li>
 						<a class="dropdown-item text-dark" href="{% url 'logout' %}"
 							>Cerrar sesion</a
