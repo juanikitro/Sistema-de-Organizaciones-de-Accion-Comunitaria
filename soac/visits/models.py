@@ -26,4 +26,5 @@ class Act(models.Model):
     links= models.CharField(max_length=255, null=False)
 
     visit = models.OneToOneField(Visit, on_delete=models.CASCADE)
+    claim_exist= models.CharField(max_length=3, null=False)
     claim = models.OneToOneField(Claim, on_delete=models.CASCADE)

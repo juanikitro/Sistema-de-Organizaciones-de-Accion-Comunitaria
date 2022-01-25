@@ -317,6 +317,7 @@ def org_view(request, pk):
     'visit': visits,
     'igj': org_profile.igj,
     'claims': claims,
+    'certificate': org_profile.certificate,
     'today': datetime.now()
     }
 

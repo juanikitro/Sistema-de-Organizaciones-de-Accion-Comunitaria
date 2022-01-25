@@ -148,7 +148,7 @@ def create_act_view(request, pk):
        'visit': visit
        }
 
-    if request.method == 'POST': #TODO: Chequear que funciona el form :D
+    if request.method == 'POST':
         act = Act()
         act.date = visit.date
         act.agent = request.POST.get('agent')     
@@ -163,6 +163,7 @@ def create_act_view(request, pk):
         act.visit = visit        
 
         claim = Claim()
+        claim.category = request.POST.get('category')     
         claim.observation = request.POST.get('observation')     
         claim.state = request.POST.get('state')     
         claim.org = visit.org
@@ -170,6 +171,7 @@ def create_act_view(request, pk):
         claim.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
         claim.save() 
         act.claim = claim
+        act.claim_exist = 'Si'
 
         act.save() 
 

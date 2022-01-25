@@ -21,6 +21,7 @@ class Org(models.Model):
     # ROAC
     roac = models.CharField(default='No', max_length=10)
     doc = models.FileField(default='', upload_to='roac/doc/',)
+    certificate = models.FileField(default='', upload_to='roac/certificate/',)
     msg = models.CharField(max_length=255, default='', null=True, blank=True)
 
     # nota_solicitud_inscripcion = models.FileField(default='', upload_to='roac/nota_solicitud_inscripcion/',)

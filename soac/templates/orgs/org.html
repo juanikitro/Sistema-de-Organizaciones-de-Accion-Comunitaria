@@ -239,6 +239,16 @@
 	{% if state == 'pre-activa' or state == 'activa' or state == 'firmar'%}
 		<a class="btn btn-primary-dark" target="_blank" href="/media/{{doc}}">Ver documentacion</a>
 	{% endif %}
+	{% if level == 'central' or level == 'admin' %}
+		{% if  roac == 'Si' %}
+		<a
+			target="_blank"
+			href="/media/{{certificate}}"
+			class=" text-decoration-none btn btn-primary-dark"
+			>Ver certificado
+		</a>
+		{% endif %}
+	{% endif %}
 	</div>
 </article>
 
