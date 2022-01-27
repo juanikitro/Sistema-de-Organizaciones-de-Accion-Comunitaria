@@ -59,18 +59,20 @@ class Excel_report(TemplateView):
         ws['A1'].font = Font(name = 'Arial', size = 12)
         ws['A1'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
 
-        ws.merge_cells('A1:E1')
+        ws.merge_cells('A1:F1')
 
         ws['A3'] = 'id de reclamo'
         ws['A3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
         ws['B3'] = 'Usuario'
         ws['B3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
-        ws['C3'] = 'Observacion'
+        ws['C3'] = 'Categoria'
         ws['C3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
-        ws['D3'] = 'Organizacion'
+        ws['D3'] = 'Observacion'
         ws['D3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
-        ws['E3'] = 'Fecha de creacion'
+        ws['E3'] = 'Organizacion'
         ws['E3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['F3'] = 'Fecha de creacion'
+        ws['F3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
 
 
         ws.column_dimensions['A'].width = 20
@@ -78,14 +80,16 @@ class Excel_report(TemplateView):
         ws.column_dimensions['C'].width = 20
         ws.column_dimensions['D'].width = 20
         ws.column_dimensions['E'].width = 20
+        ws.column_dimensions['F'].width = 20
 
         cont = 4
         for u in claims:
             ws.cell(row = cont, column = 1).value = u.id
             ws.cell(row = cont, column = 2).value = u.by
-            ws.cell(row = cont, column = 3).value = u.observation
-            ws.cell(row = cont, column = 4).value = u.org_name
-            ws.cell(row = cont, column = 5).value = u.created
+            ws.cell(row = cont, column = 3).value = u.category
+            ws.cell(row = cont, column = 4).value = u.observation
+            ws.cell(row = cont, column = 5).value = u.org_name
+            ws.cell(row = cont, column = 6).value = u.created
             cont += 1
 
         excel_name = f'Reporte de reclamos {today}.xlsx'
