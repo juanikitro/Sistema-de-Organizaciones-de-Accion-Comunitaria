@@ -1,11 +1,13 @@
 # Python
 from datetime import date, timedelta, datetime
 
+
 # Django
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
+
 
 # Models
 from organizations.models import Org
@@ -15,10 +17,20 @@ from history.models import Item
 from claims.models import Claim
 from organizations.forms import DocumentForm
 
+
 # Open Py XL (Para el excel)
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Font, Side, PatternFill
 from django.http.response import HttpResponse
+
+
+#PDF
+from django.views.generic import TemplateView
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
 
 @login_required
 def push_soac_view(request):
@@ -61,6 +73,7 @@ def push_soac_view(request):
 
     return render(request, 'orgs/soac.html', {'values': values, 'level': profile_level})
 
+
 @login_required
 def push_roac_view(request):
     user_id = request.user.id
@@ -102,6 +115,7 @@ def push_roac_view(request):
         return redirect('register_roac', org.id)
 
     return render(request, 'orgs/roac.html', {'values': values, 'level': profile_level})
+
 
 @login_required
 def orgs_view(request):
@@ -146,6 +160,7 @@ def orgs_view(request):
             org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__contains=nhood, commune__contains=profile_commune, areas__contains=areas, igj__contains=igj, type__contains=type, public__contains=public, state__contains=state )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
+
 
 class Excel_report(TemplateView):
     def get(self, *args, **kwargs):
@@ -229,6 +244,7 @@ class Excel_report(TemplateView):
         wb.save(response)
         return response
 
+
 @login_required
 def  register_request_view(request, pk):
     user_id = request.user.id
@@ -262,6 +278,7 @@ def  register_request_view(request, pk):
 
     return render(request, 'orgs/register_org.html', {'pk': pk, 'info': info, 'form': form, 'level': profile_level})
 
+
 @login_required
 def org_view(request, pk):
     user_id = request.user.id
@@ -269,64 +286,43 @@ def org_view(request, pk):
 
     claims = Claim.objects.filter(org = pk)
 
-    org = Org.objects.get(id=pk)
-    visits = Visit.objects.filter(org_name = org.name).order_by('date')
-
-    id = org.id
-    name = org.name
-    type = org.type
-    public = org.public
-    areas = org.areas
-    address = org.address
-    dpto = org.dpto
-    postal_code = org.postal_code
-    nhood = org.nhood
-    commune = org.commune
-    domain = org.domain
-    email = org.email
-    mobile = org.mobile
-    state = org.state
-    created = org.created
-    enrolled = org.enrolled
-    renoved = org.renoved
-    expiration = org.expiration
-    modified = org.modified
-    roac = org.roac
-    doc = org.doc
-    igj = org.igj
+    global org_profile
+    org_profile = Org.objects.get(id=pk)
+    visits = Visit.objects.filter(org_name = org_profile.name).order_by('date')
     
     context = {
     'level': profile_level,
-    'org':org,
-    'id':id,
-    'name':name,
-    'type':type,
-    'public':public,
-    'areas':areas,
-    'domain':domain,
-    'commune':commune,
-    'nhood':nhood,
-    'postal_code':postal_code,
-    'dpto':dpto,
-    'address':address,
-    'email':email,
-    'mobile':mobile,
-    'state':state,
-    'created':created,
-    'renoved':renoved,
-    'expiration':expiration,
-    'modified':modified,
-    'roac': roac,
-    'doc': doc,
-    'enrolled': enrolled,
+    'org':org_profile,
+    'id':org_profile.id,
+    'name':org_profile.name,
+    'type':org_profile.type,
+    'public':org_profile.public,
+    'areas':org_profile.areas,
+    'domain':org_profile.domain,
+    'commune':org_profile.commune,
+    'nhood':org_profile.nhood,
+    'postal_code':org_profile.postal_code,
+    'dpto':org_profile.dpto,
+    'address':org_profile.address,
+    'email':org_profile.email,
+    'mobile':org_profile.mobile,
+    'state':org_profile.state,
+    'created':org_profile.created,
+    'renoved':org_profile.renoved,
+    'expiration':org_profile.expiration,
+    'modified':org_profile.modified,
+    'roac': org_profile.roac,
+    'doc': org_profile.doc,
+    'enrolled': org_profile.enrolled,
     'visit': visits,
-    'igj': igj,
+    'igj': org_profile.igj,
     'claims': claims,
+    'certificate': org_profile.certificate,
     'today': datetime.now()
-
     }
 
     return render(request, 'orgs/org.html', context)
+
 
 login_required
 def delete_org_view(request, pk):
@@ -341,6 +337,7 @@ def delete_org_view(request, pk):
     history_item.save()
 
     return redirect('orgs')
+
 
 @login_required
 def modify_org_view(request, pk):
@@ -397,6 +394,7 @@ def modify_org_view(request, pk):
 
     return render(request, 'orgs/modify_org.html', {'old': old_info, 'level': profile_level})
 
+
 @login_required
 def down_org_view(request, pk):
     user_id = request.user.id
@@ -418,6 +416,7 @@ def down_org_view(request, pk):
 
     return redirect('org', selected_org.id)
 
+
 @login_required
 def noregister_org_view(request, pk):
     user_id = request.user.id
@@ -437,6 +436,7 @@ def noregister_org_view(request, pk):
         return redirect('edit')
     except IntegrityError:
         return redirect('edit')
+
 
 @login_required
 def download_org_view(request, pk):
@@ -520,3 +520,21 @@ def download_org_view(request, pk):
     response['Content-Disposition'] = content
     wb.save(response)
     return response
+
+
+def render_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+
+
+class PdfExport(TemplateView):
+   def get(self, request, *args, **kwargs):
+       today = date.today()        
+       expiration = date.today() + timedelta(days=730)
+       pdf = render_to_pdf('orgs/export.html', {'org': org_profile, 'today': today, 'expiration': expiration})
+       return HttpResponse(pdf, content_type='application/pdf')

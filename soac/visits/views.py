@@ -18,7 +18,6 @@ from users.models import Profile
 def visits_view(request):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
-
     visits = Visit.objects.all().order_by('date')
     orgs = Org.objects.all()
     today = datetime.now().date()
@@ -39,6 +38,10 @@ def visits_view(request):
         visit.observation = request.POST.get('observation')     
         visit.org = request.POST.get('org')  
         visit.org_name = Org.objects.get(id = request.POST.get('org')).name
+        if request.POST.get('allday') == 'on':
+            visit.allday = 'Si'
+        else: 
+            visit.allday = 'No'
         email = Org.objects.get(id = request.POST.get('org')).email
         visit.save() 
     
@@ -148,7 +151,7 @@ def create_act_view(request, pk):
        'visit': visit
        }
 
-    if request.method == 'POST': #TODO: Chequear que funciona el form :D
+    if request.method == 'POST':
         act = Act()
         act.date = visit.date
         act.agent = request.POST.get('agent')     
@@ -162,15 +165,19 @@ def create_act_view(request, pk):
         act.links = request.POST.get('links')
         act.visit = visit        
 
-        claim = Claim()
-        claim.observation = request.POST.get('observation')     
-        claim.state = request.POST.get('state')     
-        claim.org = visit.org
-        claim.org_name = Org.objects.get(id = visit.org).name
-        claim.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
-        claim.save() 
-        act.claim = claim
+        if request.POST.get('category') != '':
+            claim = Claim()
+            claim.category = request.POST.get('category')     
+            claim.observation = request.POST.get('observation')     
+            claim.state = request.POST.get('state')     
+            claim.org = visit.org
+            claim.org_name = Org.objects.get(id = visit.org).name
+            claim.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            claim.save() 
+            act.claim = claim
+            act.claim_exist = 'Si'
 
+        act.claim_exist = 'No'
         act.save() 
 
         visit.act_id = act.id
@@ -193,7 +200,9 @@ def act_view(request, pk):
 
     visit = Visit.objects.get(id = pk)
     act = Act.objects.get(visit_id = pk)
-    claim = Claim.objects.get(id = act.claim.id)
+    claim = ''
+    if act.claim_exist == 'Si':
+        claim = Claim.objects.get(id = act.claim_id)
    
     data = {
        'level': profile_level,

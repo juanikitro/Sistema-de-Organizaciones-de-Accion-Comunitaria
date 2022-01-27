@@ -37,11 +37,7 @@
 						spot: '{{e.spot}}',
 						type: 'event',
 					},
-					{% if e.hour != '00:00:00' %}
                     allDay: false,
-                    {% else %}
-                    allDay: true,
-                    {% endif %}
 					backgroundColor: '#0dcaf0',
 					borderColor: '#0dcaf0',
 					url: '{% url 'event' e.id %}',
@@ -56,11 +52,7 @@
 					id: '{{a.id}}',
 					type: 'activity',
 				},
-				{% if a.hour != '00:00:00' %}
 				allDay: false,
-				{% else %}
-				allDay: true,
-				{% endif %}
 				backgroundColor: '#dc3545',
 				borderColor: '#dc3545',
 				url: '{% url 'activity' a.id %}',
@@ -75,11 +67,7 @@
 					id: '{{v.id}}',
 					type: 'visit',
 				},
-				{% if v.hour != '00:00:00' %}
 				allDay: false,
-				{% else %}
-				allDay: true,
-				{% endif %}
 				backgroundColor: '#198754',
 				borderColor: '#198754',
 				url: '{% url 'visit' v.id %}',

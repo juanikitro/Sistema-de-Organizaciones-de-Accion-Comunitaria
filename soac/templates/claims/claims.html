@@ -6,7 +6,7 @@
 {% block body %}
 <section class="container-fluid p-5">
 	
-	<h1 class="text-dark display-2 text-center mb-5">Reclamos</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Reclamos</h1>
     <article class='p-3 bg-lightblue card mt-5'>
 
         <form action="{% url 'claims' %}" method="POST">
@@ -53,7 +53,7 @@
             <div class="form-row d-flex justify-content-around my-3">
                 <div class="col-3 form-group">
                     <a
-                        class="form-control btn btn-primary-dark mb-3"
+                        class="form-control btn btn-success mb-3"
                         href="{% url 'claims_report' %}"
                         role="button"
                         >Exportar</a
@@ -83,7 +83,8 @@
                 <tr>
                     <th scope="col">Creacion</th>
                     <th scope="col">Usuario</th>
-                    <th scope="col">observacion</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Observacion</th>
                     <th scope="col">Organizacion</th>
                     <th scope="col">Estado</th>
                     <th scope="col"></th>
@@ -92,9 +93,10 @@
             <tbody>
                 {% for e in claims %}
                 <tr>
-                    <td>{{e.created}}</td>
+                    <td style="min-width:120px">{{e.created | date:"d-m-Y"}}</td>
                     <td>{{e.by}}</td>
-                    <td>{{e.observation}}</td>
+                    <td style="max-height:50px; max-width:200px">{{e.category}}</td>
+                    <td style="max-height:50px; max-width:200px">{{e.observation}}</td>
                     <td>{{e.org_name}}</td>
                     <td>{{e.state}}</td>
                     <td>

@@ -16,16 +16,12 @@
 				<td class="py-3 text-end">{{ visit.created | date:"d-m-Y" }}</td>
 			</tr>
 			<tr class="py-3">
-				<td><strong>Fecha:</strong></td>
+				<td><strong>Fecha de visita:</strong></td>
 				<td class="py-3 text-end">{{ visit.date | date:"d-m-Y" }}</td>
 			</tr>
 			<tr class="py-3">
 				<td><strong>Hora:</strong></td>
-				{% if visit.hour != '00:00:00' %}
 				<td class="py-3 text-end">{{ visit.hour }}</td>
-				{% else %}
-				<td class="py-3 text-end">Todo el dia</td>
-				{% endif %}
 			</tr>
 			<tr class="py-3">
 				<td><strong>Organizacion:</strong></td>
@@ -52,7 +48,7 @@
 			aria-labelledby="dropdownUser1"
 		>
 			<li>
-				<p class="text-center">¿Esta segurx?</p>
+				<p class="text-center">¿Esta seguro?</p>
 			</li>
 			<li><hr class="dropdown-divider" /></li>
 			<li>

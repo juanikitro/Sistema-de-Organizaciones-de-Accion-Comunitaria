@@ -2,6 +2,7 @@ from django.db import models
 
 class Claim(models.Model):
     created= models.DateTimeField(auto_now_add=True, null=True)
+    category= models.CharField(max_length=255, null=False, default='0')
     observation= models.CharField(max_length=255, null=False, default='0')
     state= models.CharField(max_length=255, null=False, default='abierto')
     by= models.CharField(max_length=255, null=False, default='0')

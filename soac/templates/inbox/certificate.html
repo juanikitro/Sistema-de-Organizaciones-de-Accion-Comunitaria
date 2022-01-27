@@ -28,31 +28,38 @@
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="https://unpkg.com/scrollreveal@4"></script>
-		<title>Certificado ROAC: {{ org.name }}</title>
+		<title>Certificado "ROAC": {{ org.name }}</title>
+
+		<style>
+			div{
+				background-image: url('/static/img/bac.png');
+			}
+		</style>
+
 	</head>
 <body style="font-family: 'Montserrat'">
     <header>
         <div>
-            <h1>CERTIFICADO DE INSCRIPCIÓN</h1>
-            <h2>REGISTRO DE ORGANIZACIONES DE ACCIÓN COMUNITARIA - (ROAC)</h2>
+            <h2 style='font-size:24px; font-weight:300'>CERTIFICADO DE INSCRIPCIÓN</h2>
+            <h2 style='font-size:18px; font-weight:300'>REGISTRO DE ORGANIZACIONES DE ACCIÓN COMUNITARIA - (ROAC)</h2>
+			<hr />
         </div>
         <div>
         </div>
     </header>
     <main>
-        <p class='fs-5'>
-        Certifico que la entidad <strong>"{{ org.name }}"</strong>, con domicilio constituido en calle {{ org.address }} de la Ciudad Autónoma de Buenos Aires, se encuentra inscripta bajo el Legajo N°3718 en el Registro de Organizaciones de Acción Comunitaria (ROAC) dependiente de la Subsecretaría de Gestión Comunal.
         <br />
+        <p style='font-size:16px'>
+        Certifico que la entidad <strong>"{{ org.name }}"</strong>, con domicilio constituido en calle <strong>{{ org.address }}</strong> de la Ciudad Autónoma de Buenos Aires, se encuentra inscripta bajo el Legajo N°3718 en el Registro de Organizaciones de Acción Comunitaria (ROAC) dependiente de la Subsecretaría de Gestión Comunal.
+        <br />
+		
+		<img src="{% static 'img/favicon.png' %}" height='100px' >
         <br />
         A solicitud de la parte interesada, se expide el presente, a efectos de ser presentado ante quien corresponda,en la Ciudad Autónoma de Buenos Aires en la fecha {{ today | date:"d-m-Y"}}.
         <br />
         <br />
         El presente tendrá validez hasta la fecha: {{ expiration | date:"d-m-Y"}}.
         </p>
-        <span class="mx-2"
-					><img width="100px" src="{% static 'img/logo.png' %}"
-				/></span>
     </main>
     </body>
 </html>

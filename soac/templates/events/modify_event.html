@@ -3,7 +3,7 @@
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
 	
-	<h1 class="text-dark display-2 text-center mb-5">Modificar a {{ event.event_name }}</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Modificar a {{ event.event_name }}</h1>
 	<form
 		autocomplete="off"
 		action="{% url 'modify_event' event.id %}"
@@ -20,6 +20,7 @@
 					name="event_name"
 					required="true"
 					class="form-control"
+					maxlength='100'
 					value="{{event.event_name}}"
 				/>
 			</div>
@@ -31,6 +32,7 @@
 					name="spot"
 					required="true"
 					class="form-control"
+					maxlength='100'
 					value="{{event.spot}}"
 				/>
 			</div>
@@ -38,7 +40,7 @@
 
 		<div class="form-row d-flex justify-content-around mb-3">
 			<div class="form-group col-md-5">
-				<label class="text-dark">Fecha</label>
+				<label class="text-dark">Fecha del evento</label>
 				<input
 					autocomplete="off"
 					class="form-control"

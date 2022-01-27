@@ -121,6 +121,7 @@ def setupclaim_view(request, pk):
 
     if request.method == 'POST':
         claim = Claim()
+        claim.category = request.POST.get('category')     
         claim.observation = request.POST.get('observation')     
         claim.state = request.POST.get('state')     
         claim.org = org.id

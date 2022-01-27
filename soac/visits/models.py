@@ -5,6 +5,7 @@ class Visit(models.Model):
     created= models.DateTimeField(auto_now_add=True, null=True)
     date= models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     hour= models.CharField(max_length=255, null=True, default='00:00:00')
+    allday= models.CharField(max_length=3, null=True)
     observation= models.CharField(max_length=255, null=True)
 
     org = models.CharField(null=False, max_length=5000, default='0')
@@ -26,4 +27,5 @@ class Act(models.Model):
     links= models.CharField(max_length=255, null=False)
 
     visit = models.OneToOneField(Visit, on_delete=models.CASCADE)
-    claim = models.OneToOneField(Claim, on_delete=models.CASCADE)
+    claim_exist= models.CharField(max_length=3, null=False)
+    claim = models.OneToOneField(Claim, on_delete=models.CASCADE, null=True)

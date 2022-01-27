@@ -3,7 +3,7 @@
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
 	
-	<h1 class="text-dark display-2 text-center mb-5">Modificar a {{ old.name }}</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Modificar a {{ old.name }}</h1>
 	<form
 		autocomplete="off"
 		action="{% url 'modify_profile' old.id %}"
