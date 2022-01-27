@@ -284,6 +284,8 @@ def profile_view(request, pk):
     modified = profile.modified
     level = profile.level
 
+    print(f'request level {profile_level} y profile level {level}')
+
     context = {
     'profile':profile,
     'id':id,

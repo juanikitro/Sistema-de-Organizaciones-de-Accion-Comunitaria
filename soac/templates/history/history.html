@@ -80,9 +80,9 @@
             <tbody>
                 {% for e in items %}
                 <tr>
-                    <td>{{e.action}}</td>
-                    <td>{{e.by}}</td>
-                    <td>{{e.date | date:"d-m-Y"}}</td>
+                    <td style="max-height:50px; max-width:200px">{{e.action}}</td>
+                    <td style="max-height:50px; max-width:200px">{{e.by}}</td>
+                    <td style="max-height:50px; max-width:200px">{{e.date | date:"d-m-Y"}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
