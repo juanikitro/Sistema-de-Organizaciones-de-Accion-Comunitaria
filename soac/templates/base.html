@@ -66,7 +66,7 @@
 			</a>
 			<hr />
 			<ul class="nav nav-pills flex-column mb-auto">
-				{% if level != 'presidente' %}
+				{% if level != 'Presidente' %}
 					<li class="mb-1">
 						<div class="dropdown">
 							<a
@@ -140,7 +140,7 @@
 							"
 							aria-labelledby="dropdownUser1"
 						>
-							{% if level != 'presidente' %}
+							{% if level != 'Presidente' %}
 								<li>
 									<a
 									class="dropdown-item text-dark"
@@ -149,7 +149,7 @@
 									>
 								</li>
 							{% endif %}
-							{% if level == 'central' or level == 'admin' %}
+							{% if level == 'Central' or level == 'admin' %}
 								<li>
 									<a
 										class="dropdown-item text-dark"
@@ -158,7 +158,7 @@
 									>
 								</li>
 							{% endif %}
-							{% if level == 'presidente' or level == 'admin' %}
+							{% if level == 'Presidente' or level == 'admin' %}
 								<li>
 									<a
 										class="dropdown-item text-dark"
@@ -170,7 +170,7 @@
 						</ul>
 					</div>
 				</li>
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -188,7 +188,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -206,7 +206,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -224,7 +224,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -242,7 +242,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -260,7 +260,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -306,7 +306,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -376,7 +376,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -415,7 +415,7 @@
 								<a
 									class="dropdown-item text-dark"
 									href="{% url 'signup_comunal' %}"
-									>Crear usuario comunal</a
+									>Crear usuario Comunal</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>

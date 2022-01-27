@@ -57,7 +57,7 @@ def push_soac_view(request):
         org.mobile = request.POST['mobile']
         org.created = date.today()
         org.modified = date.today()
-        org.state = 'no-registrada'
+        org.state = 'No registrada'
 
         if Org.objects.filter(name=name).first(): 
             return render(request, 'orgs/soac.html', {'error': 'Ya existe una organización con ese nombre, asegurate de no crear la misma', 'values': values, 'level': profile_level})
@@ -96,7 +96,7 @@ def push_roac_view(request):
         org.postal_code = request.POST['postal_code']
         org.email = request.POST['email']
         org.mobile = request.POST['mobile']
-        org.state = 'pre-activa'
+        org.state = 'Preactiva'
 
         org.created = date.today()
         org.modified = date.today()
@@ -125,7 +125,7 @@ def orgs_view(request):
 
     global org
     org = Org.objects.all()
-    if profile_level == 'comunal':
+    if profile_level == 'Comunal':
         org = Org.objects.filter(commune__contains=profile_commune)
 
     values = {}
@@ -156,7 +156,7 @@ def orgs_view(request):
 
         org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__contains=nhood, commune__contains=commune, areas__contains=areas, igj__contains=igj, type__contains=type, public__contains=public, state__contains=state )
 
-        if profile_level == 'comunal':
+        if profile_level == 'Comunal':
             org = Org.objects.filter(name__contains=name, domain__contains=domain, address__contains=address, nhood__contains=nhood, commune__contains=profile_commune, areas__contains=areas, igj__contains=igj, type__contains=type, public__contains=public, state__contains=state )
 
     return render(request, 'orgs/orgs.html', {'org': org, 'values': values, 'level': profile_level})
@@ -261,7 +261,7 @@ def  register_request_view(request, pk):
         form = DocumentForm(request.POST, request.FILES, instance = selected_org)
 
         if form.is_valid():
-            selected_org.state = 'pre-activa'
+            selected_org.state = 'Preactiva'
             selected_org.msg = ''
             selected_org.registration_request = date.today()
             form.save()
@@ -401,7 +401,7 @@ def down_org_view(request, pk):
     selected_org = Org.objects.get(id=pk)
 
     selected_org.roac = 'No'
-    selected_org.state = 'suspendida'
+    selected_org.state = 'Suspendida'
 
     try:
         selected_org.save()
@@ -422,7 +422,7 @@ def noregister_org_view(request, pk):
     user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
-    selected_org.state = 'no-registrada'
+    selected_org.state = 'No registrada'
     selected_org.msg= ''
 
     try:

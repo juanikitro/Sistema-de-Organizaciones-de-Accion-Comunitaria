@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('domain', models.CharField(default='No especificado', max_length=255)),
                 ('roac', models.BooleanField(default=False)),
                 ('doc', models.FileField(default='', upload_to='roac/doc/')),
-                ('state', models.CharField(default='no-registrada', max_length=255)),
+                ('state', models.CharField(default='No registrada', max_length=255)),
                 ('created', models.DateTimeField(auto_now_add=True, null=True)),
                 ('renoved', models.DateTimeField(null=True)),
                 ('expiration', models.DateTimeField(null=True)),

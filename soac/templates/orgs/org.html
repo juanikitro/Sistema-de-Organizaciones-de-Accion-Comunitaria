@@ -93,7 +93,7 @@
 					<p>
 						<strong> Fecha de inscripcion a "SOAC": </strong> {{ created | date:"d-m-Y" }}
 					</p>
-					{% if roac == 'Si' and state == 'activa'%}
+					{% if roac == 'Si' and state == 'Activa'%}
 					<p>
 						<strong> Fecha de inscripción a "ROAC": </strong> {{ enrolled | date:"d-m-Y" }}
 					</p>
@@ -159,7 +159,7 @@
 	</div>
 	<div class="d-flex justify-content-around mt-5"
 	>
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
 		<a
 			href="#"
 			class=" text-decoration-none btn btn-danger"
@@ -188,7 +188,7 @@
 			</li>
 		</ul>
 	{% endif %}
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
 		{% if  roac == 'Si' %}
 		<a
 			href="down/"
@@ -224,18 +224,18 @@
 		<a class="btn btn-primary-dark" href="setupclaim/" role="button"
 			>Crear reclamo</a
 		>
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
 		<a class="btn btn-primary-dark" href="modify/" role="button"
 			>Modificar</a
 		>
 	{% endif %}
-	{% if state == 'no-registrada' or state == 'editar' or state == 'suspendida' %}
+	{% if state == 'No registrada' or state == 'A editar' or state == 'Suspendida' %}
 		<a class="btn btn-primary-dark" href="register/" role="button">Registrar</a>	
 	{% endif %}
-	{% if state == 'pre-activa' or state == 'activa' or state == 'firmar'%}
+	{% if state == 'Preactiva' or state == 'Activa' or state == 'A firmar'%}
 		<a class="btn btn-primary-dark" target="_blank" href="/media/{{doc}}">Ver documentacion</a>
 	{% endif %}
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
 		{% if  roac == 'Si' %}
 		<a
 			target="_blank"

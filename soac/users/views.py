@@ -137,7 +137,7 @@ def signup_comunal_view(request):
         profile.username = username
         profile.first_name = request.POST['first_name']
         profile.last_name = request.POST['last_name']
-        profile.level = 'comunal'
+        profile.level = 'Comunal'
         profile.commune = request.POST['commune']
         profile.mobile = request.POST['mobile']
         profile.save()
@@ -190,6 +190,7 @@ def users_view(request):
         mobile = request.POST.get('mobile', False)
         level = request.POST.get('level', False)
 
+        print(name, lastname, cuit, email, mobile, level)
         values={
             'name': name,
             'lastname': lastname,
@@ -283,8 +284,6 @@ def profile_view(request, pk):
     created = profile.created
     modified = profile.modified
     level = profile.level
-
-    print(f'request level {profile_level} y profile level {level}')
 
     context = {
     'profile':profile,
@@ -442,7 +441,7 @@ def send_reset_password_view(request):
             send_mail(subject, message, email_from, recipient_list)
             return render(request, 'users/send_reset_password.html', {'alert': 'Hemos enviado un link a tu correo electronico para que cambies la contraseña'})
         else:
-            return render(request, 'users/send_reset_password.html', {'alert': 'No se ha podido enviar el mail, contacta con un usuario central / administrador para soluciónar'})
+            return render(request, 'users/send_reset_password.html', {'alert': 'No se ha podido enviar el mail, contacta con un usuario Central / administrador para soluciónar'})
 
     return render(request, 'users/send_reset_password.html')
 

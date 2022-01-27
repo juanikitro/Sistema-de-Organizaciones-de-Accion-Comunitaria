@@ -7,7 +7,7 @@
 		{% csrf_token %}
         <div class="form-group mx-5 my-3">
             <a class="btn btn-primary-dark w-100" target="_blank" href="/media/{{org.doc}}">Ver documentacion</a>
-            <a class="btn btn-primary-dark w-100 my-3" target="_blank" href="{% url 'certificate' org.id %}">Ver certificado a firmar</a>
+            <a class="btn btn-primary-dark w-100 my-3" target="_blank" href="{% url 'certificate' org.id %}">Ver certificado a A firmar</a>
             <div class="form-group">
                 <label>Certificado firmado:</label>
 				{{ form.as_p }}
