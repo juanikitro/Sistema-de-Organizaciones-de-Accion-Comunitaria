@@ -94,6 +94,5 @@ urlpatterns = [
     path('organizations/org/<str:pk>/setupclaim/', claims_views.setupclaim_view, name='setup_claim'), 
     path('claims/report/', claims_views.Excel_report.as_view(), name='claims_report'),
     path('claim/<str:pk>/modify/', claims_views.claim_modify_view, name='modify_claim'),
-    path('claim/<str:pk>/delete/', claims_views.claim_delete_view, name='delete_claim'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

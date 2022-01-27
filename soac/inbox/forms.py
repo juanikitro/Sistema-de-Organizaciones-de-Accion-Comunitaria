@@ -5,11 +5,11 @@ class SignForm(forms.ModelForm):
         class Meta:
             model = Org
             fields = (
-                'doc',
+                'certificate',
                 )
             widgets = {
-                'doc': forms.FileInput(attrs={'class': 'form-control', 'required': 'True'})}
+                'certificate': forms.FileInput(attrs={'class': 'form-control', 'required': 'True'})}
         
         def __init__(self, *args, **kwargs):
             super(SignForm, self).__init__(*args, **kwargs)
-            self.fields['doc'].label = "Certificado firmado:"
+            self.fields['certificate'].label = ""

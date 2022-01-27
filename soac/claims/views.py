@@ -144,21 +144,6 @@ def setupclaim_view(request, pk):
 
 
 @login_required
-def claim_delete_view(request, pk):
-    user_id = request.user.id
-    claim = Claim.objects.get(id=pk)
-
-    history_item = Item()
-    history_item.action = f'Eliminiacion de reclamo: {claim.org_name}'
-    history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
-    history_item.save()
-
-    claim.delete()
-
-    return redirect('claims')
-
-
-@login_required
 def claim_modify_view(request, pk):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level

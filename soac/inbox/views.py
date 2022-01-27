@@ -14,7 +14,7 @@ from users.models import Profile
 
 
 #Forms
-from organizations.forms import DocumentForm
+from inbox.forms import SignForm
 
 
 #PDF
@@ -45,7 +45,7 @@ def return_pre_view(request, pk):
 
     selected_org = Org.objects.get(id=pk)
     if request.method == 'POST':
-        selected_org.state = 'editar'
+        selected_org.state = 'A editar'
         selected_org.doc = ''
         selected_org.msg = request.POST.get('msg')
         selected_org.save()
@@ -114,7 +114,7 @@ def signing_view(request, pk):
     selected_org = Org.objects.get(id=pk)
 
     if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES, instance = selected_org)
+        form = SignForm(request.POST, request.FILES, instance = selected_org)
 
         if form.is_valid():
             selected_org.state = 'Activa'
@@ -136,7 +136,7 @@ def signing_view(request, pk):
             return redirect('org', selected_org.id)
             
     else:
-        form = DocumentForm()
+        form = SignForm()
 
     return render(request, 'inbox/signing.html', {'org': selected_org, 'form': form, 'level': profile_level})
 

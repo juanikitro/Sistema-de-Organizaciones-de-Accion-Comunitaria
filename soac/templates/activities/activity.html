@@ -21,7 +21,11 @@
 			</tr>
 			<tr class="py-3">
 				<td><strong>Hora:</strong></td>
+				{% if activity.allday == 'Si' %}
+				<td class="py-3 text-end">Todo el dia</td>
+				{% else %}
 				<td class="py-3 text-end">{{ activity.hour }}</td>
+				{% endif %}
 			</tr>
 			<tr class="py-3">
 				<td><strong>Organizaciones:</strong></td>

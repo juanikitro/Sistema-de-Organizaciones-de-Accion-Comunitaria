@@ -165,6 +165,7 @@ def create_act_view(request, pk):
         act.links = request.POST.get('links')
         act.visit = visit        
 
+        act.claim_exist = 'No'
         if request.POST.get('category') != '':
             claim = Claim()
             claim.category = request.POST.get('category')     
@@ -177,7 +178,6 @@ def create_act_view(request, pk):
             act.claim = claim
             act.claim_exist = 'Si'
 
-        act.claim_exist = 'No'
         act.save() 
 
         visit.act_id = act.id
