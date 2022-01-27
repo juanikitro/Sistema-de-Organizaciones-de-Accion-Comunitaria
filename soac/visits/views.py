@@ -165,17 +165,19 @@ def create_act_view(request, pk):
         act.links = request.POST.get('links')
         act.visit = visit        
 
-        claim = Claim()
-        claim.category = request.POST.get('category')     
-        claim.observation = request.POST.get('observation')     
-        claim.state = request.POST.get('state')     
-        claim.org = visit.org
-        claim.org_name = Org.objects.get(id = visit.org).name
-        claim.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
-        claim.save() 
-        act.claim = claim
-        act.claim_exist = 'Si'
+        if request.POST.get('category') != '':
+            claim = Claim()
+            claim.category = request.POST.get('category')     
+            claim.observation = request.POST.get('observation')     
+            claim.state = request.POST.get('state')     
+            claim.org = visit.org
+            claim.org_name = Org.objects.get(id = visit.org).name
+            claim.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            claim.save() 
+            act.claim = claim
+            act.claim_exist = 'Si'
 
+        act.claim_exist = 'No'
         act.save() 
 
         visit.act_id = act.id
@@ -198,7 +200,9 @@ def act_view(request, pk):
 
     visit = Visit.objects.get(id = pk)
     act = Act.objects.get(visit_id = pk)
-    claim = Claim.objects.get(id = act.claim.id)
+    claim = ''
+    if act.claim_exist == 'Si':
+        claim = Claim.objects.get(id = act.claim_id)
    
     data = {
        'level': profile_level,

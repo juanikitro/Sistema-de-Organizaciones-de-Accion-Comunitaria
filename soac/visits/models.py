@@ -28,4 +28,4 @@ class Act(models.Model):
 
     visit = models.OneToOneField(Visit, on_delete=models.CASCADE)
     claim_exist= models.CharField(max_length=3, null=False)
-    claim = models.OneToOneField(Claim, on_delete=models.CASCADE)
+    claim = models.OneToOneField(Claim, on_delete=models.CASCADE, null=True)

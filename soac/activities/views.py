@@ -11,8 +11,6 @@ from organizations.models import Org
 from history.models import Item
 from users.models import Profile
 
-    #TODO: Visualizar en las tablas solo las actividades/eventos/visitas que aun no pasaron
-
 @login_required
 def activities_view(request):
     user_id = request.user.id
