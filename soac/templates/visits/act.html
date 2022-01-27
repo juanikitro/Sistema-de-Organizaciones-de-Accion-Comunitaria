@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Acta de visita: {{ act.id }}</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-dark p-5">
+	
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Acta de visita</h1>
+	
+	<section
+		class="bg-lightblue card py-3"
+	>
+	<table class="text-dark table w-100 ">
+		<tr class="py-3">
+			<td><strong>ID de acta:</strong></td>
+			<td class="py-3 text-end">{{ act.id }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>ID de visita:</strong></td>
+			<td class="py-3 text-end">{{ visit.id }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Organizacion:</strong></td>
+			<td class="py-3 text-end">{{ visit.org_name }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Fecha de visita:</strong></td>
+			<td class="py-3 text-end">{{ visit.date | date:"d-m-Y" }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Agente:</strong></td>
+			<td class="py-3 text-end">{{ act.agent }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Receptor:</strong></td>
+			<td class="py-3 text-end">{{ act.receptor_name }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Cargo del receptor:</strong></td>
+			<td class="py-3 text-end">{{ act.receptor_charge }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Cantidad de socios:</strong></td>
+			<td class="py-3 text-end">{{ act.partners }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Cantidad de beneficiarios:</strong></td>
+			<td class="py-3 text-end">{{ act.beneficiaries }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Fecha de creacion:</strong></td>
+			<td class="py-3 text-end">{{ act.created | date:"d-m-Y" }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Tareas que realizan:</strong></td>
+			<td class="py-3 text-end">{{ act.tasks }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Reciben subsidios del GCBA:</strong></td>
+			<td class="py-3 text-end">{{ act.subsidies }}</td>
+		</tr>
+		{% if act.subsidies == 'Si' %}
+		<tr class="py-3">
+			<td><strong>Area de la cual reciben subsidios:</strong></td>
+			<td style="max-height:100px; max-width:200px" class="py-3 text-end">{{ act.subsidies_what }}</td>
+		</tr>
+		{% endif %}
+		<tr class="py-3">
+			<td><strong>Tipo de vinculos que tienen con el GCBA:</strong></td>
+			<td class="py-3 text-end">{{ act.links }}</td>
+		</tr>
+		<tr  class="py-3">
+			<td><strong>Reclamo en visita:</strong></td>
+			<td style="max-height:100px; max-width:200px" class="py-3 text-end">{{ act.claim_exist }}</td>
+		</tr>
+		{% if act.claim_exist == 'Si' %}
+		<tr  class="py-3">
+			<td><strong>Observacion del reclamo en visita:</strong></td>
+			<td style="max-height:100px; max-width:200px" class="py-3 text-end">{{ claim.observation }}</td>
+		</tr>
+		<tr class="py-3">
+			<td><strong>Estado del reclamo en visita:</strong></td>
+			<td class="py-3 text-end">{{ claim.state }}</td>
+		</tr>
+		{% endif %}
+	</table>
+		
+	</section>
+	{% if error %}
+	<div class="d-flex justify-content-center">
+		<div class="msg msg-danger"> {{ error }}</div>
+	</div>
+	{% endif %}
+</article>
+
+{% endblock %}

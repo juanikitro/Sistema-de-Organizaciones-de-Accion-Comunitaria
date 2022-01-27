@@ -58,6 +58,10 @@ def events_view(request):
         event.date = request.POST.get('date')     
         event.hour = request.POST.get('hour')     
         event.spot = request.POST.get('spot')
+        if request.POST.get('allday') == 'on':
+            event.allday = 'Si'
+        else: 
+            event.allday = 'No'
         event.save() 
 
         history_item = Item()

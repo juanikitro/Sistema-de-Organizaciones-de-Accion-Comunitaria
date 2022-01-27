@@ -11,8 +11,6 @@ from organizations.models import Org
 from history.models import Item
 from users.models import Profile
 
-    #TODO: Visualizar en las tablas solo las actividades/eventos/visitas que aun no pasaron
-
 @login_required
 def activities_view(request):
     user_id = request.user.id
@@ -28,7 +26,11 @@ def activities_view(request):
         activity = Activity()
         activity.activity_type = request.POST.get('activity_type')     
         activity.date = request.POST.get('date')     
-        activity.hour = request.POST.get('hour')     
+        activity.hour = request.POST.get('hour') 
+        if request.POST.get('allday') == 'on':
+            activity.allday = 'Si'
+        else: 
+            activity.allday = 'No'    
         activity.save() 
 
         orgs_id = request.POST.getlist('orgs')

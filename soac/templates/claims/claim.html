@@ -2,7 +2,6 @@
 <title>SOAC - Visita</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
-	<article class="container p-5"><a href="javascript: history.go(-1)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle mt-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/></svg></a>
 	<h1 class="text-dark display-2 text-center mb-3">ID de reclamo: {{ claim.id }}</h1>
 	<h3 class="text-center">{{ visit.date | date:"d-m-Y"}}</h3>
 
@@ -18,7 +17,7 @@
 			</tr>
             <tr class="py-3">
 				<td><strong>Observacion:</strong></td>
-				<td class="py-3 text-end">{{ claim.observation  }}</td>
+				<td style="max-height:100px; max-width:200px" class="py-3 text-end">{{ claim.observation  }}</td>
 			</tr>
 			<tr class="py-3">
 				<td><strong>Usuario:</strong></td>
@@ -30,35 +29,8 @@
 			</tr>
 		</table>
 	</div>
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
     <div class="d-flex justify-content-around mt-5">
-		<a
-			href="#"
-			class="w-25 text-decoration-none btn btn-danger"
-			id="dropdownUser1"
-			data-bs-toggle="dropdown"
-			aria-expanded="false"
-			>Eliminar
-		</a>
-		<ul
-			class="dropdown-menu dropdown-menu-light text-small shadow"
-			aria-labelledby="dropdownUser1"
-		>
-			<li>
-				<p class="text-center">¿Esta segurx?</p>
-			</li>
-			<li><hr class="dropdown-divider" /></li>
-			<li>
-				<a class="text-center dropdown-item text-danger" href="delete/"
-					>Si</a
-				>
-			</li>
-			<li>
-				<a class="text-center dropdown-item text-dark" href=""
-					>No</a
-				>
-			</li>
-		</ul>
 		<a class="btn w-25 btn-primary-dark" href="modify/" role="button"
 			>Modificar</a
 		>

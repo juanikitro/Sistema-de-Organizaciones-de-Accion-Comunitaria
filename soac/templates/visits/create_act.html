@@ -1,0 +1,187 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Generando acta de visita: {{ visit.id }}</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-dark p-5">
+	
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Acta de visita: {{ visit.id }} </h1>
+	<form class="mt-3" autocomplete="off" action="{% url 'create_act' visit.id %}" method="POST">
+	{% csrf_token %}
+	<section
+		class="bg-lightblue card py-3"
+	>
+		<h2 class='block text-center'>Acta</h2>
+		<div class='form-row d-flex justify-content-around mb-3'>
+			<div class="form-group col-md-5">
+				<label class="text-dark">Agente</label>
+				<input
+					autocomplete="off"
+					type="text"
+					placeholder=""
+					name="agent"
+					required="true"
+					maxlength='50'
+					class="form-control"
+				/>
+			</div><div class="form-group col-md-5">
+				<label class="text-dark">Tipo de vinculacion con el GCBA</label>
+				<input
+					autocomplete="off"
+					type="text"
+					placeholder=""
+					name="links"
+					required="true"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+		</div>
+		<div class='form-row d-flex justify-content-around mb-3'>
+			<div class="form-group col-md-5">
+				<label class="text-dark">Receptor de la visita</label>
+				<input
+					autocomplete="off"
+					type="text"
+					placeholder=""
+					name="receptor_name"
+					required="true"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<label class="text-dark">Cargo del receptor</label>
+				<input
+					autocomplete="off"
+					type="text"
+					placeholder=""
+					name="receptor_charge"
+					required="true"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+		</div>
+		<div class='form-row d-flex justify-content-around mb-3'>
+			<div class="form-group col-md-5">
+				<label class="text-dark">Cantidad de socios de la org.</label>
+				<input
+					autocomplete="off"
+					type="number"
+					name="partners"
+					required="true"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+			<div class="form-group col-md-5">
+				<label class="text-dark">Cantidad de beneficiarios de la org.</label>
+				<input
+					autocomplete="off"
+					type="number"
+					name="beneficiaries"
+					required="true"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+		</div>
+		<div class='form-row d-flex justify-content-around mb-3'>
+			<div class="form-group col-md-5">
+				<label class="text-dark">¿Reciben subsidios del GCBA?</label>
+				<select
+					name="subsidies"
+					class="form-control form-select"
+				>
+					<option selected value="No">No</option>
+					<option value="Si">Si</option>
+				</select>
+			</div>
+			<div class="form-group col-md-5">
+				<label class="text-dark">Si reciben subsidios ¿de que area?</label>
+				<input
+					autocomplete="off"
+					type="text"
+					name="subsidies_what"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+		</div>
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-5">
+				<label class="text-dark">Tareas que realizan</label>
+				<input
+					autocomplete="off"
+					type="text"
+					name="tasks"
+					required="true"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+            <div class="form-group col-md-5">
+				<label class="text-dark">Fecha de visita</label>
+				<input
+					disabled	
+					type="date"
+                    pattern="dd-mm-yy"
+					value="{{visit.date}}"
+					class="form-control disabled"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section
+		class="bg-lightblue card py-3 my-5"
+	>
+		{% csrf_token %}
+		<h2 class='block text-center'>Reclamo</h2>
+		<div class="form-row d-flex justify-content-around mb-3">
+			<div class="form-group col-md-3">
+				<label class="text-dark">Categoria</label>
+				<input
+					autocomplete="off"
+					type="text"
+					name="category"
+					maxlength='100'
+					class="form-control"
+				/>
+			</div>
+			<div class="form-group col-md-3">
+				<label class="text-dark">Observaciones</label>
+				<input
+					autocomplete="off"
+					type="text"
+					name="observation"
+					maxlength='200'
+					class="form-control"
+				/>
+			</div>
+            <div class="form-group col-md-3">
+				<label class="text-dark">Estado de reclamo</label>
+				<select
+					name="state"
+					class="form-control form-select"
+					value="{{values.state}}" >
+						<option selected value="abierto">Abierto</option>
+						<option value="resuelto">Resuelto</option>
+						<option value="rechazado">Rechazado</option>
+				</select>
+			</div>
+		</div>
+	</section>
+	<div class="d-flex justify-content-center mb-3">
+		<button class="btn btn-primary-dark px-5" type="submit">
+			Generar
+		</button>
+	</div>
+	</form>
+	{% if error %}
+	<div class="d-flex justify-content-center">
+		<div class="msg msg-danger"> {{ error }}</div>
+	</div>
+	{% endif %}
+</article>
+
+{% endblock %}

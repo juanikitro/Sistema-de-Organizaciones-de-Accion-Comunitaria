@@ -5,21 +5,8 @@
 {% endblock %} 
 {% block body %}
 <section class="container-fluid p-5">
-	<a href="javascript: history.go(-1)"
-	><svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="32"
-		height="32"
-		fill="currentColor"
-		class="bi bi-arrow-left-circle mt-1"
-		viewBox="0 0 16 16"
-	>
-		<path
-			fill-rule="evenodd"
-			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
-		/></svg
-	></a>
-	<h1 class="text-dark display-2 text-center mb-5">Reclamos</h1>
+	
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Reclamos</h1>
     <article class='p-3 bg-lightblue card mt-5'>
 
         <form action="{% url 'claims' %}" method="POST">
@@ -56,7 +43,8 @@
                     <select
 					    name="state"
 					    class="form-control form-select">
-						<option selected value="abierto">Abierto</option>
+						<option selected value="">Estado</option>
+						<option value="abierto">Abierto</option>
 						<option value="resuelto">Resuelto</option>
 						<option value="rechazado">Rechazado</option>
 				    </select>
@@ -66,7 +54,7 @@
             <div class="form-row d-flex justify-content-around my-3">
                 <div class="col-3 form-group">
                     <a
-                        class="form-control btn btn-primary-dark mb-3"
+                        class="form-control btn btn-success mb-3"
                         href="{% url 'claims_report' %}"
                         role="button"
                         >Exportar</a
@@ -96,7 +84,8 @@
                 <tr>
                     <th scope="col">Creacion</th>
                     <th scope="col">Usuario</th>
-                    <th scope="col">observacion</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Observacion</th>
                     <th scope="col">Organizacion</th>
                     <th scope="col">Estado</th>
                     <th scope="col"></th>
@@ -105,9 +94,10 @@
             <tbody>
                 {% for e in claims %}
                 <tr>
-                    <td>{{e.created}}</td>
+                    <td style="min-width:120px">{{e.created | date:"d-m-Y"}}</td>
                     <td>{{e.by}}</td>
-                    <td>{{e.observation}}</td>
+                    <td style="max-height:50px; max-width:200px">{{e.category}}</td>
+                    <td style="max-height:50px; max-width:200px">{{e.observation}}</td>
                     <td>{{e.org_name}}</td>
                     <td>{{e.state}}</td>
                     <td>

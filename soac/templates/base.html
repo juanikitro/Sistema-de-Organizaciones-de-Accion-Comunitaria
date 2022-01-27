@@ -24,7 +24,7 @@
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/accordions.css' %}" />
 		<link rel="shortcut icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
-		<link rel="icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
+		<link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -36,7 +36,7 @@
 	</head>
 	<body
 		style="font-family: 'Montserrat'; max-width: 100vw; overflow-x: hidden"
-		class="row bg-lightblue text-dark"
+		class=" bg-blue row text-dark"
 	>
 		<section
 			class="
@@ -60,13 +60,13 @@
 					text-dark text-decoration-none
 				"
 			>
-				<span class="mx-2"
-					><img width="100px" src="{% static 'img/logo.png' %}"
-				/></span>
+				<div class="mx-2"
+					><img width="40px" src="{% static 'img/favicon.png' %}"
+				/></div>
 			</a>
 			<hr />
 			<ul class="nav nav-pills flex-column mb-auto">
-				{% if level != 'presidente' %}
+				{% if level != 'Presidente' %}
 					<li class="mb-1">
 						<div class="dropdown">
 							<a
@@ -95,13 +95,13 @@
 							>
 								<li>
 									<a class="dropdown-item text-dark" href="{% url 'soac' %}"
-										>Cargar en SOAC</a
+										>Cargar en "SOAC"</a
 									>
 								</li>
 								<li><hr class="dropdown-divider" /></li>
 								<li>
 									<a class="dropdown-item text-dark" href="{% url 'roac' %}"
-										>Registrar en ROAC</a
+										>Registrar en "ROAC"</a
 									>
 								</li>
 								<li><hr class="dropdown-divider" /></li>
@@ -140,7 +140,7 @@
 							"
 							aria-labelledby="dropdownUser1"
 						>
-							{% if level != 'presidente' %}
+							{% if level != 'Presidente' %}
 								<li>
 									<a
 									class="dropdown-item text-dark"
@@ -149,7 +149,7 @@
 									>
 								</li>
 							{% endif %}
-							{% if level == 'central' or level == 'admin' %}
+							{% if level == 'Central' or level == 'admin' %}
 								<li>
 									<a
 										class="dropdown-item text-dark"
@@ -158,7 +158,7 @@
 									>
 								</li>
 							{% endif %}
-							{% if level == 'presidente' or level == 'admin' %}
+							{% if level == 'Presidente' or level == 'admin' %}
 								<li>
 									<a
 										class="dropdown-item text-dark"
@@ -170,7 +170,7 @@
 						</ul>
 					</div>
 				</li>
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -188,7 +188,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -206,7 +206,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -224,7 +224,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -242,7 +242,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' or level == 'comunal' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div>
 						<a
@@ -260,7 +260,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -306,7 +306,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -336,7 +336,7 @@
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href="{% url 'signup' %}"
+									href=""
 									>Altas</a
 								>
 							</li>
@@ -344,7 +344,7 @@
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href="{% url 'users' %}"
+									href=""
 									>Renovaciónes</a
 								>
 							</li>
@@ -352,7 +352,7 @@
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href="{% url 'users' %}"
+									href=""
 									>Estados</a
 								>
 							</li>
@@ -360,7 +360,7 @@
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href="{% url 'users' %}"
+									href=""
 									>Vinculaciónes</a
 								>
 							</li>
@@ -376,7 +376,7 @@
 					</div>
 				</li>
 				{% endif %}
-				{% if level == 'central' or level == 'admin' %}
+				{% if level == 'Central' or level == 'admin' %}
 				<li class="mb-1">
 					<div class="dropdown">
 						<a
@@ -415,7 +415,7 @@
 								<a
 									class="dropdown-item text-dark"
 									href="{% url 'signup_comunal' %}"
-									>Crear usuario comunal</a
+									>Crear usuario Comunal</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
@@ -453,10 +453,6 @@
 					class="dropdown-menu dropdown-menu-light text-small shadow"
 					aria-labelledby="dropdownUser1"
 				>
-					<li>
-						<a class="dropdown-item text-dark" href="#">Reportar un error</a>
-					</li>
-					<li><hr class="dropdown-divider" /></li>
 					<li>
 						<a class="dropdown-item text-dark" href="{% url 'logout' %}"
 							>Cerrar sesion</a

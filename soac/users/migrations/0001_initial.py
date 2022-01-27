@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Profile',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('level', models.CharField(choices=[('AD', 'Administrador de SOAC'), ('CE', 'Usuario de sede central'), ('CO', 'Usuario de sede comunal'), ('PR', 'Presidente')], default='CO', max_length=2)),
+                ('level', models.CharField(choices=[('AD', 'Administrador de SOAC'), ('CE', 'Usuario de sede Central'), ('CO', 'Usuario de sede Comunal'), ('PR', 'Presidente')], default='CO', max_length=2)),
                 ('mobile', models.CharField(blank=True, max_length=255, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),

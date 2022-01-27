@@ -36,10 +36,10 @@
                         id: '{{e.id}}',
 						type: 'visit',
 					},
-                    {% if e.hour != '00:00:00' %}
-                    allDay: false,
-                    {% else %}
+                    {% if e.allday == 'Si' %}
                     allDay: true,
+                    {% else %}
+                    allDay: false,
                     {% endif %}
 					backgroundColor: '#198754',
 					borderColor: '#198754',
@@ -57,22 +57,9 @@
 {% endblock %} 
 {% block body %}
 <section class="container-fluid p-5">
-	<a href="javascript: history.go(-1)"
-	><svg
-		xmlns="http://www.w3.org/2000/svg"
-		width="32"
-		height="32"
-		fill="currentColor"
-		class="bi bi-arrow-left-circle mt-1"
-		viewBox="0 0 16 16"
-	>
-		<path
-			fill-rule="evenodd"
-			d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
-		/></svg
-	></a>
-	<h1 class="text-dark display-2 text-center mb-5">Visitas</h1>
-    {% if level == 'central' or level == 'admin' %}
+	
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Visitas</h1>
+    {% if level == 'Central' or level == 'admin' %}
         <article class="row bg-blue justify-content-between">
             <div class="bg-lightblue card col-8 ">
                 <div class='' id="calendar"></div>
@@ -80,13 +67,14 @@
             <div class='col-4 card bg-lightblue h-100'>
                 <form class="mt-3" autocomplete="off" action="{% url 'visits' %}" method="POST">
                     {% csrf_token %}
+                    <h3 class='text-dark text-center'>Crear</h2>
                     <div class="d-flex flex-column justify-content-around mb-3">
-                        <label class="text-dark">Fecha: *</label>
+                        <label class="text-dark">Fecha de la visita: *</label>
                         <input
                             autocomplete="off"
                             class="form-control mb-3"
                             type="date"
-                            placeholder="Fecha"
+                            pattern="dd-mm-yy"
                             name="date"
                             required="true"
                         />
@@ -100,6 +88,17 @@
                             value="00:00:00"
                             required="true"
                             /> 
+                        <div class='mb-3 d-flex flex-row'>
+                            <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name='allday'
+                            id="flexCheckChecked"
+                            />
+                            <label class="form-check-label mx-3" for="flexCheckChecked">
+                                Dia completo
+                            </label>   
+                        </div>
                         <label class="text-dark">Observaciones: </label>
                         <textarea 
                         maxlength='60' 
@@ -117,10 +116,10 @@
                             {% endfor %}
                         </select>
                         <button
-                            class="btn btn-primary-dark btn-block form-control mb-3"
+                            class="btn btn-primary-dark btn-block form-control my-3"
                             type="submit"
                         >
-                            Registrar
+                            Crear
                         </button>
                     </div>
                 </form>
@@ -138,8 +137,9 @@
             <thead>
                 <tr>
                     <th scope="col">Creacion</th>
-                    <th scope="col">Fecha</th>
+                    <th scope="col">Fecha de visita</th>
                     <th scope="col">Hora</th>
+                    <th scope="col">Observacion</th>
                     <th scope="col">Observacion</th>
                     <th scope="col"></th
                 </tr>
@@ -148,14 +148,12 @@
                 {% for e in visit %}
                 {% if e.date > today %}
                 <tr>
-                    <td>{{e.created}}</td>
-                    <td>{{e.date}}</td>
-                    {% if e.hour != '00:00:00' %}
-                    <td>{{e.hour}}</td>
-                    {% else %}
-                    <td>Todo el dia</td>
-                    {% endif %}
-                    <td>{{e.observation}}</td>
+                    <td>{{e.created | date:"d-m-Y" }}</td>
+                    <td>{{e.date | date:"d-m-Y"}}</td>
+                    <td>{{e.org_name}}</td>
+                                        <td>{{e.hour}}</td>
+
+                    <td style="max-height:100px; max-width:200px">{{e.observation}}</td>
                     <td>
                         <a
                         class="btn btn-primary-dark"

@@ -46,6 +46,7 @@ urlpatterns = [
     path('organizations/org/<str:pk>/register/', organizations_views.register_request_view, name='register_roac'),
     path('organizations/org/<str:pk>/modify/', organizations_views.modify_org_view, name='modify_org'),
     path('organizations/org/<str:pk>/org_report/', organizations_views.download_org_view, name='org_report'),
+    path('organizations/org/<str:pk>/org_pdf/', organizations_views.PdfExport.as_view(), name='org_report_pdf'),
 
     #Bandejas
     path('inbox/analysis', inbox_views.analysis_view, name='analysis'),
@@ -56,7 +57,7 @@ urlpatterns = [
     path('inbox/sign', inbox_views.sign_view, name='sign'),
     path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
     path('inbox/sign/signing/<str:pk>/', inbox_views.signing_view, name='signing'),
-    path('inbox/sign/signing/<str:pk>/certificate', inbox_views.Certificate_ROAC.as_view(), name='certificate'),
+    path('inbox/sign/signing/<str:pk>/certificate/', inbox_views.Certificate_ROAC.as_view(), name='certificate'),
 
     #Comunicaciones
     path('comunication/users/', comunications_views.comunications_users_view, name='comunications_users'),
@@ -80,6 +81,8 @@ urlpatterns = [
     path('visits/<str:pk>/', visits_views.visit_view, name='visit'),
     path('visits/<str:pk>/modify/', visits_views.visit_modify_view, name='modify_visit'),
     path('visits/<str:pk>/delete/', visits_views.visit_delete_view, name='delete_visit'),
+    path('visits/<str:pk>/create_act/', visits_views.create_act_view, name='create_act'),
+    path('visits/<str:pk>/act/', visits_views.act_view, name='act'),
 
     #Historial
     path('history/', history_views.history_view, name='history'),
@@ -91,6 +94,5 @@ urlpatterns = [
     path('organizations/org/<str:pk>/setupclaim/', claims_views.setupclaim_view, name='setup_claim'), 
     path('claims/report/', claims_views.Excel_report.as_view(), name='claims_report'),
     path('claim/<str:pk>/modify/', claims_views.claim_modify_view, name='modify_claim'),
-    path('claim/<str:pk>/delete/', claims_views.claim_delete_view, name='delete_claim'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,8 +2,7 @@
 <title>SOAC - Bandeja de analisis</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
-	<article class="container p-5"><a href="javascript: history.go(-1)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle mt-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/></svg></a>
-	<h1 class="text-dark display-2 text-center mb-5">Bandeja de analisis</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Bandeja de analisis</h1>
 
 	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
 		<table class="table text-center text-dark">
@@ -22,7 +21,7 @@
 			<tr>
 				<td>{{u.name}}</td>
 				<td>{{u.registration_request}}</td>
-				<td style="max-height:50px; max-width:500px">{{u.msg}}</td>
+				<td style="max-height:50px; max-width:400px">{{u.msg}}</td>
 				<td><a class="btn btn-secondary-light" target="_blank" href="/media/{{u.doc}}">Ver</a></td>
                 <td><a class="btn btn-secondary-light" target="_blank" href="/organizations/org/{{u.id}}/" role="button">Ver</a></td>
 				<td>
@@ -46,7 +45,7 @@
 						<li><hr class="dropdown-divider" /></li>
 						<li>
 							<a class="text-center dropdown-item" href="analysis/sign/{{u.id}}/"
-								>Enviar a firmar</a
+								>Enviar a A firmar</a
 							>
 						</li>
 					</ul>

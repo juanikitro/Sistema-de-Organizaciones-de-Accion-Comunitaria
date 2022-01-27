@@ -21,6 +21,7 @@ class Org(models.Model):
     # ROAC
     roac = models.CharField(default='No', max_length=10)
     doc = models.FileField(default='', upload_to='roac/doc/',)
+    certificate = models.FileField(default='', upload_to='roac/certificate/',)
     msg = models.CharField(max_length=255, default='', null=True, blank=True)
 
     # nota_solicitud_inscripcion = models.FileField(default='', upload_to='roac/nota_solicitud_inscripcion/',)
@@ -35,15 +36,15 @@ class Org(models.Model):
     # extras = models.FileField(default='', upload_to='roac/extras')
 
     # Extras
-    state = models.CharField(max_length=255, default='no-registrada') # no-registrada pre-activa, firmar, activa, suspendida, editar
+    state = models.CharField(max_length=255, default='No registrada') # No registrada Preactiva, A firmar, Activa, Suspendida, A editar
     created= models.DateTimeField(auto_now_add=True, null=True)
     registration_request= models.DateTimeField(null=True)
     enrolled = models.DateTimeField(null=True)
     renoved = models.DateTimeField(null=True)
     expiration = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
-    # no-registrada <-> preactiva
-    # editar <-> pre-activa
-    # pre-activa <-> firmar
-    # firmar -> activa
-    # activa -> suspendida
+    # No registrada <-> preactiva
+    # A editar <-> Preactiva
+    # Preactiva <-> A firmar
+    # A firmar -> Activa
+    # Activa -> Suspendida

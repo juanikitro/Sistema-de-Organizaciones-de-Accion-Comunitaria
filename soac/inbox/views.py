@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
+from pymysql import NULL
+
 
 #Models
 from organizations.models import Org
@@ -12,7 +14,7 @@ from users.models import Profile
 
 
 #Forms
-from organizations.forms import DocumentForm
+from inbox.forms import SignForm
 
 
 #PDF
@@ -30,7 +32,7 @@ def analysis_view(request):
     profile_level = Profile.objects.get(user_id = user_id).level
 
     global preactivas
-    preactivas = Org.objects.filter(state = 'pre-activa').order_by('-registration_request')
+    preactivas = Org.objects.filter(state = 'Preactiva').order_by('-registration_request')
     nothing = preactivas.first()
 
     return render(request, 'inbox/analysis.html', {'preactivas': preactivas, 'nothing': nothing, 'level': profile_level})
@@ -43,7 +45,7 @@ def return_pre_view(request, pk):
 
     selected_org = Org.objects.get(id=pk)
     if request.method == 'POST':
-        selected_org.state = 'editar'
+        selected_org.state = 'A editar'
         selected_org.doc = ''
         selected_org.msg = request.POST.get('msg')
         selected_org.save()
@@ -56,7 +58,7 @@ def return_pre_view(request, pk):
 def sign_pre_view(request, pk):
     selected_org = Org.objects.get(id=pk)
 
-    selected_org.state = 'firmar'
+    selected_org.state = 'A firmar'
     selected_org.save()
 
     return redirect('analysis')
@@ -69,7 +71,7 @@ def edit_view(request):
     profile_level = Profile.objects.get(user_id = user_id).level
 
     global editar
-    editar = Org.objects.filter(state = 'editar').order_by('-registration_request')
+    editar = Org.objects.filter(state = 'A editar').order_by('-registration_request')
     nothing = editar.first()
 
     return render(request, 'inbox/edit.html', {'editar': editar, 'nothing': nothing, 'level': profile_level})
@@ -82,7 +84,7 @@ def sign_view(request):
     profile_level = Profile.objects.get(user_id = user_id).level
 
     global sign
-    sign = Org.objects.filter(state = 'firmar').order_by('-registration_request')
+    sign = Org.objects.filter(state = 'A firmar').order_by('-registration_request')
     nothing = sign.first()
 
     return render(request, 'inbox/sign.html', {'sign': sign, 'nothing': nothing, 'level': profile_level})
@@ -95,7 +97,7 @@ def return_sign_view(request, pk):
     
     selected_org = Org.objects.get(id=pk)
     if request.method == 'POST':
-        selected_org.state = 'pre-activa'
+        selected_org.state = 'Preactiva'
         selected_org.msg = request.POST.get('msg')
         selected_org.save()
         return redirect('sign') 
@@ -112,12 +114,17 @@ def signing_view(request, pk):
     selected_org = Org.objects.get(id=pk)
 
     if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES, instance = selected_org)
+        form = SignForm(request.POST, request.FILES, instance = selected_org)
 
         if form.is_valid():
-            selected_org.state = 'activa'
+            selected_org.state = 'Activa'
             selected_org.roac = 'Si'
-            selected_org.enrolled = datetime.now().date()
+
+            if selected_org.enrolled == None:
+                selected_org.enrolled = datetime.now().date()
+            else: 
+                selected_org.renoved = datetime.now().date()
+
             selected_org.expiration = date.today() + timedelta(days=730)
             form.save()
 
@@ -129,7 +136,7 @@ def signing_view(request, pk):
             return redirect('org', selected_org.id)
             
     else:
-        form = DocumentForm()
+        form = SignForm()
 
     return render(request, 'inbox/signing.html', {'org': selected_org, 'form': form, 'level': profile_level})
 

@@ -2,11 +2,10 @@
 <title>SOAC - {{ name }}</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
-	<article class="container p-5"><a href="javascript: history.go(-1)"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left-circle mt-1" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/></svg></a>
-	<h1 class="text-dark display-2 text-center mb-5">{{ name }}</h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>{{ name }}</h1>
 	<div class="d-flex text-dark justify-content-around mb-3">
 		<h5><strong> Id: </strong> {{ id }}</h5>
-		<h5><strong> ROAC: </strong>{{ roac }}</h5>
+		<h5><strong> "ROAC": </strong>{{ roac }}</h5>
 	</div>
 	<div class="d-flex justify-content-around ">
 		<div class="d-flex flex-column w-50">
@@ -38,7 +37,7 @@
 		<div class="d-flex mt-5">
 			<div class="card h-100 w-100 bg-lightblue">
 				<div class="card-header-dark text-center">
-					<h5>Vinculación</h5>
+					<h5>Visitas</h5>
 				</div>
 				<div class="card-body">
 					<table class="table text-dark">
@@ -54,12 +53,8 @@
 							{% for e in visit %}
 							{% if e.date > today %}
 							<tr>
-								<td>{{e.date}}</td>
-								{% if e.hour != '00:00:00' %}
+								<td>{{e.date | date:"d-m-Y"}}</td>
 								<td>{{e.hour}}</td>
-								{% else %}
-								<td>Todo el dia</td>
-								{% endif %}
 								<td style='max-height:50px; max-width:50px'>{{e.observation}}</td>
 								<td>
 									<a
@@ -96,11 +91,11 @@
 			<div class="card-body">
 				<p><strong> Estado: </strong> {{ state }}</p>
 					<p>
-						<strong> Fecha de inscripcion a SOAC: </strong> {{ created | date:"d-m-Y" }}
+						<strong> Fecha de inscripcion a "SOAC": </strong> {{ created | date:"d-m-Y" }}
 					</p>
-					{% if roac == 'Si' and state == 'activa'%}
+					{% if roac == 'Si' and state == 'Activa'%}
 					<p>
-						<strong> Fecha de inscripción a ROAC: </strong> {{ enrolled | date:"d-m-Y" }}
+						<strong> Fecha de inscripción a "ROAC": </strong> {{ enrolled | date:"d-m-Y" }}
 					</p>
 					<p><strong> Fecha de renovación: </strong> {{ renoved | date:"d-m-Y" }}
 					</p>
@@ -131,7 +126,7 @@
 						<tr>
 							<th scope="col">Creacion</th>
                             <th scope="col">Usuario</th>
-                            <th scope="col">observacion</th>
+                            <th scope="col">Observacion</th>
                             <th scope="col">Organizacion</th>
                             <th scope="col">Estado</th>
                             <th scope="col"></th>
@@ -141,9 +136,9 @@
 						{% for e in claims %}
 						{% if e.state == 'abierto' %}
 						<tr>
-							<td>{{e.created}}</td>
+							<td>{{e.created | date:"d-m-Y" }}</td>
 							<td>{{e.by}}</td>
-							<td>{{e.observation}}</td>
+							<td style="max-height:100px; max-width:200px">{{e.observation}}</td>
 							<td>{{e.org_name}}</td>
 							<td>{{e.state}}</td>
 							<td>
@@ -164,7 +159,7 @@
 	</div>
 	<div class="d-flex justify-content-around mt-5"
 	>
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
 		<a
 			href="#"
 			class=" text-decoration-none btn btn-danger"
@@ -178,7 +173,7 @@
 			aria-labelledby="dropdownUser1"
 		>
 			<li>
-				<p class="text-center">¿Esta segurx?</p>
+				<p class="text-center">¿Esta seguro?</p>
 			</li>
 			<li><hr class="dropdown-divider" /></li>
 			<li>
@@ -193,7 +188,7 @@
 			</li>
 		</ul>
 	{% endif %}
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
 		{% if  roac == 'Si' %}
 		<a
 			href="down/"
@@ -202,22 +197,53 @@
 		</a>
 		{% endif %}
 	{% endif %}
-		<a class="btn btn-primary-dark" href="org_report/" role="button"
-			>Exportar</a
+		<a
+			href="#"
+			class=" text-decoration-none btn btn-success"
+			id="dropdownUser1"
+			data-bs-toggle="dropdown"
+			aria-expanded="false"
+			>Exportar
+		</a>
+		<ul
+			class="dropdown-menu dropdown-menu-light text-small shadow"
+			aria-labelledby="dropdownUser1"
 		>
+			<li>
+				<a class="text-center dropdown-item" href="org_report/"
+					>Excel</a
+				>
+			</li>
+			<li><hr class="dropdown-divider" /></li>
+			<li>
+				<a class="text-center dropdown-item" target='_blank' href="org_pdf/"
+					>PDF</a
+				>
+			</li>
+		</ul>
 		<a class="btn btn-primary-dark" href="setupclaim/" role="button"
 			>Crear reclamo</a
 		>
-	{% if level == 'central' or level == 'admin' %}
+	{% if level == 'Central' or level == 'admin' %}
 		<a class="btn btn-primary-dark" href="modify/" role="button"
 			>Modificar</a
 		>
 	{% endif %}
-	{% if state == 'no-registrada' or state == 'editar' or state == 'suspendida' %}
+	{% if state == 'No registrada' or state == 'A editar' or state == 'Suspendida' %}
 		<a class="btn btn-primary-dark" href="register/" role="button">Registrar</a>	
 	{% endif %}
-	{% if state == 'pre-activa' or state == 'activa' or state == 'firmar'%}
+	{% if state == 'Preactiva' or state == 'Activa' or state == 'A firmar'%}
 		<a class="btn btn-primary-dark" target="_blank" href="/media/{{doc}}">Ver documentacion</a>
+	{% endif %}
+	{% if level == 'Central' or level == 'admin' %}
+		{% if  roac == 'Si' %}
+		<a
+			target="_blank"
+			href="/media/{{certificate}}"
+			class=" text-decoration-none btn btn-primary-dark"
+			>Ver certificado
+		</a>
+		{% endif %}
 	{% endif %}
 	</div>
 </article>
