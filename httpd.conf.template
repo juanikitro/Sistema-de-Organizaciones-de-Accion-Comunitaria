@@ -1,0 +1,20 @@
+ServerName localhost:80 
+
+
+# Django Project
+LoadFile "C:/Users/20445350304/AppData/Local/Programs/Python/Python310/python10.dll"
+LoadModule wsgi_module "C:/Users/20445350304/AppData/Local/Programs/Python/Python310/Lib/site-packages/mod_wsgi/server/mod_wsgi.cp37-win_amd64.pyd"
+WSGIPythonHome "C:/Users/20445350304/AppData/Local/Programs/Python/Python310"
+WSGIScriptAlias / "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/soac/wsgi.py"
+WSGIPythonPath "C:/Users/navar/Desktop/webproject/"
+
+<Directory "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/">
+    <Files wsgi.py>
+        Require all granted
+    </Files>
+</Directory>
+
+Alias /static "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/static/"
+<Directory "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/static/">
+    Require all granted
+</Directory>
