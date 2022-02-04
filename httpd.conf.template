@@ -1,20 +1,19 @@
 ServerName localhost:80 
 
-
 # Django Project
-LoadFile "C:/Users/20445350304/AppData/Local/Programs/Python/Python310/python10.dll"
-LoadModule wsgi_module "C:/Users/20445350304/AppData/Local/Programs/Python/Python310/Lib/site-packages/mod_wsgi/server/mod_wsgi.cp37-win_amd64.pyd"
-WSGIPythonHome "C:/Users/20445350304/AppData/Local/Programs/Python/Python310"
-WSGIScriptAlias / "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/soac/wsgi.py"
-WSGIPythonPath "C:/Users/navar/Desktop/webproject/"
+LoadFile "C:/Python310/python310.dll"
+LoadModule wsgi_module "C:/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/venv/lib/site-packages/mod_wsgi/server/mod_wsgi.cp310-win_amd64.pyd"
+WSGIPythonHome "C:/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/venv"
+WSGIScriptAlias / "C:/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/soac/wsgi.py"
+WSGIPythonPath "C:/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/"
 
-<Directory "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/">
+<Directory "C:/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/soac/">
     <Files wsgi.py>
         Require all granted
     </Files>
 </Directory>
 
-Alias /static "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/static/"
-<Directory "C:/Users/20445350304/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/static/">
+Alias /static "C:/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/static/"
+<Directory "C:/git/Sistema-de-Organizaciones-de-Accion-Comunitaria/static/">
     Require all granted
 </Directory>
