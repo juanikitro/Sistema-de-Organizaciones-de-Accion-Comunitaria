@@ -78,7 +78,7 @@ def events_view(request):
                 
         if request.POST.get('notify') == 'on':
             subject = f'SOAC: Invitacion al evento "{event.event_name}"'
-            link = f'http://127.0.0.1:8000/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
+            link = f'http://172.31.67.157/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
             email_from = settings.EMAIL_HOST_USER
             message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} te invito al evento "{event.event_name}". 
             Fecha: {event.date}
@@ -158,7 +158,7 @@ def event_modify_view(request, pk):
 
         emails = []
         subject = f'SOAC: Modificacion al evento "{event.event_name}"'
-        link = f'http://127.0.0.1:8000/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
+        link = f'http://172.31.67.157/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
         email_from = settings.EMAIL_HOST_USER
         message = f'''Hola! Te contacto desde SOAC porque se ha actualizado el evento "{request.POST.get('event_name')}". 
         Fecha: {request.POST.get('date')}

@@ -423,7 +423,7 @@ def send_reset_password_view(request):
         cuit = request.POST.get('username')
         profile_to_reset = Profile.objects.get(username=cuit)
         username_email = profile_to_reset.email
-        link = f'http://127.0.0.1:8000/send_reset/sended/{profile_to_reset.id}/' #FIXME: Cambiar cuando existan los servers
+        link = f'http://172.31.67.157/send_reset/sended/{profile_to_reset.id}/' #FIXME: Cambiar cuando existan los servers
 
         subject = f'Reseteo de contraseña para {profile_to_reset.first_name}'
         message = f'''Hola! Te contacto desde el Sistema de Organizaciones de Acción Comunitaria!

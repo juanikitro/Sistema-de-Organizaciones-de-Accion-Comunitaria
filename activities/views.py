@@ -48,7 +48,7 @@ def activities_view(request):
 
         if request.POST.get('notify') == 'on':
             subject = f'SOAC: Actividad: {activity.activity_type}'
-            link = f'http://127.0.0.1:8000/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
+            link = f'http://172.31.67.157/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
             email_from = settings.EMAIL_HOST_USER
             message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} creo la actividad: {activity.activity_type}. 
             Fecha: {activity.date}
@@ -124,7 +124,7 @@ def activity_modify_view(request, pk):
 
         emails = []
         subject = f'SOAC: Modificacion al actividad "{activity.activity_type}"'
-        link = f'http://127.0.0.1:8000/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
+        link = f'http://172.31.67.157/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
         email_from = settings.EMAIL_HOST_USER
         message = f'''Hola! Te contacto desde SOAC porque se ha actualizado la actividad "{request.POST.get('activity_type')}". 
         Fecha: {request.POST.get('date')}
