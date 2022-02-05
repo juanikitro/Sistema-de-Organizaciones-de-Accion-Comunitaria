@@ -10,6 +10,7 @@ from organizations.models import Org
 
 @login_required
 def comunications_users_view(request):
+    ''' Enviar mail a usuarios '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -38,6 +39,7 @@ def comunications_users_view(request):
 
 @login_required
 def comunications_orgs_view(request):
+    ''' Enviar mail a organizaciones '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 

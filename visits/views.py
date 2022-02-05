@@ -16,6 +16,11 @@ from users.models import Profile
 # Visitas
 @login_required
 def visits_view(request):
+    ''' Visitas
+    Calendario de visitas
+    Creacion de visitas
+    Listado de visitas '''
+
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     visits = Visit.objects.all().order_by('date')
@@ -70,6 +75,7 @@ def visits_view(request):
 
 @login_required
 def visit_view(request, pk):
+    ''' Perfil de visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -80,6 +86,7 @@ def visit_view(request, pk):
 
 @login_required
 def visit_delete_view(request, pk):
+    ''' Eliminar visita '''
     user_id = request.user.id
     visit = Visit.objects.get(id=pk)
     email = Org.objects.get(id = visit.org).email
@@ -103,6 +110,7 @@ def visit_delete_view(request, pk):
 
 @login_required
 def visit_modify_view(request, pk):
+    ''' Modifivar visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     
@@ -138,9 +146,10 @@ def visit_modify_view(request, pk):
     return render(request, 'visits/modify_visit.html', {'visit': visit, 'level': profile_level})
 
 
-#Acta 
+#Actas de visitas
 @login_required
 def create_act_view(request, pk):
+    ''' Crear acta de visitas dentro de la visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -204,6 +213,7 @@ def create_act_view(request, pk):
 
 @login_required
 def act_view(request, pk):
+    ''' Perfil de acta de visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -221,5 +231,3 @@ def act_view(request, pk):
        }
 
     return render(request,'visits/act.html', data)
-
-

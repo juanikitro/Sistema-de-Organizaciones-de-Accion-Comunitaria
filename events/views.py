@@ -15,6 +15,8 @@ from users.models import Profile
 
 @login_required
 def general_calendar_view(request):
+    ''' Calendario de eventos / actividades / visitas '''
+
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -36,6 +38,10 @@ def general_calendar_view(request):
 
 @login_required
 def events_view(request):
+    ''' Eventos 
+    Calendario de eventos
+    Creacion de eventos
+    Listado de eventos '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -95,6 +101,7 @@ def events_view(request):
 
 @login_required
 def event_view(request, pk):
+    ''' Perfil de evento '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -112,6 +119,7 @@ def event_view(request, pk):
 
 @login_required
 def event_delete_view(request, pk):
+    ''' Eliminar evento '''
     user_id = request.user.id
     event = Event.objects.get(id=pk)
 
@@ -139,6 +147,7 @@ def event_delete_view(request, pk):
 
 @login_required
 def event_modify_view(request, pk):
+    ''' Modificar evento '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     

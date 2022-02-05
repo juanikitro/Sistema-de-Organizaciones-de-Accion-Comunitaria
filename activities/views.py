@@ -13,6 +13,11 @@ from users.models import Profile
 
 @login_required
 def activities_view(request):
+    ''' Actividades
+    Calendario de actividades
+    Creacion de actividades
+    Listado de actividadeas
+    nashe '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -67,6 +72,7 @@ def activities_view(request):
 
 @login_required
 def activity_view(request, pk):
+    ''' Perfil de actividad '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     
@@ -84,6 +90,7 @@ def activity_view(request, pk):
 
 @login_required
 def activity_delete_view(request, pk):
+    ''' Eliminar actividad '''
     user_id = request.user.id
     activity = Activity.objects.get(id=pk)
 
@@ -111,6 +118,7 @@ def activity_delete_view(request, pk):
 
 @login_required
 def activity_modify_view(request, pk):
+    ''' Modificar actividad '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
