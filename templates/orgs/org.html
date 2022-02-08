@@ -6,6 +6,9 @@
 	<div class="d-flex text-dark justify-content-around mb-3">
 		<h5><strong> Id: </strong> {{ id }}</h5>
 		<h5><strong> "ROAC": </strong>{{ roac }}</h5>
+		{% if roac_number != '' %}
+		<h5><strong> Numero de "ROAC": </strong>{{ roac_number }}</h5>
+		{% endif %}
 	</div>
 	<div class="d-flex justify-content-around ">
 		<div class="d-flex flex-column w-50">

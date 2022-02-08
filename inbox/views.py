@@ -9,6 +9,7 @@ from pymysql import NULL
 
 #Models
 from organizations.models import Org
+from organizations.models import Roac_orgs
 from history.models import Item
 from users.models import Profile
 
@@ -119,6 +120,13 @@ def signing_view(request, pk):
         if form.is_valid():
             selected_org.state = 'Activa'
             selected_org.roac = 'Si'
+
+            try:
+                Roac_orgs.objects.get(org_id = selected_org.id)
+            except:
+                roac_number = Roac_orgs()
+                roac_number.org = selected_org
+                roac_number.save()
 
             if selected_org.enrolled == None:
                 selected_org.enrolled = datetime.now().date()

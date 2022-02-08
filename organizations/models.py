@@ -48,3 +48,6 @@ class Org(models.Model):
     # Preactiva <-> A firmar
     # A firmar -> Activa
     # Activa -> Suspendida
+
+class Roac_orgs(models.Model):
+    org = models.OneToOneField(Org, on_delete=models.CASCADE, null=False)
