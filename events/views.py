@@ -15,6 +15,8 @@ from users.models import Profile
 
 @login_required
 def general_calendar_view(request):
+    ''' Calendario de eventos / actividades / visitas '''
+
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -36,6 +38,10 @@ def general_calendar_view(request):
 
 @login_required
 def events_view(request):
+    ''' Eventos 
+    Calendario de eventos
+    Creacion de eventos
+    Listado de eventos '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -78,7 +84,7 @@ def events_view(request):
                 
         if request.POST.get('notify') == 'on':
             subject = f'SOAC: Invitacion al evento "{event.event_name}"'
-            link = f'http://127.0.0.1:8000/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
+            link = f'http://172.31.67.157/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
             email_from = settings.EMAIL_HOST_USER
             message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} te invito al evento "{event.event_name}". 
             Fecha: {event.date}
@@ -95,6 +101,7 @@ def events_view(request):
 
 @login_required
 def event_view(request, pk):
+    ''' Perfil de evento '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -112,6 +119,7 @@ def event_view(request, pk):
 
 @login_required
 def event_delete_view(request, pk):
+    ''' Eliminar evento '''
     user_id = request.user.id
     event = Event.objects.get(id=pk)
 
@@ -139,6 +147,7 @@ def event_delete_view(request, pk):
 
 @login_required
 def event_modify_view(request, pk):
+    ''' Modificar evento '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     
@@ -158,7 +167,7 @@ def event_modify_view(request, pk):
 
         emails = []
         subject = f'SOAC: Modificacion al evento "{event.event_name}"'
-        link = f'http://127.0.0.1:8000/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
+        link = f'http://172.31.67.157/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
         email_from = settings.EMAIL_HOST_USER
         message = f'''Hola! Te contacto desde SOAC porque se ha actualizado el evento "{request.POST.get('event_name')}". 
         Fecha: {request.POST.get('date')}

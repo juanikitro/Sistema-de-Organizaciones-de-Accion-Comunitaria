@@ -16,6 +16,11 @@ from users.models import Profile
 # Visitas
 @login_required
 def visits_view(request):
+    ''' Visitas
+    Calendario de visitas
+    Creacion de visitas
+    Listado de visitas '''
+
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     visits = Visit.objects.all().order_by('date')
@@ -47,7 +52,7 @@ def visits_view(request):
     
         emails  = [email]
         subject = f'SOAC: Visita del dia {visit.date}'
-        link = f'http://127.0.0.1:8000/visits/{visit.id}/' #FIXME: Cambiar cuando existan los servers
+        link = f'http://172.31.67.157/visits/{visit.id}/' #FIXME: Cambiar cuando existan los servers
         email_from = settings.EMAIL_HOST_USER
         message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} creo una visita. 
         Fecha: {visit.date}
@@ -70,6 +75,7 @@ def visits_view(request):
 
 @login_required
 def visit_view(request, pk):
+    ''' Perfil de visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -80,6 +86,7 @@ def visit_view(request, pk):
 
 @login_required
 def visit_delete_view(request, pk):
+    ''' Eliminar visita '''
     user_id = request.user.id
     visit = Visit.objects.get(id=pk)
     email = Org.objects.get(id = visit.org).email
@@ -103,6 +110,7 @@ def visit_delete_view(request, pk):
 
 @login_required
 def visit_modify_view(request, pk):
+    ''' Modifivar visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     
@@ -117,7 +125,7 @@ def visit_modify_view(request, pk):
     
         emails  = [email]
         subject = f'SOAC: Modificacion a la visita del dia {visit.date}'
-        link = f'http://127.0.0.1:8000/visits/{visit.id}/' #FIXME: Cambiar cuando existan los servers
+        link = f'http://172.31.67.157/visits/{visit.id}/' #FIXME: Cambiar cuando existan los servers
         email_from = settings.EMAIL_HOST_USER
         message = f'''Hola! Te contacto desde SOAC porque se ha actualizado la visita del dia {request.POST.get('date')}. 
         Fecha: {request.POST.get('date')}
@@ -138,9 +146,10 @@ def visit_modify_view(request, pk):
     return render(request, 'visits/modify_visit.html', {'visit': visit, 'level': profile_level})
 
 
-#Acta 
+#Actas de visitas
 @login_required
 def create_act_view(request, pk):
+    ''' Crear acta de visitas dentro de la visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -163,7 +172,16 @@ def create_act_view(request, pk):
         act.subsidies = request.POST.get('subsidies')
         act.subsidies_what = request.POST.get('subsidies_what')
         act.links = request.POST.get('links')
-        act.visit = visit        
+        act.visit = visit   
+        act.tasks = request.POST.getlist('tasks')
+
+        print(act.tasks)
+
+        # task_list = ''
+        # tasks = request.POST.getlist('tasks')
+        # for u in tasks:
+        #     task_list.add(org)
+        # act.tasks = task_list
 
         act.claim_exist = 'No'
         if request.POST.get('category') != '':
@@ -195,6 +213,7 @@ def create_act_view(request, pk):
 
 @login_required
 def act_view(request, pk):
+    ''' Perfil de acta de visita '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -212,5 +231,3 @@ def act_view(request, pk):
        }
 
     return render(request,'visits/act.html', data)
-
-

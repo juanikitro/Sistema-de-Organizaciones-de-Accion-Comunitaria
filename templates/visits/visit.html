@@ -69,15 +69,17 @@
 		<a class="btn w-25 btn-primary-dark" href="modify/" role="button"
 			>Modificar</a
 		>
+	{% if level == 'Central' or level == 'admin' %}
 		{% if visit.date < today %}
 			{% if visit.act_id == '0' %}
 				<a class="btn w-25 btn-primary-dark" href="create_act/" role="button"
 					>Generar acta de visita</a
 				>
-			{% else %}
-			<a class="btn w-25 btn-primary-dark" href="act/" role="button"
+				{% else %}
+				<a class="btn w-25 btn-primary-dark" href="act/" role="button"
 					>Ver acta de visita</a
 				>
+				{% endif %}
 			{% endif %}
 		{% endif %}
 	</div>

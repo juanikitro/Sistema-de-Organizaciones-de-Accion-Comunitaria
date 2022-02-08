@@ -34,7 +34,9 @@ from xhtml2pdf import pisa
 
 @login_required
 def push_soac_view(request):
-    
+    ''' Creacion SOAC
+    Se crea la organizacion en la DB '''
+
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -76,6 +78,10 @@ def push_soac_view(request):
 
 @login_required
 def push_roac_view(request):
+    ''' Creacion de ROAC
+    Se crea la organizacion en la DB
+    Se redirige a enviar documentacion para la org '''
+
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -119,6 +125,11 @@ def push_roac_view(request):
 
 @login_required
 def orgs_view(request):
+    ''' Listado de organizaciones
+    Filtro de organizaciones
+    Listado de organizaciones
+    Accionar con las organizaciones '''
+
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     profile_commune = Profile.objects.get(user_id = user_id).commune
@@ -247,6 +258,10 @@ class Excel_report(TemplateView):
 
 @login_required
 def  register_request_view(request, pk):
+    ''' Pedir firma de organizacion
+    Se pide documentacion
+    Se adjunta con la organizacion
+    Se envia a la bandeja de analisis '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -281,6 +296,9 @@ def  register_request_view(request, pk):
 
 @login_required
 def org_view(request, pk):
+    ''' Perfil de organizacion
+    Template de organizacion
+    Acciones de organizacion segun permiso / estado de organizacion '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -326,6 +344,7 @@ def org_view(request, pk):
 
 login_required
 def delete_org_view(request, pk):
+    ''' Eliminacion de organizacion '''
     user_id = request.user.id
 
     selected_org = Org.objects.get(id=pk)
@@ -341,6 +360,7 @@ def delete_org_view(request, pk):
 
 @login_required
 def modify_org_view(request, pk):
+    ''' Modificar organizacion '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -397,6 +417,8 @@ def modify_org_view(request, pk):
 
 @login_required
 def down_org_view(request, pk):
+    ''' Dar de baja organizacion
+    Se modifica el estado a suspendida y se elimina de ROAC '''
     user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
@@ -419,6 +441,8 @@ def down_org_view(request, pk):
 
 @login_required
 def noregister_org_view(request, pk):
+    ''' Devolucion de peticion de registro de organizacion
+    Se devuelve la peticion de registro a la bandeja de editar'''
     user_id = request.user.id
     selected_org = Org.objects.get(id=pk)
 
@@ -440,6 +464,7 @@ def noregister_org_view(request, pk):
 
 @login_required
 def download_org_view(request, pk):
+    ''' Reporte individual de organizacion en excel '''
     selected_org = Org.objects.get(id=pk)
 
     today = date.today()
@@ -523,6 +548,7 @@ def download_org_view(request, pk):
 
 
 def render_to_pdf(template_src, context_dict={}):
+    ''' Reporte individual de organizacion en PDF parte 1'''
     template = get_template(template_src)
     html  = template.render(context_dict)
     result = BytesIO()
@@ -533,7 +559,8 @@ def render_to_pdf(template_src, context_dict={}):
 
 
 class PdfExport(TemplateView):
-   def get(self, request, *args, **kwargs):
+    ''' Reporte individual de organizacion en PDF parte 2 '''
+    def get(self, request, *args, **kwargs):
        today = date.today()        
        expiration = date.today() + timedelta(days=730)
        pdf = render_to_pdf('orgs/export.html', {'org': org_profile, 'today': today, 'expiration': expiration})

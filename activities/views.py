@@ -13,6 +13,11 @@ from users.models import Profile
 
 @login_required
 def activities_view(request):
+    ''' Actividades
+    Calendario de actividades
+    Creacion de actividades
+    Listado de actividadeas
+    nashe '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -48,7 +53,7 @@ def activities_view(request):
 
         if request.POST.get('notify') == 'on':
             subject = f'SOAC: Actividad: {activity.activity_type}'
-            link = f'http://127.0.0.1:8000/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
+            link = f'http://172.31.67.157/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
             email_from = settings.EMAIL_HOST_USER
             message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} creo la actividad: {activity.activity_type}. 
             Fecha: {activity.date}
@@ -67,6 +72,7 @@ def activities_view(request):
 
 @login_required
 def activity_view(request, pk):
+    ''' Perfil de actividad '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     
@@ -84,6 +90,7 @@ def activity_view(request, pk):
 
 @login_required
 def activity_delete_view(request, pk):
+    ''' Eliminar actividad '''
     user_id = request.user.id
     activity = Activity.objects.get(id=pk)
 
@@ -111,6 +118,7 @@ def activity_delete_view(request, pk):
 
 @login_required
 def activity_modify_view(request, pk):
+    ''' Modificar actividad '''
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
@@ -124,7 +132,7 @@ def activity_modify_view(request, pk):
 
         emails = []
         subject = f'SOAC: Modificacion al actividad "{activity.activity_type}"'
-        link = f'http://127.0.0.1:8000/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
+        link = f'http://172.31.67.157/activities/{activity.id}/' #FIXME: Cambiar cuando existan los servers
         email_from = settings.EMAIL_HOST_USER
         message = f'''Hola! Te contacto desde SOAC porque se ha actualizado la actividad "{request.POST.get('activity_type')}". 
         Fecha: {request.POST.get('date')}
