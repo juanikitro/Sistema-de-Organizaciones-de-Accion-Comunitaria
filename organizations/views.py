@@ -11,6 +11,7 @@ from django.shortcuts import render, redirect
 
 # Models
 from organizations.models import Org
+from organizations.models import Roac_orgs
 from users.models import Profile
 from visits.models import Visit
 from history.models import Item
@@ -308,10 +309,16 @@ def org_view(request, pk):
     org_profile = Org.objects.get(id=pk)
     visits = Visit.objects.filter(org_name = org_profile.name).order_by('date')
     
+    try:
+        roac_number = Roac_orgs.objects.get(org_id = org_profile.id).id
+    except:
+        roac_number = ''
+
     context = {
     'level': profile_level,
     'org':org_profile,
     'id':org_profile.id,
+    'roac_number':roac_number,
     'name':org_profile.name,
     'type':org_profile.type,
     'public':org_profile.public,
