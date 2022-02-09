@@ -50,6 +50,7 @@ urlpatterns = [
 
     #Bandejas
     path('inbox/analysis', inbox_views.analysis_view, name='analysis'),
+    path('inbox/forexpire', inbox_views.forexpire_view, name='forexpire'),
     path('inbox/analysis/return/<str:pk>/', inbox_views.return_pre_view, name='return_pre'),
     path('inbox/analysis/sign/<str:pk>/', inbox_views.sign_pre_view, name='sign_pre'),
     path('inbox/edit', inbox_views.edit_view, name='edit'),

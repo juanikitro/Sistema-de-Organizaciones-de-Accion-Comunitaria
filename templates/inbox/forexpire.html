@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Bandeja de analisis</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-dark p-5">
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Bandeja de analisis</h1>
+
+	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
+		<table class="table text-center text-dark">
+		<thead>
+			<tr>
+				<th scope="col">Nombre</th>
+				<th scope="col">Expira</th>
+				<th scope="col">Certificado</th>
+				<th scope="col">Informacion</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for u in forexpire %}
+			<tr>
+				<td>{{u.name}}</td>
+				<td>{{u.expiration | date:"d-m-Y"}}</td>
+				<td><a class="btn btn-secondary-light" target="_blank" href="/media/{{u.certificate}}">Ver</a></td>
+                <td><a class="btn btn-secondary-light" target="_blank" href="/organizations/org/{{u.id}}/" role="button">Ver</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+	{% if nothing == None %}
+	<div class="form-group d-flex justify-content-around mt-5">
+		<p>Esperando notificaciones...</p>
+	</div>
+	{% endif %}
+</article>
+
+{% endblock %}

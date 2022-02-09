@@ -138,7 +138,7 @@ def orgs_view(request):
     global org
     org = Org.objects.all()
     if profile_level == 'Comunal':
-        org = Org.objects.filter(commune__contains=profile_commune)
+        org = Org.objects.filter(commune__contains=profile_commune, state__contains= 'Activa')
 
     values = {}
     if request.method == 'POST':
