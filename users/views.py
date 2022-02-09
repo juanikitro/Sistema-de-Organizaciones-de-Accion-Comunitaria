@@ -1,5 +1,5 @@
 # Python
-from datetime import date 
+from datetime import date, datetime
 
 # Django
 from django.contrib.auth import authenticate, login, logout
@@ -14,6 +14,7 @@ from django.core.mail import send_mail
 # Models
 from django.contrib.auth.models import User
 from users.models import Profile
+from organizations.models import Org
 from history.models import Item
 
 # Open Py XL (Para el excel)
@@ -25,6 +26,12 @@ def login_view(request):
     ''' Login
     Se autentifica el usuario con username(cuit) y password con authenticate de Django
     Si el usuario no existe, imprime error '''
+
+    for o in Org.objects.filter(state = 'Activa'):
+        if o.expiration.date() == datetime.now().date():
+            o.state = 'Suspendida'
+            o.roac = 'No'
+            o.save()
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -178,6 +185,12 @@ def users_view(request):
 
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
+
+    for o in Org.objects.filter(state = 'Activa'):
+        if o.expiration.date() == datetime.now().date():
+            o.state = 'Suspendida'
+            o.roac = 'No'
+            o.save()
 
     global profile
     profile = Profile.objects.all()

@@ -96,7 +96,6 @@
 					<p>
 						<strong> Fecha de inscripcion a "SOAC": </strong> {{ created | date:"d-m-Y" }}
 					</p>
-					{% if roac == 'Si' and state == 'Activa'%}
 					<p>
 						<strong> Fecha de inscripción a "ROAC": </strong> {{ enrolled | date:"d-m-Y" }}
 					</p>
@@ -105,8 +104,6 @@
 					<p>
 						<strong> Fecha de vencimiento: </strong> {{expiration | date:"d-m-Y"}}
 					</p>
-					{% endif %}
-					
 					<p>
 						<strong> Fecha de ultima modificación: </strong> {{ modified | date:"d-m-Y" }}
 					</p>

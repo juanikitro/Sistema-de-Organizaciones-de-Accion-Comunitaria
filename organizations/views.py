@@ -135,6 +135,12 @@ def orgs_view(request):
     profile_level = Profile.objects.get(user_id = user_id).level
     profile_commune = Profile.objects.get(user_id = user_id).commune
 
+    for o in Org.objects.filter(state = 'Activa'):
+        if o.expiration.date() == datetime.now().date():
+            o.state = 'Suspendida'
+            o.roac = 'No'
+            o.save()
+
     global org
     org = Org.objects.all()
     if profile_level == 'Comunal':
