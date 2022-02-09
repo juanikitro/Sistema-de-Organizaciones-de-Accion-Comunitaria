@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from random import expovariate
 #Django
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -36,6 +37,25 @@ def analysis_view(request):
     nothing = preactivas.first()
 
     return render(request, 'inbox/analysis.html', {'preactivas': preactivas, 'nothing': nothing, 'level': profile_level})
+
+
+#Por vencer
+@login_required
+def forexpire_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
+    a_month_ago = datetime.now().date() + timedelta(days=31)
+    forexpire = []
+
+    for org in Org.objects.filter(state = 'Activa'):
+        if org.expiration != None:
+            if org.expiration.date() < a_month_ago:
+                forexpire.append(org) 
+
+    return render(request, 'inbox/forexpire.html', {
+        'forexpire': forexpire, 'level': profile_level
+        })
 
 
 @login_required
