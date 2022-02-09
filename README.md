@@ -36,5 +36,5 @@ py -m venv venv
 ### Instalar requeriments
 
 ```
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
