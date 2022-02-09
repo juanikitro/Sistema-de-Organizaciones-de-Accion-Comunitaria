@@ -10,9 +10,8 @@
 			<tr>
 				<th scope="col">Nombre</th>
 				<th scope="col">Expira</th>
-				<th scope="col">Documentacion</th>
+				<th scope="col">Certificado</th>
 				<th scope="col">Informacion</th>
-				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,34 +19,8 @@
 			<tr>
 				<td>{{u.name}}</td>
 				<td>{{u.expiration | date:"d-m-Y"}}</td>
-				<td><a class="btn btn-secondary-light" target="_blank" href="/media/{{u.doc}}">Ver</a></td>
+				<td><a class="btn btn-secondary-light" target="_blank" href="/media/{{u.certificate}}">Ver</a></td>
                 <td><a class="btn btn-secondary-light" target="_blank" href="/organizations/org/{{u.id}}/" role="button">Ver</a></td>
-				<td>
-					<a
-						href="#"
-						class=" text-decoration-none btn btn-primary-dark"
-						id="dropdownUser1"
-						data-bs-toggle="dropdown"
-						aria-expanded="false"
-						>Acciones
-					</a>
-					<ul
-						class="dropdown-menu dropdown-menu-light text-small shadow"
-						aria-labelledby="dropdownUser1"
-					>
-						<li>
-							<a class="text-center dropdown-item text-danger" href="analysis/return/{{u.id}}/"
-								>Devolver</a
-							>
-						</li>
-						<li><hr class="dropdown-divider" /></li>
-						<li>
-							<a class="text-center dropdown-item" href="analysis/sign/{{u.id}}/"
-								>Enviar a A firmar</a
-							>
-						</li>
-					</ul>
-				</td>
 			</tr>
 			{% endfor %}
 		</tbody>
