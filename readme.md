@@ -4,6 +4,7 @@
 
 1. Instalar Python.
 2. Instalar GIT.
+3. Instalar MySQL.
 
 ### Clonar repo
 
@@ -36,5 +37,5 @@ py -m venv venv
 ### Instalar requeriments
 
 ```
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
