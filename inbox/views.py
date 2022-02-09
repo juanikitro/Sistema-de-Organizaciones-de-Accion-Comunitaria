@@ -4,6 +4,8 @@ from random import expovariate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.core.mail import send_mail
+from django.conf import settings
 
 from pymysql import NULL
 
@@ -155,6 +157,18 @@ def signing_view(request, pk):
 
             selected_org.expiration = date.today() + timedelta(days=730)
             form.save()
+
+            subject = f'SOAC: Organizacion registrada con exito'
+            email_from = settings.EMAIL_HOST_USER
+            email = selected_org.email
+            emails = [email]
+            text = f'''\
+                Hola! Te contacto desde SOAC porque se registro a {selected_org.name}. 
+            Fecha de inscripcion / renovacion: {datetime.now().date()}
+            Fecha de expiracion: {selected_org.expiration}
+            '''
+
+            send_mail(subject, text, email_from, emails)
 
             history_item = Item()
             history_item.action = f'Solicitud de registro: {selected_org.name}'
