@@ -4,6 +4,7 @@
 
 1. Instalar Python.
 2. Instalar GIT.
+3. Instalar MySQL.
 
 ### Clonar repo
 
