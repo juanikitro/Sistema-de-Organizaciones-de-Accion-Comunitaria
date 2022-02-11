@@ -1,9 +1,10 @@
 #Django & python
 from ast import If
-from datetime import datetime
+from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
+from django.views.generic import TemplateView
 from django.conf import settings
 
 #Modelos
@@ -12,6 +13,11 @@ from claims.models import Claim
 from organizations.models import Org
 from history.models import Item
 from users.models import Profile
+
+# Open Py XL (Para el excel)
+from openpyxl import Workbook
+from openpyxl.styles import Alignment, Border, Font, Side, PatternFill
+from django.http.response import HttpResponse
 
 # Visitas
 @login_required
@@ -231,3 +237,91 @@ def act_view(request, pk):
        }
 
     return render(request,'visits/act.html', data)
+
+
+@login_required
+def visitsreport_view(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+
+    global visits
+    visits = Visit.objects.all()
+    orgs = Org.objects.all()
+
+    values = {}
+    if request.method == 'POST':
+        date = request.POST.get('date', False)
+        hour = request.POST.get('hour', False)
+        observation = request.POST.get('observation', False)
+        org = request.POST.get('org', False)
+
+        values={
+            'date': date,
+            'hour': hour,
+            'org': org,
+            'observation': observation,
+        }
+
+        visits = Visit.objects.filter(date__contains = date, hour__contains = hour, observation__contains = observation, org__contains = org,)
+
+    return render(request, 'visits/visitsreport.html', {'visits': visits, 'orgs': orgs, 'values': values, 'level': profile_level})
+
+
+class Visits_excel_report(TemplateView):
+    '''Export de usuarios
+    Se crea el excel con los datos de los usuarios
+    Se utilizan los usuarios filtrados por la variable global profile '''
+
+    def get(self, *args, **kwargs):
+        today = date.today()
+
+        wb = Workbook()
+        ws = wb.active
+        ws['A1'] = f'Reporte de visitas del dia: {today}'
+        ws['A1'].alignment = Alignment(horizontal = 'center')
+        ws['A1'].border = Border(left = Side(border_style = 'thin'), right = Side(border_style = 'thin'), bottom = Side(border_style = 'thin'), top = Side(border_style = 'thin'))
+        ws['A1'].font = Font(name = 'Arial', size = 12)
+        ws['A1'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+
+        ws.merge_cells('A1:G1')
+
+        ws['A3'] = 'ID de visita'
+        ws['A3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['B3'] = 'Fecha'
+        ws['B3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['C3'] = 'Hora'
+        ws['C3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['D3'] = 'Todo el dia'
+        ws['D3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['E3'] = 'Observacion'
+        ws['E3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['F3'] = 'ID de organizacion'
+        ws['F3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['G3'] = 'Nombre de organizacion'
+        ws['G3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+
+        ws.column_dimensions['A'].width = 20
+        ws.column_dimensions['B'].width = 20
+        ws.column_dimensions['C'].width = 20
+        ws.column_dimensions['D'].width = 20
+        ws.column_dimensions['E'].width = 20
+        ws.column_dimensions['F'].width = 20
+        ws.column_dimensions['G'].width = 20
+
+        cont = 4
+        for u in visits:
+            ws.cell(row = cont, column = 1).value = u.id
+            ws.cell(row = cont, column = 2).value = u.date
+            ws.cell(row = cont, column = 3).value = u.hour
+            ws.cell(row = cont, column = 4).value = u.allday
+            ws.cell(row = cont, column = 5).value = u.observation
+            ws.cell(row = cont, column = 6).value = u.org
+            ws.cell(row = cont, column = 7).value = u.org_name
+            cont += 1
+
+        excel_name = f'Reporte de visitas {today}.xlsx'
+        response = HttpResponse(content_type = 'application/ms-excel')
+        content = 'attachment; filename = {0}'.format(excel_name)
+        response['Content-Disposition'] = content
+        wb.save(response)
+        return response

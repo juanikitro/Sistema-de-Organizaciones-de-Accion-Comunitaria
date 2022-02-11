@@ -20,7 +20,6 @@
 		/>
 		<!-- Extras -->
 		<link rel="stylesheet" href="{% static 'css/alerts.css' %}" />
-		<link rel="stylesheet" href="{% static 'css/scrollreveal.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/accordions.css' %}" />
 		<link rel="shortcut icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
@@ -31,7 +30,6 @@
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="https://unpkg.com/scrollreveal@4"></script>
 		<title>SOAC</title>
 	</head>
 	<body
@@ -338,38 +336,30 @@
 							"
 							aria-labelledby="dropdownUser1"
 						>
-							<!-- <li>
+							<li>
 								<a
 									class="dropdown-item text-dark"
-									href=""
-									>Altas</a
+									href="{% url 'visits_report' %}"
+									>Visitas</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href=""
-									>Renovaciónes</a
+									href="{% url 'events_reports' %}"
+									>Eventos</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href=""
-									>Estados</a
+									href="{% url 'activities_report' %}"
+									>Actividades</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a
-									class="dropdown-item text-dark"
-									href=""
-									>Vinculaciónes</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li> -->
 							<li>
 								<a
 									class="dropdown-item text-dark"

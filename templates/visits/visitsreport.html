@@ -1,0 +1,110 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Busqueda de visitas</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-dark p-5">
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Buscar visitas</h1>
+
+	<form action="{% url 'visits_report' %}" method="POST">
+		{% csrf_token %}
+		<div class="form-row d-flex justify-content-around">
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="date"
+					placeholder="Fecha"
+					name="date"
+					value="{{values.date}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="time"
+					placeholder="Hora"
+					name="hour"
+					value="{{values.hour}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="text"
+					placeholder="Observacion"
+					name="observation"
+					value="{{values.observation}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				 <select
+					class="form-control mb-3"
+					name="org"
+					>
+						<option selected value="">Organizacion</option>
+					{% for o in orgs %}
+						<option value="{{o.id}}">{{o.name}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="form-row d-flex justify-content-around my-3">
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-success mb-3"
+					href="{% url 'visits_report_report' %}"
+					role="button"
+					>Exportar</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-primary-dark mb-3"
+					href="{% url 'visits_report' %}"
+					role="button"
+					>Limpiar filtros</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<button
+					class="btn btn-primary-dark px-3 mb-3 form-control"
+					type="submit"
+				>
+					Buscar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
+	<table class="table text-dark">
+		<thead>
+			<tr>
+				<th scope="col">Dia</th>
+				<th scope="col">Hora</th>
+				<th scope="col">Observacion</th>
+				<th scope="col">Organizacion</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for u in visits %}
+			<tr>
+				<td>{{u.date}}</td>
+				<td>{{u.hour}}</td>
+				<td style='width:400px; overflow: auto'>{{u.observation}}</td>
+				<td>{{u.org_name}}</td>
+				<td>
+					<a
+						class="btn btn-primary-dark"
+						href="/visits/{{u.id}}/"
+						target = "_blank"
+						role="button"
+						>Ver</a
+					>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+</article>
+
+{% endblock %}

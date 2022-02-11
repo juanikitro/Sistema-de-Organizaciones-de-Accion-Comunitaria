@@ -85,9 +85,15 @@ urlpatterns = [
     path('visits/<str:pk>/create_act/', visits_views.create_act_view, name='create_act'),
     path('visits/<str:pk>/act/', visits_views.act_view, name='act'),
 
-    #Historial
+    #Reportes
     path('history/', history_views.history_view, name='history'),
     path('history/report/', history_views.Excel_report.as_view(), name='history_report'),
+    path('visitsreport/', visits_views.visitsreport_view, name='visits_report'),
+    path('visitsreport/report/', visits_views.Visits_excel_report.as_view(), name='visits_report_report'),
+    path('eventsreport/', events_views.eventsreport_view, name='events_report'),
+    path('eventsreport/report/', events_views.Events_excel_report.as_view(), name='events_report_report'),
+    path('activitiesreport/', activities_views.activitiesreport_view, name='activities_report'),
+    path('activitiesreport/report/', activities_views.Activities_excel_report.as_view(), name='activities_report_report'),
 
     #Reclamos
     path('claims/', claims_views.claims_view, name='claims'), 
