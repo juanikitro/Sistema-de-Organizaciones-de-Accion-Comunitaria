@@ -43,6 +43,7 @@ class Org(models.Model):
     renoved = models.DateTimeField(null=True)
     expiration = models.DateTimeField(null=True)
     modified = models.DateTimeField(null=True)
+    expiration_mail = models.CharField(default='No', max_length=10)
     # No registrada <-> preactiva
     # A editar <-> Preactiva
     # Preactiva <-> A firmar
