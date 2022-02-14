@@ -42,6 +42,7 @@ def general_calendar_view(request):
 
     return render(request,'events/calendar.html', data)
 
+
 @login_required
 def events_view(request):
     ''' Eventos 
@@ -82,12 +83,17 @@ def events_view(request):
         history_item.save()
 
         emails = []
+        communes = []
         orgs_id = request.POST.getlist('orgs')
         for u in orgs_id:
             org = Org.objects.get(id=u)
             event.orgs.add(org)
             emails.append(org.email)
-                
+            communes.append(org.commune)
+
+        event.communes = communes
+        event.save() 
+
         if request.POST.get('notify') == 'on':
             subject = f'SOAC: Invitacion al evento "{event.event_name}"'
             link = f'http://172.31.67.157/events/{event.id}/' #FIXME: Cambiar cuando existan los servers
@@ -104,6 +110,7 @@ def events_view(request):
         return redirect('events')
 
     return render(request,'events/events.html', data)
+
 
 @login_required
 def event_view(request, pk):
@@ -122,6 +129,7 @@ def event_view(request, pk):
         orgs = orgs + orgs_names
     
     return render(request,'events/event.html', {'event':event, 'orgs':orgs, 'level': profile_level})
+
 
 @login_required
 def event_delete_view(request, pk):
@@ -150,6 +158,7 @@ def event_delete_view(request, pk):
     event.delete()
     
     return redirect('events')
+
 
 @login_required
 def event_modify_view(request, pk):
@@ -210,6 +219,7 @@ def eventsreport_view(request):
         date = request.POST.get('date', False)
         hour = request.POST.get('hour', False)
         spot = request.POST.get('spot', False)
+        communes = request.POST.get('communes', False)
 
         values={
             'date': date,
@@ -218,7 +228,7 @@ def eventsreport_view(request):
             'spot': spot,
         }
 
-        events = Event.objects.filter(date__contains = date, hour__contains = hour, event_name__contains = event_name, spot__contains = spot)
+        events = Event.objects.filter(date__contains = date, hour__contains = hour, event_name__contains = event_name, spot__contains = spot, communes__contains = communes)
 
     return render(request, 'events/eventsreport.html', {'events': events, 'values': values, 'level': profile_level})
 

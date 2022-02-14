@@ -6,6 +6,7 @@ from organizations.models import Org
 
 class Event(models.Model):
     event_name = models.CharField(max_length=255, null=True)
+    communes = models.CharField(max_length=255, null=True)
     spot = models.CharField(max_length=255, null=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
     date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)

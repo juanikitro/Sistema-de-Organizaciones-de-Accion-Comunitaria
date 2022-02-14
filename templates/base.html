@@ -41,18 +41,18 @@
 				d-flex
 				col-1
 				flex-column flex-shrink-0
-				p-3
 				bg-lightblue
 				text-dark
 			"
 			style="width: 200px; min-height: 100vh"
 		>
+		<ul style='position: sticky; top: 0; padding-inline-start: 0px; padding:10px'>
 			<a
 				href="/"
 				class="
 					d-flex
 					align-items-center
-					 mb-md-0
+					mb-md-0
 					me-md-auto
 					text-dark text-decoration-none
 				"
@@ -425,7 +425,6 @@
 					</div>
 				</li>
 				{% endif %}
-			</ul>
 			<hr />
 			<div class="dropdown">
 				<a
@@ -455,6 +454,8 @@
 					</li>
 				</ul>
 			</div>
+			</ul>
+			</ul>
 		</section>
 		<section class="col bg-blue load-hidden content">
 			{% block body %}{% endblock%}
