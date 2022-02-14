@@ -34,6 +34,8 @@
 					value="{{values.event_name}}"
 				/>
 			</div>
+		</div>
+		<div class="form-row d-flex justify-content-around mt-3">
 			<div class="col mx-1 form-group">
 				 <input
 					class="form-control"
@@ -50,6 +52,15 @@
 					placeholder="Comuna"
 					name="communes"
 					value="{{values.communes}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				 <input
+					class="form-control"
+					type="text"
+					placeholder="Organizacion"
+					name="ors_names"
+					value="{{values.orgs_names}}"
 				/>
 			</div>
 		</div>
@@ -88,6 +99,7 @@
 				<th scope="col">Hora</th>
 				<th scope="col">Nombre</th>
 				<th scope="col">Lugar</th>
+				<th scope="col">Organizaciones</th>
 				<th scope="col"></th>
 			</tr>
 		</thead>
@@ -95,9 +107,14 @@
 			{% for u in events %}
 			<tr>
 				<td>{{u.date}}</td>
+				{% if u.allday == 'Si' %}
+				<td>Todo el dia</td>
+				{% else %}
 				<td>{{u.hour}}</td>
-				<td style='width:400px; overflow: auto'>{{u.event_name}}</td>
+				{% endif %}
+				<td style='width:200px; overflow: auto'>{{u.event_name}}</td>
 				<td>{{u.spot}}</td>
+				<td style='width:200px; overflow: auto'>{{u.orgs_names}}</td>
 				<td>
 					<a
 						class="btn btn-primary-dark"

@@ -184,7 +184,11 @@
                     <td style="max-height:100px; max-width:200px">{{e.event_name}}</td>
                     <td>{{e.created | date:"d-m-Y" }}</td>
                     <td>{{e.date | date:"d-m-Y"}}</td>
-                                        <td>{{e.hour}}</td>
+                    {% if u.allday == 'Si' %}
+                    <td>Todo el dia</td>
+                    {% else %}
+                    <td>{{u.hour}}</td>
+                    {% endif %}
 
                     <td style="max-height:100px; max-width:200px">{{e.spot}}</td>
                     <td>
@@ -222,7 +226,11 @@
                     <td style="max-height:100px; max-width:200px">{{e.event_name}}</td>
                     <td>{{e.created | date:"d-m-Y" }}</td>
                     <td>{{e.date | date:"d-m-Y"}}</td>
-                                        <td>{{e.hour}}</td>
+                    {% if e.allday == 'Si' %}
+                    <td>Todo el dia</td>
+                    {% else %}
+                    <td>{{e.hour}}</td>
+                    {% endif %}
 
                     <td style="max-height:100px; max-width:200px">{{e.spot}}</td>
                     <td>

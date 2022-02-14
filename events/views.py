@@ -84,13 +84,17 @@ def events_view(request):
 
         emails = []
         communes = []
+        orgs_names = []
+
         orgs_id = request.POST.getlist('orgs')
         for u in orgs_id:
             org = Org.objects.get(id=u)
             event.orgs.add(org)
             emails.append(org.email)
+            orgs_names.append(org.name)
             communes.append(org.commune)
 
+        event.orgs_names = orgs_names
         event.communes = communes
         event.save() 
 
@@ -220,15 +224,19 @@ def eventsreport_view(request):
         hour = request.POST.get('hour', False)
         spot = request.POST.get('spot', False)
         communes = request.POST.get('communes', False)
+        orgs_names = request.POST.get('orgs_names', False)
 
         values={
             'date': date,
             'hour': hour,
             'event_name': event_name,
             'spot': spot,
+            'communes': communes,
+            'orgs_names': orgs_names,
         }
 
-        events = Event.objects.filter(date__contains = date, hour__contains = hour, event_name__contains = event_name, spot__contains = spot, communes__contains = communes)
+        print(event_name, date, hour, spot, communes, orgs_names)
+        events = Event.objects.filter(date__contains = date,orgs_names__contains = orgs_names, hour__contains = hour, event_name__contains = event_name, spot__contains = spot, communes__contains = communes)
 
     return render(request, 'events/eventsreport.html', {'events': events, 'values': values, 'level': profile_level})
 

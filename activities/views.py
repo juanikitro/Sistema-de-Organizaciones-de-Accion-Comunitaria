@@ -46,6 +46,7 @@ def activities_view(request):
         orgs_id = request.POST.getlist('orgs')
         emails = []
         communes = []
+        orgs_names = []
 
         history_item = Item()
         history_item.action = f'Creacion de actividad: {activity.activity_type}'
@@ -57,7 +58,9 @@ def activities_view(request):
             activity.orgs.add(org)
             emails.append(org.email)
             communes.append(org.commune)
+            orgs_names.append(org.name)
         
+        activity.orgs_names = orgs_names    
         activity.communes = communes    
         activity.save() 
 
@@ -184,6 +187,7 @@ def activitiesreport_view(request):
         date = request.POST.get('date', False)
         hour = request.POST.get('hour', False)
         communes = request.POST.get('communes', False)
+        orgs_names = request.POST.get('orgs_names', False)
 
         values={
             'date': date,
@@ -191,7 +195,7 @@ def activitiesreport_view(request):
             'activity_type': activity_type,
         }
 
-        activities = Activity.objects.filter(communes__contains = communes, date__contains = date, hour__contains = hour, activity_type__contains = activity_type)
+        activities = Activity.objects.filter(orgs_names__contains = orgs_names, communes__contains = communes, date__contains = date, hour__contains = hour, activity_type__contains = activity_type)
 
     return render(request, 'activities/activitiesreport.html', {'activities': activities, 'values': values, 'level': profile_level})
 

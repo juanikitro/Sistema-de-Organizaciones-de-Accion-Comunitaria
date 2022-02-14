@@ -106,7 +106,7 @@
 					<div class="card-header-dark text-center">
 						<h5>Datos</h5>
 					</div>
-					<div class="card-body">
+					<div style='height:120px' class="card-body">
 						<p><strong> Tipo: </strong> {{ type }}</p>
 						<p><strong> Público: </strong> {{ public }}</p>
 						<p><strong> Áreas: </strong> {{ areas }}</p>
@@ -118,7 +118,7 @@
 				<div class="card-header-dark text-center">
 			  <h5>Contacto</h5>
 			</div>
-			<div class="card-body">
+			<div style='height:120px' class="card-body">
 				<p><strong> Número de contacto: </strong> {{ mobile }}</p>
 				<p><strong> Correo electronico: </strong> {{ email }}</p>
 			</div>
@@ -131,7 +131,7 @@
 					<div class="card-header-dark text-center">
 			  <h5>Inscripcion</h5>
 			</div>
-			<div class="card-body">
+			<div style='height:280px' class="card-body">
 				<p><strong> Estado: </strong> {{ state }}</p>
 					<p>
 						<strong> Fecha de inscripcion a "SOAC": </strong> {{ created | date:"d-m-Y" }}
@@ -151,15 +151,15 @@
 						<strong> Inscripta en IGJ: </strong>
 						{{ igj }}
 					</p>
-			</div>
 				</div>
+			</div>
 			</div>
 			<div class='col'>
 				<div class="card bg-lightblue">
 					<div class="card-header-dark text-center">
 						<h5>Ubicacion</h5>
 					</div>
-					<div class="card-body">
+					<div style='height:280px' class="card-body">
 						<p><strong> Dirección: </strong> {{ address }}</p>
 						<p><strong> Departamento: </strong> {{ dpto }}</p>
 						<p><strong> código postal: </strong> {{ postal_code }}</p>
@@ -176,7 +176,7 @@
 					<div class="card-header-dark text-center">
 					<h5>Visitas realizadas</h5>
 				</div>
-				<div class="card-body" style='max-height: 300px; overflow-y: auto'>
+				<div class="card-body" style='height: 200px; overflow-y: auto'>
 					<table class="table text-dark">
 						<thead>
 							<tr>
@@ -215,7 +215,7 @@
 					<div class="card-header-dark text-center">
 					<h5>Visitas pendientes</h5>
 				</div>
-				<div class="card-body" style='max-height: 300px; overflow-y: auto'>
+				<div class="card-body" style='height: 200px; overflow-y: auto'>
 					<table class="table text-dark">
 						<thead>
 							<tr>
@@ -256,7 +256,7 @@
 					<div class="card-header-dark text-center">
 					<h5>Reclamos resueltos</h5>
 				</div>
-				<div class="card-body" style='max-height: 300px; overflow-y: auto' >
+				<div class="card-body" style='height: 200px; overflow-y: auto' >
 					<table class="table text-dark" >
 							<thead>
 								<tr>
@@ -294,7 +294,7 @@
 					<div class="card-header-dark text-center">
 					<h5>Reclamos abiertos</h5>
 				</div>
-				<div class="card-body" style='max-height: 300px; overflow-y: auto'>
+				<div class="card-body" style='height: 200px; overflow-y: auto'>
 					<table class="table text-dark">
 							<thead>
 								<tr>

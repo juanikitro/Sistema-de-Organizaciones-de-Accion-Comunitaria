@@ -42,7 +42,16 @@
 					name="communes"
 					value="{{values.communes}}"
 				/>
-		</div>
+			</div>
+			<div class="col mx-1 form-group">
+				 <input
+					class="form-control"
+					type="text"
+					placeholder="Organizacion"
+					name="orgs_names"
+					value="{{values.orgs_names}}"
+				/>
+			</div>
 		</div>
 		<div class="form-row d-flex justify-content-around my-3">
 			<div class="col-3 form-group">
@@ -78,6 +87,7 @@
 				<th scope="col">Dia</th>
 				<th scope="col">Hora</th>
 				<th scope="col">Tipo de actividad</th>
+				<th scope="col">Organizaciones</th>
 				<th scope="col"></th>
 			</tr>
 		</thead>
@@ -85,8 +95,13 @@
 			{% for u in activities %}
 			<tr>
 				<td>{{u.date}}</td>
+				{% if u.allday == 'Si' %}
+				<td>Todo el dia</td>
+				{% else %}
 				<td>{{u.hour}}</td>
-				<td style='width:400px; overflow: auto'>{{u.activity_type}}</td>
+				{% endif %}
+				<td style='overflow: auto'>{{u.activity_type}}</td>
+				<td style='width:300px; overflow: auto'>{{u.orgs_names}}</td>
 				<td>
 					<a
 						class="btn btn-primary-dark"
