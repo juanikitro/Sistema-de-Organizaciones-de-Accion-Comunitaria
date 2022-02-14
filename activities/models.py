@@ -3,6 +3,8 @@ from organizations.models import Org
 
 class Activity(models.Model):
     activity_type = models.CharField(max_length=255, null=True)
+    orgs_names = models.CharField(max_length=255, null=True)
+    communes = models.CharField(max_length=255, null=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
     date= models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
     hour= models.CharField(max_length=255, null=True, default='00:00:00')

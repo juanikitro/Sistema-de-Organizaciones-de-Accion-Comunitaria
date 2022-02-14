@@ -1,0 +1,134 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Busqueda de eventos</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-dark p-5">
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Buscar eventos</h1>
+
+	<form action="{% url 'events_report' %}" method="POST">
+		{% csrf_token %}
+		<div class="form-row d-flex justify-content-around">
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="date"
+					placeholder="Fecha"
+					name="date"
+					value="{{values.date}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="time"
+					placeholder="Hora"
+					name="hour"
+					value="{{values.hour}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="text"
+					placeholder="Nombre del evento"
+					name="event_name"
+					value="{{values.event_name}}"
+				/>
+			</div>
+		</div>
+		<div class="form-row d-flex justify-content-around mt-3">
+			<div class="col mx-1 form-group">
+				 <input
+					class="form-control"
+					type="text"
+					placeholder="Lugar"
+					name="spot"
+					value="{{values.spot}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				 <input
+					class="form-control"
+					type="number"
+					placeholder="Comuna"
+					name="communes"
+					value="{{values.communes}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				 <input
+					class="form-control"
+					type="text"
+					placeholder="Organizacion"
+					name="ors_names"
+					value="{{values.orgs_names}}"
+				/>
+			</div>
+		</div>
+		<div class="form-row d-flex justify-content-around my-3">
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-success mb-3"
+					href="{% url 'events_report_report' %}"
+					role="button"
+					>Exportar</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-primary-dark mb-3"
+					href="{% url 'events_report' %}"
+					role="button"
+					>Limpiar filtros</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<button
+					class="btn btn-primary-dark px-3 mb-3 form-control"
+					type="submit"
+				>
+					Buscar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
+	<table class="table text-dark">
+		<thead>
+			<tr>
+				<th scope="col">Dia</th>
+				<th scope="col">Hora</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Lugar</th>
+				<th scope="col">Organizaciones</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for u in events %}
+			<tr>
+				<td>{{u.date}}</td>
+				{% if u.allday == 'Si' %}
+				<td>Todo el dia</td>
+				{% else %}
+				<td>{{u.hour}}</td>
+				{% endif %}
+				<td style='width:200px; overflow: auto'>{{u.event_name}}</td>
+				<td>{{u.spot}}</td>
+				<td style='width:200px; overflow: auto'>{{u.orgs_names}}</td>
+				<td>
+					<a
+						class="btn btn-primary-dark"
+						href="/events/{{u.id}}/"
+						target = "_blank"
+						role="button"
+						>Ver</a
+					>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+</article>
+
+{% endblock %}

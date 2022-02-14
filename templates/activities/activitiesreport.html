@@ -1,0 +1,121 @@
+{% extends "base.html" %} {% block head_content %}
+<title>SOAC - Busqueda de actividades</title>
+{% endblock%} {% block body %}
+<article class="container d-flex flex-column text-dark p-5">
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Buscar actividades</h1>
+
+	<form action="{% url 'activities_report' %}" method="POST">
+		{% csrf_token %}
+		<div class="form-row d-flex justify-content-around">
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="date"
+					placeholder="Fecha"
+					name="date"
+					value="{{values.date}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				<input
+					class="form-control"
+					type="time"
+					placeholder="Hora"
+					name="hour"
+					value="{{values.hour}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				 <select
+					class="form-control mb-3"
+					name="activity_type"
+					required="true">
+					<option selected value="Pintura">Pintura</option>
+					<option value="Refacciones">Refacciones</option>
+				</select>
+			</div>
+			<div class="col mx-1 form-group">
+				 <input
+					class="form-control"
+					type="number"
+					placeholder="Comuna"
+					name="communes"
+					value="{{values.communes}}"
+				/>
+			</div>
+			<div class="col mx-1 form-group">
+				 <input
+					class="form-control"
+					type="text"
+					placeholder="Organizacion"
+					name="orgs_names"
+					value="{{values.orgs_names}}"
+				/>
+			</div>
+		</div>
+		<div class="form-row d-flex justify-content-around my-3">
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-success mb-3"
+					href="{% url 'activities_report_report' %}"
+					role="button"
+					>Exportar</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<a
+					class="form-control btn btn-primary-dark mb-3"
+					href="{% url 'activities_report' %}"
+					role="button"
+					>Limpiar filtros</a
+				>
+			</div>
+			<div class="col-3 form-group">
+				<button
+					class="btn btn-primary-dark px-3 mb-3 form-control"
+					type="submit"
+				>
+					Buscar
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="d-flex bg-lightblue px-5 py-3 card justify-content-center">
+	<table class="table text-dark">
+		<thead>
+			<tr>
+				<th scope="col">Dia</th>
+				<th scope="col">Hora</th>
+				<th scope="col">Tipo de actividad</th>
+				<th scope="col">Organizaciones</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for u in activities %}
+			<tr>
+				<td>{{u.date}}</td>
+				{% if u.allday == 'Si' %}
+				<td>Todo el dia</td>
+				{% else %}
+				<td>{{u.hour}}</td>
+				{% endif %}
+				<td style='overflow: auto'>{{u.activity_type}}</td>
+				<td style='width:300px; overflow: auto'>{{u.orgs_names}}</td>
+				<td>
+					<a
+						class="btn btn-primary-dark"
+						href="/activities/{{u.id}}/"
+						target = "_blank"
+						role="button"
+						>Ver</a
+					>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+</article>
+
+{% endblock %}

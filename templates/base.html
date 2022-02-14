@@ -20,7 +20,6 @@
 		/>
 		<!-- Extras -->
 		<link rel="stylesheet" href="{% static 'css/alerts.css' %}" />
-		<link rel="stylesheet" href="{% static 'css/scrollreveal.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 		<link rel="stylesheet" href="{% static 'css/accordions.css' %}" />
 		<link rel="shortcut icon" href="{% static 'img/favicon.jpg' %}" type="image/x-icon">
@@ -31,7 +30,6 @@
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap"
 			rel="stylesheet"
 		/>
-		<script src="https://unpkg.com/scrollreveal@4"></script>
 		<title>SOAC</title>
 	</head>
 	<body
@@ -43,18 +41,18 @@
 				d-flex
 				col-1
 				flex-column flex-shrink-0
-				p-3
 				bg-lightblue
 				text-dark
 			"
 			style="width: 200px; min-height: 100vh"
 		>
+		<ul style='position: sticky; top: 0; padding-inline-start: 0px; padding:10px'>
 			<a
 				href="/"
 				class="
 					d-flex
 					align-items-center
-					 mb-md-0
+					mb-md-0
 					me-md-auto
 					text-dark text-decoration-none
 				"
@@ -338,38 +336,30 @@
 							"
 							aria-labelledby="dropdownUser1"
 						>
-							<!-- <li>
+							<li>
 								<a
 									class="dropdown-item text-dark"
-									href=""
-									>Altas</a
+									href="{% url 'visits_report' %}"
+									>Visitas</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href=""
-									>Renovaciónes</a
+									href="{% url 'events_report' %}"
+									>Eventos</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
 							<li>
 								<a
 									class="dropdown-item text-dark"
-									href=""
-									>Estados</a
+									href="{% url 'activities_report' %}"
+									>Actividades</a
 								>
 							</li>
 							<li><hr class="dropdown-divider" /></li>
-							<li>
-								<a
-									class="dropdown-item text-dark"
-									href=""
-									>Vinculaciónes</a
-								>
-							</li>
-							<li><hr class="dropdown-divider" /></li> -->
 							<li>
 								<a
 									class="dropdown-item text-dark"
@@ -435,7 +425,6 @@
 					</div>
 				</li>
 				{% endif %}
-			</ul>
 			<hr />
 			<div class="dropdown">
 				<a
@@ -465,6 +454,8 @@
 					</li>
 				</ul>
 			</div>
+			</ul>
+			</ul>
 		</section>
 		<section class="col bg-blue load-hidden content">
 			{% block body %}{% endblock%}
@@ -481,9 +472,6 @@
 			integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 			crossorigin="anonymous"
 		></script>
-
-		<!-- Scroll Reveal -->
-		<script src="{% static 'js/js_reveal.js' %}"></script>
 
 		<!-- Custom JS -->
 		{% block custom_js %}{% endblock %}

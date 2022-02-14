@@ -132,7 +132,7 @@
             </div>
         </article>
     {% endif %}
-    <article class='p-3 bg-lightblue card mt-5'>
+    <article class='p-3 bg-lightblue card mt-5' style='max-height: 300px; overflow-y: auto'>
         <table class="table text-dark">
             <thead>
                 <h3 class='text-dark text-center'>Pendientes</h2>
@@ -152,7 +152,45 @@
                     <td>{{e.created | date:"d-m-Y" }}</td>
                     <td>{{e.date | date:"d-m-Y"}}</td>
                     <td>{{e.org_name}}</td>
-                                        <td>{{e.hour}}</td>
+                    <td>{{e.hour}}</td>
+
+                    <td style="max-height:100px; max-width:200px">{{e.observation}}</td>
+                    <td>
+                        <a
+                        class="btn btn-primary-dark"
+                        href="{% url 'visit' e.id %}"
+                        role="button"
+                        target="_blank"
+                        >Ver</a
+                        >
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </article>
+    <article class='p-3 bg-lightblue card mt-5' style='max-height: 300px; overflow-y: auto'>
+        <table class="table text-dark">
+            <thead>
+                <h3 class='text-dark text-center'>Realizadas</h2>
+                <tr>
+                    <th scope="col">Creacion</th>
+                    <th scope="col">Fecha de visita</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Observacion</th>
+                    <th scope="col">Observacion</th>
+                    <th scope="col"></th
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in visit %}
+                {% if e.date < today %}
+                <tr>
+                    <td>{{e.created | date:"d-m-Y" }}</td>
+                    <td>{{e.date | date:"d-m-Y"}}</td>
+                    <td>{{e.org_name}}</td>
+                    <td>{{e.hour}}</td>
 
                     <td style="max-height:100px; max-width:200px">{{e.observation}}</td>
                     <td>
