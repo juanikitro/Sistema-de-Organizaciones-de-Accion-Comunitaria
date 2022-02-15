@@ -153,13 +153,6 @@
 										>Analisis</a
 									>
 								</li>
-								<li>
-									<a
-										class="dropdown-item text-dark"
-										href="{% url 'forexpire' %}"
-										>Por vencer</a
-									>
-								</li>
 							{% endif %}
 							{% if level == 'Presidente' or level == 'admin' %}
 								<li>
@@ -169,6 +162,15 @@
 										>Firma</a
 									>
 								</li>
+							{% endif %}
+							{% if level == 'Central' or level == 'admin' %}
+							<li>
+								<a
+									class="dropdown-item text-dark"
+									href="{% url 'forexpire' %}"
+									>Por vencer</a
+								>
+							</li>
 							{% endif %}
 						</ul>
 					</div>

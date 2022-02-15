@@ -75,7 +75,7 @@
 			>Modificar</a
 		>
 	{% endif %}
-	{% if state == 'No registrada' or state == 'A editar' or state == 'Suspendida' %}
+	{% if state == 'No registrada' or state == 'A editar' or state == 'Suspendida' or state == 'Vencida' %}
 		<a class="btn btn-primary-dark" href="register/" role="button">Registrar</a>	
 	{% endif %}
 	{% if state == 'Preactiva' or state == 'Activa' or state == 'A firmar'%}

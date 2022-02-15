@@ -125,6 +125,20 @@ def edit_view(request):
     return render(request, 'inbox/edit.html', {'editar': editar, 'nothing': nothing, 'level': profile_level})
 
 
+@login_required
+def msgregister_request_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+    
+    selected_org = Org.objects.get(id=pk)
+    if request.method == 'POST':
+        selected_org.msg = request.POST.get('msg')
+        selected_org.save()
+        return redirect('register_roac', selected_org.id) 
+
+    return render(request, 'inbox/msgsign.html', {'org': selected_org, 'level': profile_level})
+
+
 #Firma
 @login_required
 def sign_view(request):

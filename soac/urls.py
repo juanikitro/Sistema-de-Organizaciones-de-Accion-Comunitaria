@@ -43,6 +43,7 @@ urlpatterns = [
     path('organizations/org/<str:pk>/', organizations_views.org_view, name='org'),   
     path('organizations/org/<str:pk>/delete/', organizations_views.delete_org_view, name='delete_org'),
     path('organizations/org/<str:pk>/down/', organizations_views.down_org_view, name='down_org'),
+    path('organizations/org/<str:pk>/msgregister/', inbox_views.msgregister_request_view, name='msgregister_roac'),
     path('organizations/org/<str:pk>/register/', organizations_views.register_request_view, name='register_roac'),
     path('organizations/org/<str:pk>/modify/', organizations_views.modify_org_view, name='modify_org'),
     path('organizations/org/<str:pk>/org_report/', organizations_views.download_org_view, name='org_report'),

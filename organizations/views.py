@@ -284,7 +284,6 @@ def  register_request_view(request, pk):
 
         if form.is_valid():
             selected_org.state = 'Preactiva'
-            selected_org.msg = ''
             selected_org.registration_request = date.today()
             form.save()
 

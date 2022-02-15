@@ -10,6 +10,7 @@
 			<tr>
 				<th scope="col">Nombre</th>
 				<th scope="col">Solicitud</th>
+				<th scope="col">Mensaje</th>
 				<th scope="col">Documentacion</th>
 				<th scope="col">Informacion</th>
 				<th scope="col"></th>
@@ -20,6 +21,7 @@
 			<tr>
 				<td>{{u.name}}</td>
 				<td>{{u.registration_request}}</td>
+				<td style="max-height:50px; max-width:400px">{{u.msg}}</td>
 				<td><a class="btn btn-secondary-light" target="_blank" href="/media/{{u.doc}}">Ver</a></td>
                 <td><a class="btn btn-secondary-light" target="_blank" href="/organizations/org/{{u.id}}/" role="button">Ver</a></td>
                 <td>
