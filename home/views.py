@@ -18,8 +18,8 @@ def home_view(request):
     profile_level = Profile.objects.get(user_id = user_id).level
 
     for o in Org.objects.filter(state = 'Activa'):
-        if o.expiration.date() == datetime.now().date():
-            o.state = 'Suspendida'
+        if o.expiration.date() < datetime.now().date():
+            o.state = 'Vencida'
             o.roac = 'No'
             o.save()
 

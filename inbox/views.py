@@ -56,6 +56,31 @@ def forexpire_view(request):
             if org.expiration.date() < a_month_ago:
                 forexpire.append(org) 
 
+    for o in Org.objects.filter(state = 'Activa'):
+        if o.expiration.date() < datetime.now().date():
+            o.state = 'Vencida'
+            o.roac = 'No'
+            o.save()
+
+            a_month_ago = datetime.now().date() + timedelta(days=31)
+
+            for org in Org.objects.filter(state = 'Activa'):
+                if org.expiration.date() < a_month_ago:
+                    if org.expiration_mail == 'No':
+                        subject = f'SOAC: Organizacion a punto de expirar'
+                        email_from = settings.EMAIL_HOST_USER
+                        email = org.email
+                        emails = [email]
+                        text = f'''\
+                            Hola! Te contacto desde SOAC porque se esta a punto de vencer la organizacion: {org}.
+                            Podes contactarte con alguien de la Direccion General de Relaciones con la Comunidad para volver a registrarla.
+                        '''
+
+                        send_mail(subject, text, email_from, emails)
+
+                        org.expiration_mail = 'Si'
+                        org.save()
+
     return render(request, 'inbox/forexpire.html', {
         'forexpire': forexpire, 'level': profile_level
         })
