@@ -58,8 +58,9 @@ urlpatterns = [
     path('organizations/org/<str:pk>/noregister/', organizations_views.noregister_org_view, name='noregister_org'),
     path('inbox/sign', inbox_views.sign_view, name='sign'),
     path('inbox/sign/return/<str:pk>/', inbox_views.return_sign_view, name='return_sign'),
-    path('inbox/sign/signing/<str:pk>/', inbox_views.signing_view, name='signing'),
-    path('inbox/sign/signing/<str:pk>/certificate/', inbox_views.Certificate_ROAC.as_view(), name='certificate'),
+    path('inbox/analysis/registering/<str:pk>/', inbox_views.registering_view, name='registering_view'),
+    path('inbox/sign/signing/<str:pk>/', inbox_views.signing_view, name='signing_view'),
+    path('inbox/analysis/registering/<str:pk>/certificate/', inbox_views.Certificate_ROAC.as_view(), name='certificate'),
 
     #Comunicaciones
     path('comunication/users/', comunications_views.comunications_users_view, name='comunications_users'),

@@ -139,14 +139,13 @@ def msgregister_request_view(request, pk):
     return render(request, 'inbox/msgsign.html', {'org': selected_org, 'level': profile_level})
 
 
-#Firma
 @login_required
 def sign_view(request):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
 
     global sign
-    sign = Org.objects.filter(state = 'A firmar').order_by('-registration_request')
+    sign = Org.objects.filter(state = 'Activa', signed = 'No').order_by('-registration_request')
     nothing = sign.first()
 
     return render(request, 'inbox/sign.html', {'sign': sign, 'nothing': nothing, 'level': profile_level})
@@ -168,7 +167,7 @@ def return_sign_view(request, pk):
 
 
 @login_required
-def signing_view(request, pk):
+def registering_view(request, pk):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
     
@@ -196,6 +195,7 @@ def signing_view(request, pk):
 
             selected_org.expiration = date.today() + timedelta(days=730)
             form.save()
+            selected_org.save()
 
             subject = f'SOAC: Organizacion registrada con exito'
             email_from = settings.EMAIL_HOST_USER
@@ -210,7 +210,7 @@ def signing_view(request, pk):
             send_mail(subject, text, email_from, emails)
 
             history_item = Item()
-            history_item.action = f'Solicitud de registro: {selected_org.name}'
+            history_item.action = f'Registro de: {selected_org.name}'
             history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
             history_item.save()
 
@@ -219,7 +219,7 @@ def signing_view(request, pk):
     else:
         form = SignForm()
 
-    return render(request, 'inbox/signing.html', {'org': selected_org, 'form': form, 'level': profile_level})
+    return render(request, 'inbox/registering.html', {'org': selected_org, 'form': form, 'level': profile_level})
 
 
 def render_to_pdf(template_src, context_dict={}):
@@ -238,3 +238,32 @@ class Certificate_ROAC(TemplateView):
        expiration = date.today() + timedelta(days=730)
        pdf = render_to_pdf('inbox/certificate.html', {'org': selected_org, 'today': today, 'expiration': expiration})
        return HttpResponse(pdf, content_type='application/pdf')
+
+
+@login_required
+def signing_view(request, pk):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+    
+    global selected_org
+    selected_org = Org.objects.get(id=pk)
+
+    if request.method == 'POST':
+        form = SignForm(request.POST, request.FILES, instance = selected_org)
+
+        if form.is_valid():
+            selected_org.signed = 'Si'
+            form.save()
+            selected_org.save()
+
+            history_item = Item()
+            history_item.action = f'Firmado de: {selected_org.name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
+            return redirect('org', selected_org.id)
+            
+    else:
+        form = SignForm()
+
+    return render(request, 'inbox/signing.html', {'org': selected_org, 'form': form, 'level': profile_level})
