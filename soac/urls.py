@@ -97,6 +97,7 @@ urlpatterns = [
 
     #Reclamos
     path('claims/', claims_views.claims_view, name='claims'), 
+    path('claims/multipleclaims/', claims_views.multipleclaims_views, name='multipleclaim'), 
     path('claim/<str:pk>/', claims_views.claim_view, name='claim'), 
     path('organizations/org/<str:pk>/setupclaim/', claims_views.setupclaim_view, name='setup_claim'), 
     path('claims/report/', claims_views.Excel_report.as_view(), name='claims_report'),

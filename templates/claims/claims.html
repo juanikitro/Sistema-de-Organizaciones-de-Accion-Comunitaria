@@ -11,8 +11,8 @@
 
         <form action="{% url 'claims' %}" method="POST">
             {% csrf_token %}
-            <div class="form-row d-flex justify-content-around">
-                <div class="col-3 w-25 mx-1 form-group">
+            <div class="form-row d-flex container justify-content-between">
+                <div class="col-3  mx-1 form-group">
                     <input
                         class="form-control"
                         type="text"
@@ -21,7 +21,7 @@
                         value="{{values.by}}"
                     />
                 </div>
-                <div class="col-3 w-25 mx-1 form-group">
+                <div class="col-3  mx-1 form-group">
                     <input
                         class="form-control"
                         type="text"
@@ -30,7 +30,7 @@
                         value="{{values.org_name}}"
                     />
                 </div>
-                <div class="col-3 w-25 mx-1 form-group">
+                <div class="col-3  mx-1 form-group">
                     <input
                         class="form-control"
                         type="text"
@@ -39,7 +39,7 @@
                         value="{{values.observation}}"
                     />
                 </div>
-                <div class'col-3 w-25 mx-1 form-group'>
+                <div class'col-3  mx-1 form-group'>
                     <select
 					    name="state"
 					    class="form-control form-select">
@@ -51,8 +51,8 @@
                 </div>
             </div>
     
-            <div class="form-row d-flex justify-content-around my-3">
-                <div class="col-3 form-group">
+            <div class="form-row d-flex container justify-content-around my-3">
+                <div class="col-3 mx-2 form-group">
                     <a
                         class="form-control btn btn-success mb-3"
                         href="{% url 'claims_report' %}"
@@ -60,7 +60,7 @@
                         >Exportar</a
                     >
                 </div>
-                <div class="col-3 form-group">
+                <div class="col-3 mx-2 form-group">
                     <a
                         class="form-control btn btn-primary-dark mb-3"
                         href="{% url 'claims' %}"
@@ -68,7 +68,15 @@
                         >Limpiar filtros</a
                     >
                 </div>
-                <div class="col-3 form-group">
+                <div class="col-3 mx-2 form-group">
+                    <a
+                        class="form-control btn btn-primary-dark mb-3"
+                        href="{% url 'multipleclaim' %}"
+                        role="button"
+                        >Crear reclamo multiple</a
+                    >
+                </div>
+                <div class="col-3 mx-2 form-group">
                     <button
                         class="btn btn-primary-dark px-3 mb-3 form-control"
                         type="submit"

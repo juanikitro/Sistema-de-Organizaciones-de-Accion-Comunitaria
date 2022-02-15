@@ -144,6 +144,42 @@ def setupclaim_view(request, pk):
 
 
 @login_required
+def multipleclaims_views(request):
+    user_id = request.user.id
+    profile_level = Profile.objects.get(user_id = user_id).level
+    orgs = Org.objects.all()
+
+    data = {
+       'level': profile_level,
+       'orgs': orgs,
+       }
+
+    if request.method == 'POST': 
+        orgs_id = request.POST.getlist('orgs')
+
+
+        for u in orgs_id:
+            claim = Claim()
+            claim.category = request.POST.get('category')     
+            claim.observation = request.POST.get('observation')     
+            claim.state = request.POST.get('state')     
+            claim.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            org = Org.objects.get(id=u)
+            claim.org = u
+            claim.org_name = Org.objects.get(id = org.id).name
+            claim.save() 
+
+            history_item = Item()
+            history_item.action = f'Creacion de reclamo: {claim.org_name}'
+            history_item.by = f'{Profile.objects.get(user_id = user_id).first_name} {Profile.objects.get(user_id = user_id).last_name}'
+            history_item.save()
+
+        return redirect('claims')
+
+    return render(request,'claims/multipleclaim.html', data)
+
+
+@login_required
 def claim_modify_view(request, pk):
     user_id = request.user.id
     profile_level = Profile.objects.get(user_id = user_id).level
