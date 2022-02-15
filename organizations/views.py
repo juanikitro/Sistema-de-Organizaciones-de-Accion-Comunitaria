@@ -222,6 +222,8 @@ class Excel_report(TemplateView):
         ws['M3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
         ws['N3'] = 'ROAC'
         ws['N3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
+        ws['O3'] = 'Firmado'
+        ws['O3'].fill = PatternFill(start_color = 'ffc107', end_color = 'f3b600', fill_type='solid')
 
         ws.column_dimensions['A'].width = 20
         ws.column_dimensions['B'].width = 20
@@ -236,6 +238,8 @@ class Excel_report(TemplateView):
         ws.column_dimensions['K'].width = 20
         ws.column_dimensions['L'].width = 20
         ws.column_dimensions['M'].width = 20
+        ws.column_dimensions['N'].width = 20
+        ws.column_dimensions['O'].width = 20
 
         cont = 4
         for u in org:
@@ -253,6 +257,7 @@ class Excel_report(TemplateView):
             ws.cell(row = cont, column = 12).value = u.postal_code
             ws.cell(row = cont, column = 13).value = u.mobile
             ws.cell(row = cont, column = 14).value = u.roac
+            ws.cell(row = cont, column = 15).value = u.signed
             cont += 1
 
         excel_name = f'Reporte de orgs. {today}.xlsx'
@@ -342,6 +347,7 @@ def org_view(request, pk):
     'expiration':org_profile.expiration,
     'modified':org_profile.modified,
     'roac': org_profile.roac,
+    'signed': org_profile.signed,
     'doc': org_profile.doc,
     'enrolled': org_profile.enrolled,
     'visit': visits,

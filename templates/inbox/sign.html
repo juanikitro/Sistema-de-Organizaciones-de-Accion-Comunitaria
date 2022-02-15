@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block head_content %}
-<title>SOAC - Bandeja de edicion</title>
+<title>SOAC - Bandeja de firma</title>
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
 	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Bandeja de firma</h1>
@@ -37,10 +37,6 @@
 						class="dropdown-menu dropdown-menu-light text-small shadow"
 						aria-labelledby="dropdownUser1"
 					>
-                        <li>
-                            <a class="text-center dropdown-item text-danger" href="/inbox/sign/return/{{u.id}}/" role="button">Devolver</a>
-                        </li>
-                        <li><hr class="dropdown-divider" /></li>
 						<li>
 							<a class="text-center dropdown-item" href="/inbox/sign/signing/{{u.id}}/" role="button">Firmar</a>
 						</li>
