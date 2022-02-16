@@ -1,10 +1,11 @@
 from datetime import date, timedelta
-from random import expovariate
 #Django
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.core.mail import send_mail
+from soac.settings import EMAIL_HOST_USER
+from django.core.mail import EmailMessage
 from django.conf import settings
 
 from pymysql import NULL
@@ -198,16 +199,22 @@ def registering_view(request, pk):
             selected_org.save()
 
             subject = f'SOAC: Organizacion registrada con exito'
-            email_from = settings.EMAIL_HOST_USER
             email = selected_org.email
             emails = [email]
-            text = f'''\
+            message = f'''\
                 Hola! Te contacto desde SOAC porque se registro a {selected_org.name}. 
-            Fecha de inscripcion / renovacion: {datetime.now().date()}
-            Fecha de expiracion: {selected_org.expiration}
+                Fecha de inscripcion / renovacion: {datetime.now().date()}
+                Fecha de expiracion: {selected_org.expiration}
+                Certificado: Adjunto
             '''
 
-            send_mail(subject, text, email_from, emails)
+            email = EmailMessage(subject, message, EMAIL_HOST_USER, emails)
+            email.content_subtype = 'html'
+
+            file = open(f'media/{selected_org.certificate}', 'r') 
+            email.attach(file.name, file.read(), 'application/pdf')
+
+            email.send()
 
             history_item = Item()
             history_item.action = f'Registro de: {selected_org.name}'

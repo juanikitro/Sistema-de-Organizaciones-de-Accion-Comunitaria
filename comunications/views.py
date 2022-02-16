@@ -1,8 +1,8 @@
 #Django
+from django.core.mail import EmailMessage
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.core.mail import send_mail
+from soac.settings import EMAIL_HOST_USER
 
 #Models
 from users.models import Profile
@@ -28,9 +28,14 @@ def comunications_users_view(request):
 
         {msg}'''
 
-        email_from = settings.EMAIL_HOST_USER
+        email = EmailMessage(subject, message, EMAIL_HOST_USER, emails)
+        email.content_subtype = 'html'
+
+        file = request.FILES['file']
+        email.attach(file.name, file.read(), file.content_type)
+
         if msg:
-            send_mail(subject, message, email_from, emails)
+            email.send()
             return render(request,'comunications/comunication_users.html', {'users': users, 'alert': 'El mensaje fue enviado con exito', 'level': profile_level})
         else:
             return render(request,'comunications/comunication_users.html', {'users': users, 'error': 'No se ha podido enviar el comunicado', 'level': profile_level})
@@ -58,9 +63,14 @@ def comunications_orgs_view(request):
 
         {msg}'''
 
-        email_from = settings.EMAIL_HOST_USER
+        email = EmailMessage(subject, message, EMAIL_HOST_USER, emails)
+        email.content_subtype = 'html'
+
+        file = request.FILES['file']
+        email.attach(file.name, file.read(), file.content_type)
+
         if msg:
-            send_mail(subject, message, email_from, emails)
+            email.send()
             return render(request,'comunications/comunication_orgs.html', {'orgs': orgs, 'alert': 'El mensaje fue enviado con exito', 'level': profile_level})
         else:
             return render(request,'comunications/comunication_orgs.html', {'orgs': orgs, 'error': 'No se ha podido enviar el comunicado', 'level': profile_level})
