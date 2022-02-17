@@ -65,7 +65,11 @@ def visits_view(request):
         Hora: {visit.hour}
         Observacion: {visit.observation}
         Podes ver mas sobre esta entrando al siguiente link:
-        {link}'''
+        {link}
+        
+        DG Relaciones con la Comunidad
+        SS de Gestión Comunal
+        '''
 
         send_mail(subject, message, email_from, emails)
 
@@ -100,7 +104,11 @@ def visit_delete_view(request, pk):
     emails = [email]
     subject = f'SOAC: Eliminacion de visita del dia {visit.date}'
     email_from = settings.EMAIL_HOST_USER
-    message = f'''Hola! Te contacto desde SOAC para informarte que la visita del dia: {visit.date} ha sido eliminada.'''
+    message = f'''Hola! Te contacto desde SOAC para informarte que la visita del dia: {visit.date} ha sido eliminada.
+    
+    DG Relaciones con la Comunidad
+    SS de Gestión Comunal
+    '''
 
     send_mail(subject, message, email_from, emails)
 
@@ -138,7 +146,11 @@ def visit_modify_view(request, pk):
         Hora: {request.POST.get('hour')}
         Observacion: {request.POST.get('observation')}
         Podes ver mas sobre este entrando al siguiente link:
-        {link}'''
+        {link}
+        
+        DG Relaciones con la Comunidad
+        SS de Gestión Comunal
+        '''
 
         send_mail(subject, message, email_from, emails)
 

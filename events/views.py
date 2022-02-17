@@ -107,7 +107,11 @@ def events_view(request):
             Hora: {event.hour}
             Lugar: {event.spot}
             Podes ver mas sobre este entrando al siguiente link:
-            {link}'''
+            {link}
+            
+            DG Relaciones con la Comunidad
+            SS de Gestión Comunal
+            '''
 
             send_mail(subject, message, email_from, emails)
 
@@ -144,7 +148,11 @@ def event_delete_view(request, pk):
     emails = []
     subject = f'SOAC: Eliminacion de evento "{event.event_name}"'
     email_from = settings.EMAIL_HOST_USER
-    message = f'''Hola! Te contacto desde SOAC para informarte que el evento "{event.event_name}" ha sido eliminado.'''
+    message = f'''Hola! Te contacto desde SOAC para informarte que el evento "{event.event_name}" ha sido eliminado.
+    
+    DG Relaciones con la Comunidad
+    SS de Gestión Comunal
+    '''
 
     i = event.orgs.all()
     ids = i.values_list('pk', flat=True)
@@ -193,7 +201,11 @@ def event_modify_view(request, pk):
         Hora: {request.POST.get('hour')}
         Lugar: {request.POST.get('spot')}
         Podes ver mas sobre este entrando al siguiente link:
-        {link}'''
+        {link}
+        
+        DG Relaciones con la Comunidad
+        SS de Gestión Comunal
+        '''
 
         i = event.orgs.all()
         ids = i.values_list('pk', flat=True)

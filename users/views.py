@@ -446,6 +446,9 @@ def send_reset_password_view(request):
         {link}
 
         Saludos!
+
+        DG Relaciones con la Comunidad
+        SS de Gestión Comunal
         '''
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [username_email]

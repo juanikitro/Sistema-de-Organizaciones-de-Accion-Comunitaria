@@ -73,7 +73,11 @@ def activities_view(request):
             Hora: {activity.hour}
             Tipo: {activity.activity_type}
             Podes ver mas sobre esta entrando al siguiente link:
-            {link}'''
+            {link}
+            
+            DG Relaciones con la Comunidad
+            SS de Gestión Comunal
+            '''
 
             send_mail(subject, message, email_from, emails)
 
@@ -110,7 +114,11 @@ def activity_delete_view(request, pk):
     emails = []
     subject = f'SOAC: Eliminacion de actividad "{activity.activity_type}"'
     email_from = settings.EMAIL_HOST_USER
-    message = f'''Hola! Te contacto desde SOAC para informarte que la actividad "{activity.activity_type}" ha sido eliminado.'''
+    message = f'''Hola! Te contacto desde SOAC para informarte que la actividad "{activity.activity_type}" ha sido eliminado.
+    
+    DG Relaciones con la Comunidad
+    SS de Gestión Comunal
+    '''
 
     i = activity.orgs.all()
     ids = i.values_list('pk', flat=True)
@@ -152,7 +160,11 @@ def activity_modify_view(request, pk):
         Fecha: {request.POST.get('date')}
         Hora: {request.POST.get('hour')}
         Podes ver mas sobre esta entrando al siguiente link:
-        {link}'''
+        {link}
+        
+        DG Relaciones con la Comunidad
+        SS de Gestión Comunal
+        '''
 
         i = activity.orgs.all()
         ids = i.values_list('pk', flat=True)

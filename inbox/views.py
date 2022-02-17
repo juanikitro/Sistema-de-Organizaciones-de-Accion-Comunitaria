@@ -205,14 +205,13 @@ def registering_view(request, pk):
                 Hola! Te contacto desde SOAC porque se registro a {selected_org.name}. 
                 Fecha de inscripcion / renovacion: {datetime.now().date()}
                 Fecha de expiracion: {selected_org.expiration}
-                Certificado: Adjunto
-            '''
+
+                DG Relaciones con la Comunidad
+                SS de Gestión Comunal
+                '''
 
             email = EmailMessage(subject, message, EMAIL_HOST_USER, emails)
             email.content_subtype = 'html'
-
-            file = open(f'media/{selected_org.certificate}', 'r') 
-            email.attach(file.name, file.read(), 'application/pdf')
 
             email.send()
 

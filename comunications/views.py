@@ -26,7 +26,11 @@ def comunications_users_view(request):
         msg = request.POST['msg']
         message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} te envio el siguiente comunicado:
 
-        {msg}'''
+        {msg}
+        
+        DG Relaciones con la Comunidad
+        SS de Gestión Comunal
+        '''
 
         email = EmailMessage(subject, message, EMAIL_HOST_USER, emails)
         email.content_subtype = 'html'
@@ -61,7 +65,11 @@ def comunications_orgs_view(request):
         msg = request.POST['msg']
         message = f'''Hola! Te contacto desde SOAC porque {request.user.first_name} {request.user.last_name} te envio el siguiente comunicado:
 
-        {msg}'''
+        {msg}
+        
+        DG Relaciones con la Comunidad
+        SS de Gestión Comunal
+        '''
 
         email = EmailMessage(subject, message, EMAIL_HOST_USER, emails)
         email.content_subtype = 'html'
