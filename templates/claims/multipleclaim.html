@@ -7,7 +7,7 @@
 {% endblock%} {% block body %}
 <article class="container d-flex flex-column text-dark p-5">
 	
-	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Reclamo de "{{ org.name }}" </h1>
+	<h1 class="text-dark display-2 text-center mb-5 bold" style='font-weight: bolder'>Reclamo multiple</h1>
 	<form
 		autocomplete="off"
 		action="{% url 'multipleclaim' %}"
@@ -35,7 +35,7 @@
 					class="form-control form-select"
 					name="category"
 					required="true">
-					<option selected value="asesoramiento ROAC">asesoramiento ROAC</option>
+					<option selected value="Asesoramiento ROAC">Asesoramiento ROAC</option>
 					<option selected value="Economico">Economico</option>
 					<option selected value="Asesoramiento programas / financiamiento / subsidios">Asesoramiento programas / financiamiento / subsidios</option>
 					<option selected value="Ayuda puesta en valor institucion">Ayuda puesta en valor institucion</option>
