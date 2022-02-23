@@ -320,6 +320,7 @@ def org_view(request, pk):
     visits = Visit.objects.filter(org_name = org_profile.name).order_by('date')
     
     try:
+        global roac_number
         roac_number = Roac_orgs.objects.get(org_id = org_profile.id).id
     except:
         roac_number = ''
@@ -581,5 +582,5 @@ class PdfExport(TemplateView):
     def get(self, request, *args, **kwargs):
        today = date.today()        
        expiration = date.today() + timedelta(days=730)
-       pdf = render_to_pdf('orgs/export.html', {'org': org_profile, 'today': today, 'expiration': expiration})
+       pdf = render_to_pdf('orgs/export.html', {'org': org_profile, 'roac_number': roac_number, 'today': today, 'expiration': expiration})
        return HttpResponse(pdf, content_type='application/pdf')

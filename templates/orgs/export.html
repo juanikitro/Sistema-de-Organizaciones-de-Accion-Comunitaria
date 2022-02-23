@@ -57,7 +57,7 @@
 			</tr>
 			<tr class="mb-3">
 				<td><p><strong> ROAC: </strong> {{ org.roac }}</p></td>
-				<td class="py-3 text-end"><p><strong> Correo electronico: </strong> {{ org.email }}</p></td>
+				<td><p><strong> Numero ROAC: </strong> {{ roac_number }}</p></td>
 			</tr>
 			<tr class="py-3">
 				<td><p><strong> Tipo: </strong> {{ org.type }}</p></td>
@@ -65,7 +65,7 @@
 			</tr>
 			<tr class="py-3">
 				<td><p><strong> Público: </strong> {{ org.public }}</p></td>
-				<td class="py-3 text-end"><p><strong> Fecha de ultima modificación: </strong> {{ org.modified | date:"d-m-Y" }}</p></td>
+				<td class="py-3 text-end"><p><strong> Correo electronico: </strong> {{ org.email }}</p></td>
 			</tr>
 			<tr class="py-3">
 				<td><p><strong> Áreas: </strong> {{ org.areas }}</p></td>
@@ -91,6 +91,7 @@
 			</tr>
 			<tr class="py-3">
 				<td><p><strong> Fecha de vencimiento: </strong> {{ org.expiration | date:"d-m-Y" }}</p></td>
+				<td class="py-3 text-end"><p><strong> Fecha de ultima modificación: </strong> {{ org.modified | date:"d-m-Y" }}</p></td>
 			</tr>
 			{% endif %}
 
