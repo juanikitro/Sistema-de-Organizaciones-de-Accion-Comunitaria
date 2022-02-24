@@ -35,8 +35,9 @@ def comunications_users_view(request):
         email = EmailMessage(subject, message, EMAIL_HOST_USER, emails)
         email.content_subtype = 'html'
 
-        file = request.FILES['file']
-        email.attach(file.name, file.read(), file.content_type)
+        if request.FILES.get('file') != None:
+            file = request.FILES['file']
+            email.attach(file.name, file.read(), file.content_type)
 
         if msg:
             email.send()
