@@ -2,9 +2,11 @@
 
 ## Why?
 
-This is my bigger real project. The goal is to create a system that will help "Direccion General de Relaciones con la comunidad" to organize the actions of the community.
-This is my first and my lastest Django project.
-I want to public it because I enjoy doing it and I don't work more for the government.
+This is my bigger real project. The goal was to create a system that will help "General Directorate of Community Relations" to organize the actions of the community.
+
+This is my first and my last Django project for the moment.
+
+I want to public it because I enjoied a lot doing it and I am not working more for the government, so I can, but you can't view the deployed version because is private.
 
 ## Images
 
@@ -14,7 +16,7 @@ I want to public it because I enjoy doing it and I don't work more for the gover
 
 1. Install Python.
 2. Install GIT.
-3. Install MySQL.
+3. Install MySQL (If you want to try the system). 
 4. Install Apache (if you want to put the project in a server).
 5. Put the correct credentials
 
@@ -30,22 +32,28 @@ cd Sistema-de-Organizaciones-de-Accion-Comunitaria
 
 ---
 
-## VENV
+## VENV (Linux)
 
 ### Create
 
 ```
-py -m venv venv
+python -m venv venv 
 ```
 
 ### Enter
 
 ```
-.\venv\Scripts\activate
+source venv/bin/activate
 ```
 
 ### Install requeriments
 
 ```
 pip install -r requirements.txt
+```
+
+### Run a test 
+
+```
+python ./manage.py runserver
 ```
