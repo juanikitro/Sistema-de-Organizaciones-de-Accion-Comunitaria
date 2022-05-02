@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure--9z0lgk7*ye07^$m4@d^_$m62%@5k-x%tg*xe=ujqgif3q6=37
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '172.31.67.157', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '', '']
 
 
 # Application definition
@@ -89,13 +89,13 @@ WSGI_APPLICATION = 'soac.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': { # Conección con mi db
+    'default': {  # Conección con mi db
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'soacdb',
         'USER': 'root',
-        'PASSWORD': 'JuanIPortilla2002',
+        'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '3306' 
+        'PORT': '3306'
     }
 }
 
@@ -126,7 +126,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-DATETIME_FORMAT="Y-m-d"
+DATETIME_FORMAT = "Y-m-d"
 
 USE_I18N = True
 
@@ -139,7 +139,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),] 
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -158,8 +158,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "soac.buenosaires@gmail.com" #TODO: Cambiar por @buenosaires.gob.ar
-EMAIL_HOST_PASSWORD = "JuanIPortilla2002"
+EMAIL_HOST_USER = ""  # Email
+EMAIL_HOST_PASSWORD = ""  # Password
 
 # Docs
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
