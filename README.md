@@ -27,18 +27,6 @@ I want to public it because I enjoied a lot doing it and I am not working more f
 
 ---
 
-## Images
-
-![show](https://myoctocat.com/assets/images/base-octocat.svg)
-
-## Instalations
-
-1. Install Python.
-2. Install GIT.
-3. Install MySQL (If you want to try the system). 
-4. Install Apache (if you want to put the project in a server).
-5. Put the correct credentials
-
 ### Clone repo and enter
 
 ```bash
