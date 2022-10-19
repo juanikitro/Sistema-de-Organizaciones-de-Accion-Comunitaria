@@ -71,6 +71,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Templates
+You need to build all the templates you need.
+
 ### Run a test 
 
 ```
